@@ -16,4 +16,34 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get today => 'Hôm nay';
+
+  @override
+  String get loginTitle => 'Chào mừng trở lại';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Mật khẩu';
+
+  @override
+  String get login => 'Đăng nhập';
+
+  @override
+  String get createAccount => 'Tạo tài khoản';
+
+  @override
+  String get loginSuccess => 'Đăng nhập thành công';
+
+  @override
+  String get loginFailed => 'Đăng nhập thất bại';
+
+  @override
+  String get signupTitle => 'Tạo tài khoản';
+
+  @override
+  String get signupSuccess => 'Tạo tài khoản thành công';
+
+  @override
+  String get signupFailed => 'Tạo tài khoản thất bại';
 }

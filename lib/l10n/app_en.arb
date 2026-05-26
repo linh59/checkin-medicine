@@ -1,5 +1,15 @@
 {
   "home": "Home",
   "medicine": "Medicine",
-  "today": "Today"
+  "today": "Today",
+  "loginTitle": "Welcome Back",
+  "email": "Email",
+  "password": "Password",
+  "login": "Login",
+  "createAccount": "Create account",
+  "loginSuccess": "Login successful",
+  "loginFailed": "Login failed",
+  "signupTitle": "Create Account",
+  "signupSuccess": "Account created successfully",
+  "signupFailed": "Signup failed"
 }

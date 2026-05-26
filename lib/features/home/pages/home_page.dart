@@ -1,61 +1,45 @@
+import 'package:checkin_medicine/features/auth/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../../core/services/language_service.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../../shared/widgets/language_switcher.dart';
 
 class HomePage extends StatelessWidget {
-  final LanguageService languageService;
+  const HomePage({super.key});
 
-  const HomePage({
-    super.key,
-    required this.languageService,
-  });
+  Future<void> logout(BuildContext context) async {
+    await Supabase.instance.client.auth.signOut();
+
+    if (context.mounted) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const LoginPage()),
+            (route) => false,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final l10n =
-    AppLocalizations.of(context)!;
+    final t = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.home),
+        title: Text(t.home),
+        actions: [
+          LanguageSwitcher(),
+
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () => logout(context),
+          ),
+        ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Text(
-              l10n.home,
-              style: const TextStyle(
-                fontSize: 24,
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            DropdownButton<String>(
-              value:
-              languageService.locale.languageCode,
-
-              items: const [
-                DropdownMenuItem(
-                  value: 'vi',
-                  child: Text('Tiếng Việt'),
-                ),
-                DropdownMenuItem(
-                  value: 'en',
-                  child: Text('English'),
-                ),
-              ],
-
-              onChanged: (value) {
-                if (value != null) {
-                  languageService
-                      .changeLanguage(value);
-                }
-              },
-            ),
-          ],
+      body: Center(
+        child: Text(
+          t.home,
+          style: const TextStyle(fontSize: 24),
         ),
       ),
     );

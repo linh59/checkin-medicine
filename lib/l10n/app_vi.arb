@@ -1,5 +1,15 @@
 {
   "home": "Trang chủ",
   "medicine": "Thuốc",
-  "today": "Hôm nay"
+  "today": "Hôm nay",
+  "loginTitle": "Chào mừng trở lại",
+  "email": "Email",
+  "password": "Mật khẩu",
+  "login": "Đăng nhập",
+  "createAccount": "Tạo tài khoản",
+  "loginSuccess": "Đăng nhập thành công",
+  "loginFailed": "Đăng nhập thất bại",
+  "signupTitle": "Tạo tài khoản",
+  "signupSuccess": "Tạo tài khoản thành công",
+  "signupFailed": "Tạo tài khoản thất bại"
 }

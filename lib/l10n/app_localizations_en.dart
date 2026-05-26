@@ -16,4 +16,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get today => 'Today';
+
+  @override
+  String get loginTitle => 'Welcome Back';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get createAccount => 'Create account';
+
+  @override
+  String get loginSuccess => 'Login successful';
+
+  @override
+  String get loginFailed => 'Login failed';
+
+  @override
+  String get signupTitle => 'Create Account';
+
+  @override
+  String get signupSuccess => 'Account created successfully';
+
+  @override
+  String get signupFailed => 'Signup failed';
 }
