@@ -1,5 +1,8 @@
+import 'package:checkin_medicine/core/controllers/theme_controller.dart';
+import 'package:checkin_medicine/core/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'core/services/language_service.dart';
 import 'l10n/app_localizations.dart';
 import 'features/auth/splash_page.dart';
@@ -44,24 +47,35 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
+    return MultiProvider(providers:
+    [
+      ChangeNotifierProvider(create: (_) => ThemeController())
+    ],
+    child: Consumer<ThemeController>(
+        builder: (context, theme, _){
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.light,
+            darkTheme: AppTheme.dark,
+            themeMode: theme.themeMode,
+            locale: languageService.locale,
 
-      locale: languageService.locale,
+            supportedLocales: const [
+              Locale('vi'),
+              Locale('en'),
+            ],
 
-      supportedLocales: const [
-        Locale('vi'),
-        Locale('en'),
-      ],
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
 
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-
-      home: const SplashPage(),
+            home: const SplashPage(),
+          );
+    },
+    ),
     );
   }
 }

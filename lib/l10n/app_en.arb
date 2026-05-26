@@ -11,5 +11,10 @@
   "loginFailed": "Login failed",
   "signupTitle": "Create Account",
   "signupSuccess": "Account created successfully",
-  "signupFailed": "Signup failed"
+  "signupFailed": "Signup failed",
+  "invalidEmail": "Invalid email format",
+  "emailRequired": "Email is required",
+  "passwordRequired": "Password is required",
+  "passwordMin": "Minimum 6 characters",
+  "loginSubtitle": "Manage your medication safely"
 }

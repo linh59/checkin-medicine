@@ -1,7 +1,9 @@
-import 'package:checkin_medicine/core/services/auth_service.dart';
-import 'package:checkin_medicine/features/home/pages/home_page.dart';
-import 'package:checkin_medicine/l10n/app_localizations.dart';
+import 'package:checkin_medicine/core/services/auth_gate.dart';
+import 'package:checkin_medicine/shared/widgets/theme_switcher.dart';
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/services/auth_service.dart';
+import '../../../l10n/app_localizations.dart';
 import 'signup_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,42 +16,66 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
-  final authService = AuthService();
+  final auth = AuthService();
 
-  bool isLoading = false;
+  bool loading = false;
 
-  Future<void> handleLogin() async {
-    final t = AppLocalizations.of(context)!;
+  String? emailError;
+  String? passError;
 
-    setState(() => isLoading = true);
+  bool validate(AppLocalizations t) {
+    bool ok = true;
+
+    setState(() {
+      emailError = null;
+      passError = null;
+
+      final email = emailCtrl.text.trim();
+      final pass = passCtrl.text.trim();
+
+      if (email.isEmpty) {
+        emailError = t.emailRequired;
+        ok = false;
+      } else if (!email.contains("@")) {
+        emailError = t.invalidEmail;
+        ok = false;
+      }
+
+      if (pass.isEmpty) {
+        passError = t.passwordRequired;
+        ok = false;
+      } else if (pass.length < 6) {
+        passError = t.passwordMin;
+        ok = false;
+      }
+    });
+
+    return ok;
+  }
+
+  Future<void> login(AppLocalizations t) async {
+    if (!validate(t)) return;
+
+    setState(() => loading = true);
 
     try {
-      final res = await authService.signIn(
+      final res = await auth.signIn(
         email: emailCtrl.text.trim(),
         password: passCtrl.text.trim(),
       );
 
       if (res.user != null && mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(t.loginSuccess)),
-        );
-
-        Navigator.pushAndRemoveUntil(
+        Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const HomePage()),
-              (route) => false,
+          MaterialPageRoute(builder: (_) => const AuthGate()),
         );
       }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("${t.loginFailed}: $e")),
-        );
-      }
+    } catch (_) {
+      setState(() {
+        passError = t.loginFailed;
+      });
     } finally {
-      if (mounted) {
-        setState(() => isLoading = false);
-      }
+      if (mounted) setState(() => loading = false);
     }
   }
 
@@ -59,84 +85,123 @@ class _LoginPageState extends State<LoginPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
+
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.medical_services_outlined,
-                size: 70,
-                color: theme.colorScheme.primary,
-              ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
 
-              const SizedBox(height: 10),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 420),
 
-              Text(
-                t.loginTitle,
-                style: theme.textTheme.headlineLarge,
-              ),
+              child: Column(
+                children: [
 
-              const SizedBox(height: 30),
-
-              // EMAIL
-              TextField(
-                controller: emailCtrl,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: t.email,
-                  border: const OutlineInputBorder(),
-                  prefixIcon: const Icon(Icons.email_outlined),
-                ),
-              ),
-
-              const SizedBox(height: 12),
-
-              // PASSWORD
-              TextField(
-                controller: passCtrl,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: t.password,
-                  border: const OutlineInputBorder(),
-                  prefixIcon: const Icon(Icons.lock_outline),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // LOGIN BUTTON
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: isLoading ? null : handleLogin,
-                  child: isLoading
-                      ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                      : Text(t.login),
-                ),
-              ),
-
-              const SizedBox(height: 10),
-
-              // SIGN UP NAV
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const SignupPage(),
+                  //  ICON
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: WellnessColors.primary.withOpacity(0.1),
+                      shape: BoxShape.circle,
                     ),
-                  );
-                },
-                child: Text(t.createAccount),
+                    child: const Icon(
+                      Icons.medical_services,
+                      size: 40,
+                      color: WellnessColors.primary,
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // TITLE
+                  Text(
+                    t.loginTitle,
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 6),
+
+                  Text(
+                    t.loginSubtitle,
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: Colors.grey,
+                    ),
+                  ),
+
+                  const SizedBox(height: 28),
+
+                  // 📧 EMAIL
+                  TextField(
+                    controller: emailCtrl,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      labelText: t.email,
+                      errorText: emailError,
+                    ),
+                  ),
+
+                  const SizedBox(height: 14),
+
+                  // 🔒 PASSWORD
+                  TextField(
+                    controller: passCtrl,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: t.password,
+                      errorText: passError,
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // 🔘 BUTTON
+                  SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: ElevatedButton(
+                      onPressed: loading ? null : () => login(t),
+                      child: loading
+                          ? const SizedBox(
+                        height: 18,
+                        width: 18,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                          : Text(t.login),
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  // SIGNUP
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const SignupPage(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      t.createAccount,
+                      style: const TextStyle(
+                        color: WellnessColors.primary,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
+                  const ThemeSwitcher()
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

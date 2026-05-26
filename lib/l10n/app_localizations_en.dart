@@ -46,4 +46,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signupFailed => 'Signup failed';
+
+  @override
+  String get invalidEmail => 'Invalid email format';
+
+  @override
+  String get emailRequired => 'Email is required';
+
+  @override
+  String get passwordRequired => 'Password is required';
+
+  @override
+  String get passwordMin => 'Minimum 6 characters';
+
+  @override
+  String get loginSubtitle => 'Manage your medication safely';
 }

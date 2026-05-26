@@ -46,4 +46,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get signupFailed => 'Tạo tài khoản thất bại';
+
+  @override
+  String get invalidEmail => 'Email không hợp lệ';
+
+  @override
+  String get emailRequired => 'Vui lòng nhập email';
+
+  @override
+  String get passwordRequired => 'Vui lòng nhập mật khẩu';
+
+  @override
+  String get passwordMin => 'Tối thiểu 6 ký tự';
+
+  @override
+  String get loginSubtitle => 'Quản lý thuốc của bạn an toàn mỗi ngày';
 }
