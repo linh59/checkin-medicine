@@ -20,5 +20,13 @@
   "schedule": "Schedule",
   "stats": "Statistics",
   "family": "Family",
-  "settings": "Settings"
+  "settings": "Settings",
+  "homeGreeting": "Hello",
+  "todayScheduleSubtitle": "Here is your medication schedule for today.",
+  "addMedicine": "Add medicine",
+  "pharmacy": "Medicine cabinet",
+  "createSchedule": "Create schedule",
+  "todaySafetySummary": "No dangerous interactions detected today.",
+  "todayCheckin": "Today",
+  "manage": "Manage"
 }

@@ -73,4 +73,28 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get settings => 'Cài đặt';
+
+  @override
+  String get homeGreeting => 'Chào';
+
+  @override
+  String get todayScheduleSubtitle => 'Đây là lịch uống hôm nay của bạn.';
+
+  @override
+  String get addMedicine => 'Thêm thuốc';
+
+  @override
+  String get pharmacy => 'Tủ thuốc';
+
+  @override
+  String get createSchedule => 'Tạo lịch';
+
+  @override
+  String get todaySafetySummary => 'Không có tương tác nguy hiểm hôm nay.';
+
+  @override
+  String get todayCheckin => 'Hôm nay';
+
+  @override
+  String get manage => 'Quản lý';
 }

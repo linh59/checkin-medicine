@@ -73,4 +73,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settings => 'Settings';
+
+  @override
+  String get homeGreeting => 'Hello';
+
+  @override
+  String get todayScheduleSubtitle =>
+      'Here is your medication schedule for today.';
+
+  @override
+  String get addMedicine => 'Add medicine';
+
+  @override
+  String get pharmacy => 'Medicine cabinet';
+
+  @override
+  String get createSchedule => 'Create schedule';
+
+  @override
+  String get todaySafetySummary => 'No dangerous interactions detected today.';
+
+  @override
+  String get todayCheckin => 'Today';
+
+  @override
+  String get manage => 'Manage';
 }

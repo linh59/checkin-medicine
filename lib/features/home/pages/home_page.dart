@@ -1,46 +1,289 @@
-import 'package:checkin_medicine/features/auth/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-
+import '../../../../core/theme/app_colors.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../../shared/widgets/language_switcher.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  Future<void> logout(BuildContext context) async {
-    await Supabase.instance.client.auth.signOut();
-
-    if (context.mounted) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (_) => const LoginPage()),
-            (route) => false,
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(t.home),
-        actions: [
-          LanguageSwitcher(),
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
 
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () => logout(context),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            // 🧠 HEADER
+            Text(
+              "${t.homeGreeting} 👋",
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 6),
+
+            Text(
+              t.todayScheduleSubtitle,
+              style: const TextStyle(color: Colors.grey),
+            ),
+
+            const SizedBox(height: 20),
+
+            // ⚡ QUICK ACTIONS
+            _QuickActions(),
+
+            const SizedBox(height: 20),
+
+            // 🛡 SAFETY CARD
+            _SafetyCard(),
+
+            const SizedBox(height: 20),
+
+            // 📋 TODAY LIST
+            _TodayList(),
+
+            const SizedBox(height: 20),
+
+            // 👨‍👩‍👧 FAMILY
+            _FamilySection(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+class _QuickActions extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
+    return GridView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        childAspectRatio: 1,
+      ),
+
+      children: [
+        _ActionCard(
+          icon: Icons.add,
+          label: t.addMedicine,
+        ),
+        _ActionCard(
+          icon: Icons.medication,
+          label: t.pharmacy,
+        ),
+        _ActionCard(
+          icon: Icons.calendar_month,
+          label: t.createSchedule,
+        ),
+      ],
+    );
+  }
+}
+
+class _ActionCard extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _ActionCard({
+    super.key,
+    required this.icon,
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.black12),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: WellnessColors.primary),
+          const SizedBox(height: 8),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 12),
           ),
         ],
       ),
-      body: Center(
-        child: Text(
-          t.home,
-          style: const TextStyle(fontSize: 24),
+    );
+  }
+}
+
+class _SafetyCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: WellnessColors.primary.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.health_and_safety,
+            color: WellnessColors.primary,
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              t.todaySafetySummary,
+              style: const TextStyle(fontSize: 13),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+class _TodayList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          t.todayCheckin,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
+
+        const SizedBox(height: 10),
+
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 3,
+          itemBuilder: (context, i) {
+            return Card(
+              child: ListTile(
+                leading: const Icon(Icons.medical_information),
+                title: Text("Medicine ${i + 1}"),
+                subtitle: const Text("08:00 - After breakfast"),
+                trailing: const Icon(Icons.check_circle_outline),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class _FamilySection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              t.family,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            TextButton(
+              onPressed: () {},
+              child: Text(t.manage),
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 10),
+
+        SizedBox(
+          height: 110,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: const [
+              _FamilyCard(name: "Me", isSelf: true),
+              _FamilyCard(name: "Mom"),
+              _FamilyCard(name: "Dad"),
+              _AddFamilyCard(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _FamilyCard extends StatelessWidget {
+  final String name;
+  final bool isSelf;
+
+  const _FamilyCard({
+    required this.name,
+    this.isSelf = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 140,
+      margin: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.black12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.medical_information, color: WellnessColors.primary),
+          const SizedBox(height: 8),
+          Text(
+            name,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(
+            isSelf ? "Me" : "Family",
+            style: const TextStyle(fontSize: 12),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _AddFamilyCard extends StatelessWidget {
+  const _AddFamilyCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 110,
+      margin: const EdgeInsets.only(right: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.black12),
+      ),
+      child: const Center(
+        child: Icon(Icons.add),
       ),
     );
   }

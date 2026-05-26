@@ -229,6 +229,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get settings;
+
+  /// No description provided for @homeGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello'**
+  String get homeGreeting;
+
+  /// No description provided for @todayScheduleSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Here is your medication schedule for today.'**
+  String get todayScheduleSubtitle;
+
+  /// No description provided for @addMedicine.
+  ///
+  /// In en, this message translates to:
+  /// **'Add medicine'**
+  String get addMedicine;
+
+  /// No description provided for @pharmacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Medicine cabinet'**
+  String get pharmacy;
+
+  /// No description provided for @createSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Create schedule'**
+  String get createSchedule;
+
+  /// No description provided for @todaySafetySummary.
+  ///
+  /// In en, this message translates to:
+  /// **'No dangerous interactions detected today.'**
+  String get todaySafetySummary;
+
+  /// No description provided for @todayCheckin.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get todayCheckin;
+
+  /// No description provided for @manage.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage'**
+  String get manage;
 }
 
 class _AppLocalizationsDelegate

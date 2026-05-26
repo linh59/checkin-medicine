@@ -20,5 +20,13 @@
   "schedule": "Lịch uống",
   "stats": "Thống kê",
   "family": "Gia đình",
-  "settings": "Cài đặt"
+  "settings": "Cài đặt",
+  "homeGreeting": "Chào",
+  "todayScheduleSubtitle": "Đây là lịch uống hôm nay của bạn.",
+  "addMedicine": "Thêm thuốc",
+  "pharmacy": "Tủ thuốc",
+  "createSchedule": "Tạo lịch",
+  "todaySafetySummary": "Không có tương tác nguy hiểm hôm nay.",
+  "todayCheckin": "Hôm nay",
+  "manage": "Quản lý"
 }
