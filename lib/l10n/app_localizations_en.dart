@@ -61,4 +61,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginSubtitle => 'Manage your medication safely';
+
+  @override
+  String get schedule => 'Schedule';
+
+  @override
+  String get stats => 'Statistics';
+
+  @override
+  String get family => 'Family';
+
+  @override
+  String get settings => 'Settings';
 }

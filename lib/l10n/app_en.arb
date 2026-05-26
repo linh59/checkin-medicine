@@ -16,5 +16,9 @@
   "emailRequired": "Email is required",
   "passwordRequired": "Password is required",
   "passwordMin": "Minimum 6 characters",
-  "loginSubtitle": "Manage your medication safely"
+  "loginSubtitle": "Manage your medication safely",
+  "schedule": "Schedule",
+  "stats": "Statistics",
+  "family": "Family",
+  "settings": "Settings"
 }

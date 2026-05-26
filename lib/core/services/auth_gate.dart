@@ -1,4 +1,5 @@
 import 'package:checkin_medicine/features/home/pages/home_page.dart';
+import 'package:checkin_medicine/features/home/widgets/home_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -17,7 +18,7 @@ class _AuthGateState extends State<AuthGate> {
     final session = Supabase.instance.client.auth.currentSession;
 
     if (session != null) {
-      return const HomePage();
+      return const HomeShell();
     } else {
       return const LoginPage();
     }

@@ -16,5 +16,9 @@
   "emailRequired": "Vui lòng nhập email",
   "passwordRequired": "Vui lòng nhập mật khẩu",
   "passwordMin": "Tối thiểu 6 ký tự",
-  "loginSubtitle": "Quản lý thuốc của bạn an toàn mỗi ngày"
+  "loginSubtitle": "Quản lý thuốc của bạn an toàn mỗi ngày",
+  "schedule": "Lịch uống",
+  "stats": "Thống kê",
+  "family": "Gia đình",
+  "settings": "Cài đặt"
 }

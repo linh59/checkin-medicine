@@ -61,4 +61,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get loginSubtitle => 'Quản lý thuốc của bạn an toàn mỗi ngày';
+
+  @override
+  String get schedule => 'Lịch uống';
+
+  @override
+  String get stats => 'Thống kê';
+
+  @override
+  String get family => 'Gia đình';
+
+  @override
+  String get settings => 'Cài đặt';
 }
