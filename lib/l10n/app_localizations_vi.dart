@@ -181,7 +181,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get backToSearch => 'Về tìm kiếm';
 
   @override
-  String get noWarnings => 'No special warnings';
+  String get noWarnings => 'Không có cảnh báo đặc biệt';
 
   @override
   String get absorption => 'Hấp thu';
@@ -221,4 +221,73 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get perPill => 'viên';
+
+  @override
+  String get nutrientNotFound => 'Không tìm thấy dưỡng chất';
+
+  @override
+  String get safeDoseByGroup => 'Liều an toàn theo nhóm';
+
+  @override
+  String get commonForms => 'Các dạng phổ biến';
+
+  @override
+  String get whyImportant => 'Vì sao quan trọng';
+
+  @override
+  String get noData => 'Chưa có dữ liệu';
+
+  @override
+  String get rda => 'RDA';
+
+  @override
+  String get ul => 'UL';
+
+  @override
+  String get groupAdultMale => 'Nam trưởng thành';
+
+  @override
+  String get groupAdultFemale => 'Nữ trưởng thành';
+
+  @override
+  String get groupPregnant => 'Phụ nữ mang thai';
+
+  @override
+  String get groupBreastfeeding => 'Cho con bú';
+
+  @override
+  String get groupChild => 'Trẻ em';
+
+  @override
+  String get groupTeen => 'Thanh thiếu niên';
+
+  @override
+  String get groupSenior => 'Người cao tuổi';
+
+  @override
+  String get vitamin => 'Vitamin';
+
+  @override
+  String get mineral => 'Khoáng chất';
+
+  @override
+  String get aminoAcid => 'Axit amin';
+
+  @override
+  String get herb => 'Thảo dược';
+
+  @override
+  String get adultMale => 'Nam trưởng thành';
+
+  @override
+  String get adultFemale => 'Nữ trưởng thành';
+
+  @override
+  String get pregnant => 'Phụ nữ mang thai';
+
+  @override
+  String get child => 'Trẻ em';
+
+  @override
+  String get safeDosageByGroup => 'Liều an toàn theo nhóm';
 }

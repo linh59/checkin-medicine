@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/utils/bumber_formatter.dart';
 import '../../../../../l10n/app_localizations.dart';
+import '../../../../nutrient/presentation/pages/nutrient_detail_page.dart';
 import '../../../data/models/medicine_detail_model.dart';
 
 class IngredientsTab
@@ -45,7 +47,35 @@ class IngredientsTab
             item
                 .ingredientForm;
 
-        return Container(
+        return InkWell(
+            borderRadius:
+            BorderRadius.circular(
+              20,
+            ),
+
+            onTap: () {
+              final slug =
+                  form
+                      ?.nutrient
+                      ?.slug;
+
+              if (slug == null) {
+                return;
+              }
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (_) =>
+                      NutrientDetailPage(
+                        slug: slug,
+                      ),
+                ),
+              );
+            },
+
+            child: Container(
           padding:
           const EdgeInsets.all(
             16,
@@ -118,11 +148,15 @@ class IngredientsTab
                     ),
 
                     Text(
-                      '${form?.saltForm ?? ''} · ${item.amountPerPill ?? 0} ${item.unit ?? ''}',
+                      '${form?.saltForm ?? '—'}'
+                          ' · '
+                          '${NumberFormatter.withUnit(
+                        item.amountPerPill,
+                        item.unit,
+                      )}',
                       style:
                       const TextStyle(
-                        color:
-                        Colors.grey,
+                        color: Colors.grey,
                       ),
                     ),
 
@@ -157,6 +191,7 @@ class IngredientsTab
               ),
             ],
           ),
+        )
         );
       },
     );

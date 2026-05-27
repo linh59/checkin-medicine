@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/utils/bumber_formatter.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../../data/models/medicine_detail_model.dart';
 
@@ -137,16 +138,22 @@ class OverviewTab
                                   '-',
                             ),
                           ),
-
                           Text(
-                            '${item.amountPerPill ?? 0} ${item.unit ?? ''}'
-                                '${item.percentDv != null ? ' · ${item.percentDv}% DV' : ''}',
+                            NumberFormatter.dosage(
+                              amount:
+                              item.amountPerPill,
+                              unit:
+                              item.unit,
+                              percentDv:
+                              item.percentDv,
+                            ),
                             style:
                             const TextStyle(
                               fontWeight:
                               FontWeight.w600,
                             ),
                           ),
+
                         ],
                       ),
                     ),

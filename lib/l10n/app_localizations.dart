@@ -523,6 +523,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'pill'**
   String get perPill;
+
+  /// No description provided for @nutrientNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrient not found'**
+  String get nutrientNotFound;
+
+  /// No description provided for @safeDoseByGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Safe dosage by group'**
+  String get safeDoseByGroup;
+
+  /// No description provided for @commonForms.
+  ///
+  /// In en, this message translates to:
+  /// **'Common forms'**
+  String get commonForms;
+
+  /// No description provided for @whyImportant.
+  ///
+  /// In en, this message translates to:
+  /// **'Why it matters'**
+  String get whyImportant;
+
+  /// No description provided for @noData.
+  ///
+  /// In en, this message translates to:
+  /// **'No data available'**
+  String get noData;
+
+  /// No description provided for @rda.
+  ///
+  /// In en, this message translates to:
+  /// **'RDA'**
+  String get rda;
+
+  /// No description provided for @ul.
+  ///
+  /// In en, this message translates to:
+  /// **'UL'**
+  String get ul;
+
+  /// No description provided for @groupAdultMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Adult Male'**
+  String get groupAdultMale;
+
+  /// No description provided for @groupAdultFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Adult Female'**
+  String get groupAdultFemale;
+
+  /// No description provided for @groupPregnant.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnant'**
+  String get groupPregnant;
+
+  /// No description provided for @groupBreastfeeding.
+  ///
+  /// In en, this message translates to:
+  /// **'Breastfeeding'**
+  String get groupBreastfeeding;
+
+  /// No description provided for @groupChild.
+  ///
+  /// In en, this message translates to:
+  /// **'Child'**
+  String get groupChild;
+
+  /// No description provided for @groupTeen.
+  ///
+  /// In en, this message translates to:
+  /// **'Teenager'**
+  String get groupTeen;
+
+  /// No description provided for @groupSenior.
+  ///
+  /// In en, this message translates to:
+  /// **'Senior'**
+  String get groupSenior;
+
+  /// No description provided for @vitamin.
+  ///
+  /// In en, this message translates to:
+  /// **'Vitamin'**
+  String get vitamin;
+
+  /// No description provided for @mineral.
+  ///
+  /// In en, this message translates to:
+  /// **'Mineral'**
+  String get mineral;
+
+  /// No description provided for @aminoAcid.
+  ///
+  /// In en, this message translates to:
+  /// **'Amino Acid'**
+  String get aminoAcid;
+
+  /// No description provided for @herb.
+  ///
+  /// In en, this message translates to:
+  /// **'Herb'**
+  String get herb;
+
+  /// No description provided for @adultMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Adult Male'**
+  String get adultMale;
+
+  /// No description provided for @adultFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Adult Female'**
+  String get adultFemale;
+
+  /// No description provided for @pregnant.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnant'**
+  String get pregnant;
+
+  /// No description provided for @child.
+  ///
+  /// In en, this message translates to:
+  /// **'Child'**
+  String get child;
+
+  /// No description provided for @safeDosageByGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Safe dosage by group'**
+  String get safeDosageByGroup;
 }
 
 class _AppLocalizationsDelegate

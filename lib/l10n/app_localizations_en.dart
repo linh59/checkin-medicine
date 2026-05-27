@@ -222,4 +222,73 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get perPill => 'pill';
+
+  @override
+  String get nutrientNotFound => 'Nutrient not found';
+
+  @override
+  String get safeDoseByGroup => 'Safe dosage by group';
+
+  @override
+  String get commonForms => 'Common forms';
+
+  @override
+  String get whyImportant => 'Why it matters';
+
+  @override
+  String get noData => 'No data available';
+
+  @override
+  String get rda => 'RDA';
+
+  @override
+  String get ul => 'UL';
+
+  @override
+  String get groupAdultMale => 'Adult Male';
+
+  @override
+  String get groupAdultFemale => 'Adult Female';
+
+  @override
+  String get groupPregnant => 'Pregnant';
+
+  @override
+  String get groupBreastfeeding => 'Breastfeeding';
+
+  @override
+  String get groupChild => 'Child';
+
+  @override
+  String get groupTeen => 'Teenager';
+
+  @override
+  String get groupSenior => 'Senior';
+
+  @override
+  String get vitamin => 'Vitamin';
+
+  @override
+  String get mineral => 'Mineral';
+
+  @override
+  String get aminoAcid => 'Amino Acid';
+
+  @override
+  String get herb => 'Herb';
+
+  @override
+  String get adultMale => 'Adult Male';
+
+  @override
+  String get adultFemale => 'Adult Female';
+
+  @override
+  String get pregnant => 'Pregnant';
+
+  @override
+  String get child => 'Child';
+
+  @override
+  String get safeDosageByGroup => 'Safe dosage by group';
 }
