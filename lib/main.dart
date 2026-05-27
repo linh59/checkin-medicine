@@ -7,7 +7,9 @@ import 'core/services/language_service.dart';
 import 'l10n/app_localizations.dart';
 import 'features/auth/splash_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:provider/provider.dart'
+as provider;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -23,7 +25,11 @@ Future<void> main() async {
 
   print(medicines);
 
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 
@@ -51,7 +57,7 @@ class _MyAppState extends State<MyApp> {
     [
       ChangeNotifierProvider(create: (_) => ThemeController())
     ],
-    child: Consumer<ThemeController>(
+    child: provider.Consumer<ThemeController>(
         builder: (context, theme, _){
           return MaterialApp(
             debugShowCheckedModeBanner: false,

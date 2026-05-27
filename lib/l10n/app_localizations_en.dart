@@ -98,4 +98,128 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get manage => 'Manage';
+
+  @override
+  String get searchTitle => 'Search';
+
+  @override
+  String get searchSubtitle => 'Find medicines, vitamins or ingredients';
+
+  @override
+  String get searchPlaceholder => 'Magnesium, Caltrate, Centrum…';
+
+  @override
+  String get myMedicines => 'My medicines';
+
+  @override
+  String get createMedicine => 'Create medicine';
+
+  @override
+  String get medicineAndVitamin => 'Medicine & Vitamins';
+
+  @override
+  String get ingredients => 'Ingredients';
+
+  @override
+  String get noMedicineFound => 'No medicines found';
+
+  @override
+  String get noIngredientFound => 'No ingredients found';
+
+  @override
+  String get tryAnotherKeyword =>
+      'Try another keyword like \"magnesium\", \"centrum\"…';
+
+  @override
+  String get brand => 'Brand';
+
+  @override
+  String get manufacturer => 'Manufacturer';
+
+  @override
+  String get genericName => 'Active ingredient';
+
+  @override
+  String get unknown => 'Unknown';
+
+  @override
+  String get searchLoading => 'Searching...';
+
+  @override
+  String get medicineCabinet => 'Medicine cabinet';
+
+  @override
+  String get medicines => 'Thuốc & Vitamin';
+
+  @override
+  String get nutrients => 'Thành phần';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get searchHint => 'Magnesium, Caltrate, Centrum...';
+
+  @override
+  String get overview => 'Overview';
+
+  @override
+  String get warnings => 'Warnings';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get ingredientSummary => 'Ingredient Summary';
+
+  @override
+  String get notFound => 'Not Found';
+
+  @override
+  String get medicineNotFound => 'Medicine not found';
+
+  @override
+  String get backToSearch => 'Back to Search';
+
+  @override
+  String get noWarnings => 'No special warnings';
+
+  @override
+  String get absorption => 'Absorption';
+
+  @override
+  String get tablet => 'Tablet';
+
+  @override
+  String get capsule => 'Capsule';
+
+  @override
+  String get softgel => 'Softgel';
+
+  @override
+  String get powder => 'Powder';
+
+  @override
+  String get liquid => 'Liquid';
+
+  @override
+  String get drops => 'Drops';
+
+  @override
+  String get spray => 'Spray';
+
+  @override
+  String get cream => 'Cream';
+
+  @override
+  String get ointment => 'Ointment';
+
+  @override
+  String get injection => 'Injection';
+
+  @override
+  String get dailyValue => 'DV';
+
+  @override
+  String get perPill => 'pill';
 }

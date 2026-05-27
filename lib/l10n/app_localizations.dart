@@ -277,6 +277,252 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Manage'**
   String get manage;
+
+  /// No description provided for @searchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get searchTitle;
+
+  /// No description provided for @searchSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Find medicines, vitamins or ingredients'**
+  String get searchSubtitle;
+
+  /// No description provided for @searchPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Magnesium, Caltrate, Centrum…'**
+  String get searchPlaceholder;
+
+  /// No description provided for @myMedicines.
+  ///
+  /// In en, this message translates to:
+  /// **'My medicines'**
+  String get myMedicines;
+
+  /// No description provided for @createMedicine.
+  ///
+  /// In en, this message translates to:
+  /// **'Create medicine'**
+  String get createMedicine;
+
+  /// No description provided for @medicineAndVitamin.
+  ///
+  /// In en, this message translates to:
+  /// **'Medicine & Vitamins'**
+  String get medicineAndVitamin;
+
+  /// No description provided for @ingredients.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredients'**
+  String get ingredients;
+
+  /// No description provided for @noMedicineFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No medicines found'**
+  String get noMedicineFound;
+
+  /// No description provided for @noIngredientFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No ingredients found'**
+  String get noIngredientFound;
+
+  /// No description provided for @tryAnotherKeyword.
+  ///
+  /// In en, this message translates to:
+  /// **'Try another keyword like \"magnesium\", \"centrum\"…'**
+  String get tryAnotherKeyword;
+
+  /// No description provided for @brand.
+  ///
+  /// In en, this message translates to:
+  /// **'Brand'**
+  String get brand;
+
+  /// No description provided for @manufacturer.
+  ///
+  /// In en, this message translates to:
+  /// **'Manufacturer'**
+  String get manufacturer;
+
+  /// No description provided for @genericName.
+  ///
+  /// In en, this message translates to:
+  /// **'Active ingredient'**
+  String get genericName;
+
+  /// No description provided for @unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get unknown;
+
+  /// No description provided for @searchLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching...'**
+  String get searchLoading;
+
+  /// No description provided for @medicineCabinet.
+  ///
+  /// In en, this message translates to:
+  /// **'Medicine cabinet'**
+  String get medicineCabinet;
+
+  /// No description provided for @medicines.
+  ///
+  /// In en, this message translates to:
+  /// **'Thuốc & Vitamin'**
+  String get medicines;
+
+  /// No description provided for @nutrients.
+  ///
+  /// In en, this message translates to:
+  /// **'Thành phần'**
+  String get nutrients;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @searchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Magnesium, Caltrate, Centrum...'**
+  String get searchHint;
+
+  /// No description provided for @overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get overview;
+
+  /// No description provided for @warnings.
+  ///
+  /// In en, this message translates to:
+  /// **'Warnings'**
+  String get warnings;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @ingredientSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredient Summary'**
+  String get ingredientSummary;
+
+  /// No description provided for @notFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Found'**
+  String get notFound;
+
+  /// No description provided for @medicineNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Medicine not found'**
+  String get medicineNotFound;
+
+  /// No description provided for @backToSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Search'**
+  String get backToSearch;
+
+  /// No description provided for @noWarnings.
+  ///
+  /// In en, this message translates to:
+  /// **'No special warnings'**
+  String get noWarnings;
+
+  /// No description provided for @absorption.
+  ///
+  /// In en, this message translates to:
+  /// **'Absorption'**
+  String get absorption;
+
+  /// No description provided for @tablet.
+  ///
+  /// In en, this message translates to:
+  /// **'Tablet'**
+  String get tablet;
+
+  /// No description provided for @capsule.
+  ///
+  /// In en, this message translates to:
+  /// **'Capsule'**
+  String get capsule;
+
+  /// No description provided for @softgel.
+  ///
+  /// In en, this message translates to:
+  /// **'Softgel'**
+  String get softgel;
+
+  /// No description provided for @powder.
+  ///
+  /// In en, this message translates to:
+  /// **'Powder'**
+  String get powder;
+
+  /// No description provided for @liquid.
+  ///
+  /// In en, this message translates to:
+  /// **'Liquid'**
+  String get liquid;
+
+  /// No description provided for @drops.
+  ///
+  /// In en, this message translates to:
+  /// **'Drops'**
+  String get drops;
+
+  /// No description provided for @spray.
+  ///
+  /// In en, this message translates to:
+  /// **'Spray'**
+  String get spray;
+
+  /// No description provided for @cream.
+  ///
+  /// In en, this message translates to:
+  /// **'Cream'**
+  String get cream;
+
+  /// No description provided for @ointment.
+  ///
+  /// In en, this message translates to:
+  /// **'Ointment'**
+  String get ointment;
+
+  /// No description provided for @injection.
+  ///
+  /// In en, this message translates to:
+  /// **'Injection'**
+  String get injection;
+
+  /// No description provided for @dailyValue.
+  ///
+  /// In en, this message translates to:
+  /// **'DV'**
+  String get dailyValue;
+
+  /// No description provided for @perPill.
+  ///
+  /// In en, this message translates to:
+  /// **'pill'**
+  String get perPill;
 }
 
 class _AppLocalizationsDelegate

@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/features/search/presentation/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -77,11 +78,21 @@ class _QuickActions extends StatelessWidget {
         _ActionCard(
           icon: Icons.add,
           label: t.addMedicine,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const SearchPage(),
+              ),
+            );
+          },
         ),
+
         _ActionCard(
           icon: Icons.medication,
           label: t.pharmacy,
         ),
+
         _ActionCard(
           icon: Icons.calendar_month,
           label: t.createSchedule,
@@ -90,36 +101,47 @@ class _QuickActions extends StatelessWidget {
     );
   }
 }
-
 class _ActionCard extends StatelessWidget {
   final IconData icon;
   final String label;
+  final VoidCallback? onTap;
 
   const _ActionCard({
     super.key,
     required this.icon,
     required this.label,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.black12),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: WellnessColors.primary),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 12),
-          ),
-        ],
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: onTap,
+
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.black12),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              color: WellnessColors.primary,
+            ),
+
+            const SizedBox(height: 8),
+
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 12),
+            ),
+          ],
+        ),
       ),
     );
   }

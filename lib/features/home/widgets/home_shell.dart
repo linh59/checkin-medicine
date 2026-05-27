@@ -61,11 +61,11 @@ class _HomeShellState extends State<HomeShell> {
             label: t.stats,
           ),
 
-          NavigationDestination(
-            icon: const Icon(Icons.family_restroom_outlined),
-            selectedIcon: const Icon(Icons.family_restroom),
-            label: t.family,
-          ),
+          // NavigationDestination(
+          //   icon: const Icon(Icons.family_restroom_outlined),
+          //   selectedIcon: const Icon(Icons.family_restroom),
+          //   label: t.family,
+          // ),
 
           NavigationDestination(
             icon: const Icon(Icons.settings_outlined),
