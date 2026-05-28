@@ -291,4 +291,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get safeDosageByGroup => 'Safe dosage by group';
+
+  @override
+  String get usedInMedicine => 'Used in medicine';
+
+  @override
+  String get benefits => 'Benefits';
+
+  @override
+  String get sideEffects => 'Side Effects';
+
+  @override
+  String get bestTakenWith => 'Best taken with';
+
+  @override
+  String get avoidWith => 'Avoid combining with';
+
+  @override
+  String get notes => 'Note';
+
+  @override
+  String get noResults => 'No results found';
+
+  @override
+  String get salt => 'Salt form';
+
+  @override
+  String get interactions => 'Known interactions';
+
+  @override
+  String get noInteractions => 'No significant interactions recorded';
+
+  @override
+  String interactionWith(Object name) {
+    return 'Interaction with $name';
+  }
+
+  @override
+  String get severityLow => 'Mild';
+
+  @override
+  String get severityMedium => 'Moderate';
+
+  @override
+  String get severityHigh => 'Severe';
+
+  @override
+  String get recommendation => 'Recommendation';
 }

@@ -1,23 +1,35 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../data/models/nutrient_detail_model.dart';
+import '../../data/models/nutrient_model.dart';
 import '../../data/repositories/nutrient_repository.dart';
 
+/// Repository Provider
 final nutrientRepositoryProvider =
-Provider(
-      (ref) =>
-      NutrientRepository(),
+Provider<
+    NutrientRepository>(
+      (ref) {
+    return NutrientRepository(
+      Supabase.instance.client,
+    );
+  },
 );
 
+/// Detail Provider
 final nutrientDetailProvider =
 FutureProvider.family<
-    NutrientDetailModel?,
+    NutrientModel?,
     String>(
-      (ref, slug) {
+      (
+      ref,
+      slug,
+      ) async {
     return ref
         .read(
       nutrientRepositoryProvider,
     )
-        .getNutrient(slug);
+        .getNutrientBySlug(
+      slug,
+    );
   },
 );

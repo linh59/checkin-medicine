@@ -1,92 +1,52 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/theme/app_colors.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../../data/models/medicine_detail_model.dart';
 
-class WarningsTab
-    extends StatelessWidget {
-  final MedicineDetailModel
-  medicine;
+class WarningsTab extends StatelessWidget {
+  final Medicine medicine;
 
   const WarningsTab({
+    super.key,
     required this.medicine,
   });
 
   @override
-  Widget build(
-      BuildContext context,
-      ) {
-    final t =
-    AppLocalizations.of(
-      context,
-    )!;
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
 
-    if (medicine
-        .warnings
-        .isEmpty) {
+    final warnings = medicine.warnings;
+
+    if (warnings.isEmpty) {
       return Center(
-        child: Text(
-          t.noWarnings,
-        ),
+        child: Text(t.noWarnings),
       );
     }
 
     return ListView.separated(
-      itemCount:
-      medicine
-          .warnings
-          .length,
-      separatorBuilder:
-          (_, __) =>
-      const SizedBox(
-        height: 12,
-      ),
-      itemBuilder:
-          (
-          context,
-          index,
-          ) {
+      padding: const EdgeInsets.all(16),
+      itemCount: warnings.length,
+      separatorBuilder: (_, __) => const SizedBox(height: 12),
+      itemBuilder: (context, index) {
+        final item = warnings[index];
+
         return Container(
-          padding:
-          const EdgeInsets.all(
-            16,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.orange.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(18),
           ),
-          decoration:
-          BoxDecoration(
-            color: Colors.orange
-                .withOpacity(
-              0.1,
-            ),
-            borderRadius:
-            BorderRadius.circular(
-              18,
-            ),
-          ),
-          child:
-          Row(
-            crossAxisAlignment:
-            CrossAxisAlignment
-                .start,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Icon(
                 Icons.warning_amber,
-                color:
-                Colors.orange,
+                color: Colors.orange,
               ),
-
-              const SizedBox(
-                width:
-                10,
-              ),
-
+              const SizedBox(width: 10),
               Expanded(
-                child:
-                Text(
-                  medicine
-                      .warnings[index],
-                ),
+                child: Text(item),
               ),
             ],
           ),

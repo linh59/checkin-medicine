@@ -1,12 +1,14 @@
-import 'package:checkin_medicine/features/medicine/presentation/widgets/medicine_detail/medicine_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../l10n/app_localizations.dart';
 import '../providers/medicine_provider.dart';
+
 import '../widgets/medicine_detail/loading_view.dart';
 import '../widgets/medicine_detail/medicine_bottom_actions.dart';
 import '../widgets/medicine_detail/medicine_header.dart';
+import '../widgets/medicine_detail/medicine_tab_bar.dart';
+
 import '../widgets/medicine_detail/overview_tab.dart';
 import '../widgets/medicine_detail/ingredients_tab.dart';
 import '../widgets/medicine_detail/warning_tab.dart';
@@ -14,18 +16,13 @@ import '../widgets/medicine_detail/warning_tab.dart';
 class MedicineDetailPage extends ConsumerStatefulWidget {
   final String slug;
 
-  const MedicineDetailPage({
-    super.key,
-    required this.slug,
-  });
+  const MedicineDetailPage({super.key, required this.slug});
 
   @override
-  ConsumerState<MedicineDetailPage> createState() =>
-      _MedicineDetailPageState();
+  ConsumerState<MedicineDetailPage> createState() => _MedicineDetailPageState();
 }
 
-class _MedicineDetailPageState
-    extends ConsumerState<MedicineDetailPage>
+class _MedicineDetailPageState extends ConsumerState<MedicineDetailPage>
     with TickerProviderStateMixin {
   late TabController _tabController;
 
@@ -33,10 +30,7 @@ class _MedicineDetailPageState
   void initState() {
     super.initState();
 
-    _tabController = TabController(
-      length: 3,
-      vsync: this,
-    );
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -49,22 +43,20 @@ class _MedicineDetailPageState
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
 
-    final medicineAsync = ref.watch(
-      medicineDetailProvider(widget.slug),
-    );
+    final colorScheme = Theme.of(context).colorScheme;
+
+    final medicineAsync = ref.watch(medicineDetailProvider(widget.slug));
 
     return medicineAsync.when(
-      loading: () => const Scaffold(
-        body: LoadingView(),
-      ),
+      loading: () => const Scaffold(body: LoadingView()),
 
       error: (e, _) => Scaffold(
-        appBar: AppBar(
-          leading: const BackButton(),
-          title: Text(t.notFound),
-        ),
+        appBar: AppBar(leading: const BackButton(), title: Text(t.notFound)),
         body: Center(
-          child: Text(e.toString()),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Text(e.toString(), textAlign: TextAlign.center),
+          ),
         ),
       ),
 
@@ -73,133 +65,98 @@ class _MedicineDetailPageState
           return Scaffold(
             appBar: AppBar(
               leading: const BackButton(),
-              title: Text(t.notFound),
+              title: Text(t.medicineNotFound),
             ),
-            body: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisAlignment:
-                  MainAxisAlignment.center,
-                  children: [
-                    Text(t.notFound),
-
-                    const SizedBox(height: 12),
-
-                    Text(
-                      t.medicineNotFound,
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        t.backToSearch,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            body: Center(child: Text(t.medicineNotFound)),
           );
         }
 
         return Scaffold(
-          body: NestedScrollView(
-            headerSliverBuilder: (_, __) {
-              return [
+          backgroundColor: colorScheme.surfaceContainerLowest,
+
+          body: SafeArea(
+            top: false,
+
+            child: NestedScrollView(
+              physics: const BouncingScrollPhysics(),
+
+              headerSliverBuilder: (_, __) => [
                 SliverAppBar(
                   floating: true,
                   snap: true,
                   pinned: false,
+
                   elevation: 0,
                   scrolledUnderElevation: 0,
 
-                  backgroundColor:
-                  Theme.of(context)
-                      .scaffoldBackgroundColor,
+                  backgroundColor: colorScheme.surface,
 
-                  leading:
-                  const BackButton(),
+                  surfaceTintColor: Colors.transparent,
+
+                  leading: const BackButton(),
 
                   title: Text(
                     medicine.brand,
                     maxLines: 1,
-                    overflow:
-                    TextOverflow.ellipsis,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-              ];
-            },
+              ],
 
-            body: Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding:
-                    const EdgeInsets.all(
-                      16,
-                    ),
-                    child: Column(
+              body: Column(
+                children: [
+                  /// TOP CONTENT
+                  Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(20),
+                        child: MedicineHeader(medicine: medicine),
+                      ),
+
+                     
+
+                      MedicineTabBar(controller: _tabController),
+                    ],
+                  ),
+
+                  /// TAB CONTENT
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+
+                      physics: const BouncingScrollPhysics(),
+
                       children: [
-                        MedicineHeader(
-                          medicine:
-                          medicine,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: OverviewTab(medicine: medicine),
                         ),
 
-                        const SizedBox(
-                          height: 20,
-                        ),
-
-                        MedicineTabBar(
-                          controller:
-                          _tabController,
-                        ),
-
-                        const SizedBox(
-                          height: 20,
-                        ),
-
-                        SizedBox(
-                          height:
-                          MediaQuery.of(
-                            context,
-                          )
-                              .size
-                              .height *
-                              0.65,
-                          child:
-                          TabBarView(
-                            controller:
-                            _tabController,
-                            children: [
-                              OverviewTab(
-                                medicine:
-                                medicine,
-                              ),
-                              IngredientsTab(
-                                medicine:
-                                medicine,
-                              ),
-                              WarningsTab(
-                                medicine:
-                                medicine,
-                              ),
-                            ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: IngredientsTab(
+                            ingredients: medicine.ingredients,
                           ),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: WarningsTab(medicine: medicine),
                         ),
                       ],
                     ),
                   ),
-                ),
 
-                BottomAction(
-                  medicine: medicine,
-                ),
-              ],
+                  /// BOTTOM ACTION
+                  SafeArea(
+                    top: false,
+
+                    minimum: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+
+                    child: BottomAction(medicine: medicine),
+                  ),
+                ],
+              ),
             ),
           ),
         );

@@ -661,6 +661,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Safe dosage by group'**
   String get safeDosageByGroup;
+
+  /// No description provided for @usedInMedicine.
+  ///
+  /// In en, this message translates to:
+  /// **'Used in medicine'**
+  String get usedInMedicine;
+
+  /// No description provided for @benefits.
+  ///
+  /// In en, this message translates to:
+  /// **'Benefits'**
+  String get benefits;
+
+  /// No description provided for @sideEffects.
+  ///
+  /// In en, this message translates to:
+  /// **'Side Effects'**
+  String get sideEffects;
+
+  /// No description provided for @bestTakenWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Best taken with'**
+  String get bestTakenWith;
+
+  /// No description provided for @avoidWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Avoid combining with'**
+  String get avoidWith;
+
+  /// No description provided for @notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get notes;
+
+  /// No description provided for @noResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get noResults;
+
+  /// No description provided for @salt.
+  ///
+  /// In en, this message translates to:
+  /// **'Salt form'**
+  String get salt;
+
+  /// No description provided for @interactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Known interactions'**
+  String get interactions;
+
+  /// No description provided for @noInteractions.
+  ///
+  /// In en, this message translates to:
+  /// **'No significant interactions recorded'**
+  String get noInteractions;
+
+  /// No description provided for @interactionWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Interaction with {name}'**
+  String interactionWith(Object name);
+
+  /// No description provided for @severityLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Mild'**
+  String get severityLow;
+
+  /// No description provided for @severityMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate'**
+  String get severityMedium;
+
+  /// No description provided for @severityHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Severe'**
+  String get severityHigh;
+
+  /// No description provided for @recommendation.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommendation'**
+  String get recommendation;
 }
 
 class _AppLocalizationsDelegate

@@ -290,4 +290,51 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get safeDosageByGroup => 'Liều an toàn theo nhóm';
+
+  @override
+  String get usedInMedicine => 'Đang dùng trong thuốc';
+
+  @override
+  String get benefits => 'Tác dụng';
+
+  @override
+  String get sideEffects => 'Tác dụng phụ';
+
+  @override
+  String get bestTakenWith => 'Nên dùng cùng';
+
+  @override
+  String get avoidWith => 'Tránh kết hợp';
+
+  @override
+  String get notes => 'Ghi chú';
+
+  @override
+  String get noResults => 'Không tìm thấy kết quả';
+
+  @override
+  String get salt => 'Dạng muối';
+
+  @override
+  String get interactions => 'Tương tác đã biết';
+
+  @override
+  String get noInteractions => 'Chưa ghi nhận tương tác đáng chú ý';
+
+  @override
+  String interactionWith(Object name) {
+    return 'Tương tác với $name';
+  }
+
+  @override
+  String get severityLow => 'Nhẹ';
+
+  @override
+  String get severityMedium => 'Trung bình';
+
+  @override
+  String get severityHigh => 'Nghiêm trọng';
+
+  @override
+  String get recommendation => 'Khuyến nghị';
 }

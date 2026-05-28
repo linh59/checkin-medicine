@@ -1,50 +1,43 @@
+import 'package:checkin_medicine/features/medicine/data/models/medicine_detail_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../models/medicine_detail_model.dart';
+
 
 class MedicineRepository {
-  final SupabaseClient _client =
-      Supabase.instance.client;
+  final SupabaseClient supabase;
 
-  Future<MedicineDetailModel?>
-  getMedicineDetail(
-      String slug,
-      ) async {
-    final response =
-    await _client
+  MedicineRepository(this.supabase);
+
+  Future<Medicine?> getMedicineBySlug(String slug) async {
+    final response = await supabase
         .from('medicines')
-        .select(
-      '''
-*,
-medicine_ingredients (
-  id,
-  amount_per_pill,
-  unit,
-  percent_dv,
-  ingredient_forms (
-    id,
-    slug,
-    name,
-    salt_form,
-    bioavailability,
-    nutrients (
-      id,
-      slug,
-      name,
-      unit
-    )
-  )
-)
-''',
-    )
+        .select('''
+          *,
+          medicine_ingredients (
+            id,
+            amount_per_pill,
+            unit,
+            percent_dv,
+            ingredient_forms (
+              id,
+              slug,
+              name,
+              salt_form,
+              bioavailability,
+              nutrients (
+                id,
+                slug,
+                name,
+                unit
+              )
+            )
+          )
+        ''')
         .eq('slug', slug)
         .maybeSingle();
 
-    if (response == null) {
-      return null;
-    }
+    if (response == null) return null;
 
-    return MedicineDetailModel
-        .fromJson(response);
+    return Medicine.fromJson(response);
   }
 }

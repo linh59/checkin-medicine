@@ -21,7 +21,7 @@ class _HomeShellState extends State<HomeShell> {
     const HomePage(),
     const SchedulePage(),
     const StatsPage(),
-    const FamilyPage(),
+    // const FamilyPage(),
     const SettingsPage(),
   ];
 

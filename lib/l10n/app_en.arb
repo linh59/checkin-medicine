@@ -92,5 +92,20 @@
   "adultFemale": "Adult Female",
   "pregnant": "Pregnant",
   "child": "Child",
-  "safeDosageByGroup": "Safe dosage by group"
+  "safeDosageByGroup": "Safe dosage by group",
+  "usedInMedicine": "Used in medicine",
+  "benefits": "Benefits",
+  "sideEffects": "Side Effects",
+  "bestTakenWith": "Best taken with",
+  "avoidWith": "Avoid combining with",
+  "notes": "Note",
+  "noResults": "No results found",
+  "salt": "Salt form",
+  "interactions": "Known interactions",
+  "noInteractions": "No significant interactions recorded",
+  "interactionWith": "Interaction with {name}",
+  "severityLow": "Mild",
+  "severityMedium": "Moderate",
+  "severityHigh": "Severe",
+  "recommendation": "Recommendation"
 }

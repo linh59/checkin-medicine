@@ -6,7 +6,7 @@ import '../../../data/models/medicine_detail_model.dart';
 
 class MedicineHeader
     extends StatelessWidget {
-  final MedicineDetailModel
+  final Medicine
   medicine;
 
   const MedicineHeader({
@@ -22,10 +22,8 @@ class MedicineHeader
 
     return Container(
       width: double.infinity,
-      padding:
-      const EdgeInsets.all(
-        18,
-      ),
+      margin: EdgeInsets.only(top: 30),
+
       decoration:
       BoxDecoration(
         color: theme
@@ -118,13 +116,7 @@ class MedicineHeader
                   runSpacing:
                   8,
                   children: [
-                    Chip(
-                      label: Text(
-                        medicine
-                            .form ??
-                            '',
-                      ),
-                    ),
+
                     if (medicine
                         .servingSize !=
                         null)

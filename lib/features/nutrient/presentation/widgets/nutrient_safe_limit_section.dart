@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../../../core/utils/bumber_formatter.dart';
-import '../../data/models/nutrient_detail_model.dart';
+import '../../data/models/nutrient_model.dart';
 
 class NutrientSafeLimitSection extends StatelessWidget {
-  final NutrientDetailModel nutrient;
+  final NutrientModel nutrient;
 
   const NutrientSafeLimitSection({super.key, required this.nutrient});
 

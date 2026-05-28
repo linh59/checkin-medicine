@@ -1,46 +1,48 @@
+import 'package:checkin_medicine/features/nutrient/data/models/nutrient_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../models/nutrient_detail_model.dart';
 
 class NutrientRepository {
-  final supabase =
-      Supabase.instance.client;
+  final _client = Supabase.instance.client;
 
-  Future<NutrientDetailModel?>
-  getNutrient(
+  NutrientRepository(SupabaseClient client);
+
+  Future<NutrientModel?>
+  getNutrientBySlug(
       String slug,
       ) async {
-    final data =
-    await supabase
+    final response =
+    await _client
         .from('nutrients')
         .select('''
-              *,
-              ingredient_forms(
-                id,
-                slug,
-                name,
-                salt_form,
-                bioavailability
-              ),
-              nutrient_safe_limits(
-                id,
-                group_kind,
-                rda,
-                ul,
-                notes
-              )
-            ''')
+      *,
+      ingredient_forms (
+        id,
+        slug,
+        name,
+        salt_form,
+        bioavailability
+      ),
+
+      nutrient_safe_limits (
+        id,
+        group_kind,
+        rda,
+        ul,
+        notes
+      )
+    ''')
         .eq(
       'slug',
       slug,
     )
         .maybeSingle();
 
-    if (data == null) {
+    if (response == null) {
       return null;
     }
 
-    return NutrientDetailModel
-        .fromJson(data);
+    return NutrientModel
+        .fromJson(response);
   }
 }

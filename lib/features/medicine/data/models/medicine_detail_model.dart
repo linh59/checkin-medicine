@@ -1,52 +1,114 @@
-class MedicineDetailModel {
+import 'dart:convert';
+
+import 'medicine_ingredient.dart';
+
+class Medicine {
   final String id;
   final String slug;
-  final String brand;
-  final String? genericName;
-  final String? manufacturer;
-  final String? form;
-  final String? summary;
-  final String? servingSize;
-  final List<String> warnings;
-  final List<MedicineIngredient> ingredients;
 
-  MedicineDetailModel({
+  final String brand;
+  final String genericName;
+  final String manufacturer;
+
+  final String form;
+  final String servingSize;
+
+  final String? imageUrl;
+
+  final String? summary;
+  final String? description;
+
+  final List<String> warnings;
+
+  final String? category;
+  final String? country;
+
+  final String? strength;
+  final String? strengthUnit;
+
+  final bool isDeleted;
+
+  final String? createdBy;
+  final int? pillsPerServing;
+
+  /// IMPORTANT
+  final List<MedicineIngredient>
+  ingredients;
+
+  Medicine({
     required this.id,
     required this.slug,
     required this.brand,
-    this.genericName,
-    this.manufacturer,
-    this.form,
-    this.summary,
-    this.servingSize,
+    required this.genericName,
+    required this.manufacturer,
+    required this.form,
+    required this.servingSize,
+    required this.imageUrl,
+    required this.summary,
+    required this.description,
     required this.warnings,
+    required this.category,
+    required this.country,
+    required this.strength,
+    required this.strengthUnit,
+    required this.isDeleted,
+    required this.createdBy,
+    required this.pillsPerServing,
     required this.ingredients,
   });
 
-  factory MedicineDetailModel.fromJson(
+  factory Medicine.fromJson(
       Map<String, dynamic> json,
       ) {
-    return MedicineDetailModel(
-      id: json['id'],
-      slug: json['slug'],
+    return Medicine(
+      id: json['id'].toString(),
+      slug: json['slug'] ?? '',
+
       brand: json['brand'] ?? '',
       genericName:
-      json['generic_name'],
+      json['generic_name'] ?? '',
       manufacturer:
-      json['manufacturer'],
-      form: json['form'],
-      summary: json['summary'],
+      json['manufacturer'] ?? '',
+
+      form: json['form'] ?? '',
       servingSize:
-      json['serving_size'],
-      warnings:
-      (json['warnings']
-      as List?)
-          ?.map(
-            (e) =>
-            e.toString(),
-      )
-          .toList() ??
-          [],
+      json['serving_size'] ?? '',
+
+      imageUrl: json['image_url'],
+
+      summary: json['summary'],
+      description:
+      json['description'],
+
+      warnings: _parseList(
+        json['warnings'],
+      ),
+
+      category: json['category'],
+      country: json['country'],
+
+      strength: json['strength'],
+      strengthUnit:
+      json['strength_unit'],
+
+      isDeleted:
+      json['is_deleted'] ==
+          true ||
+          json['is_deleted']
+              ?.toString() ==
+              'true',
+
+      createdBy:
+      json['created_by'],
+
+      pillsPerServing:
+      int.tryParse(
+        json['pills_per_serving']
+            ?.toString() ??
+            '',
+      ),
+
+      /// Parse relation
       ingredients:
       (json[
       'medicine_ingredients']
@@ -60,116 +122,37 @@ class MedicineDetailModel {
           [],
     );
   }
-}
 
-class MedicineIngredient {
-  final String id;
-  final double? amountPerPill;
-  final String? unit;
-  final double? percentDv;
-  final IngredientForm?
-  ingredientForm;
-
-  MedicineIngredient({
-    required this.id,
-    this.amountPerPill,
-    this.unit,
-    this.percentDv,
-    this.ingredientForm,
-  });
-
-  factory MedicineIngredient.fromJson(
-      Map<String, dynamic> json,
+  static List<String> _parseList(
+      dynamic value,
       ) {
-    return MedicineIngredient(
-      id: json['id'],
-      amountPerPill:
-      (json[
-      'amount_per_pill']
-      as num?)
-          ?.toDouble(),
-      unit: json['unit'],
-      percentDv:
-      (json['percent_dv']
-      as num?)
-          ?.toDouble(),
-      ingredientForm:
-      json[
-      'ingredient_forms'] !=
-          null
-          ? IngredientForm
-          .fromJson(
-        json[
-        'ingredient_forms'],
+    if (value == null) {
+      return [];
+    }
+
+    if (value is List) {
+      return value
+          .map(
+            (e) => e.toString(),
       )
-          : null,
-    );
-  }
-}
+          .toList();
+    }
 
-class IngredientForm {
-  final String id;
-  final String slug;
-  final String name;
-  final String? saltForm;
-  final String?
-  bioavailability;
-  final Nutrient? nutrient;
+    if (value is String) {
+      try {
+        final decoded =
+        jsonDecode(value);
 
-  IngredientForm({
-    required this.id,
-    required this.slug,
-    required this.name,
-    this.saltForm,
-    this.bioavailability,
-    this.nutrient,
-  });
+        if (decoded is List) {
+          return decoded
+              .map(
+                (e) => e.toString(),
+          )
+              .toList();
+        }
+      } catch (_) {}
+    }
 
-  factory IngredientForm.fromJson(
-      Map<String, dynamic> json,
-      ) {
-    return IngredientForm(
-      id: json['id'],
-      slug: json['slug'],
-      name: json['name'] ?? '',
-      saltForm:
-      json['salt_form'],
-      bioavailability:
-      json[
-      'bioavailability'],
-      nutrient:
-      json['nutrients'] !=
-          null
-          ? Nutrient.fromJson(
-        json[
-        'nutrients'],
-      )
-          : null,
-    );
-  }
-}
-
-class Nutrient {
-  final String id;
-  final String slug;
-  final String name;
-  final String? unit;
-
-  Nutrient({
-    required this.id,
-    required this.slug,
-    required this.name,
-    this.unit,
-  });
-
-  factory Nutrient.fromJson(
-      Map<String, dynamic> json,
-      ) {
-    return Nutrient(
-      id: json['id'],
-      slug: json['slug'],
-      name: json['name'] ?? '',
-      unit: json['unit'],
-    );
+    return [];
   }
 }

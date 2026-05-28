@@ -1,199 +1,156 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/utils/bumber_formatter.dart';
-import '../../../../../l10n/app_localizations.dart';
 import '../../../../nutrient/presentation/pages/nutrient_detail_page.dart';
-import '../../../data/models/medicine_detail_model.dart';
+import '../../../data/models/medicine_ingredient.dart';
 
-class IngredientsTab
-    extends StatelessWidget {
-  final MedicineDetailModel
-  medicine;
+class IngredientsTab extends StatelessWidget {
+  final List<MedicineIngredient> ingredients;
 
   const IngredientsTab({
-    required this.medicine,
+    super.key,
+    required this.ingredients,
   });
 
   @override
-  Widget build(
-      BuildContext context,
-      ) {
-    final t =
-    AppLocalizations.of(
-      context,
-    )!;
-    return ListView.separated(
-      itemCount:
-      medicine
-          .ingredients
-          .length,
-      separatorBuilder:
-          (_, __) =>
-      const SizedBox(
-        height: 12,
-      ),
-      itemBuilder:
-          (
-          context,
-          index,
-          ) {
-        final item =
-        medicine
-            .ingredients[index];
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
 
-        final form =
-            item
-                .ingredientForm;
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
 
-        return InkWell(
-            borderRadius:
-            BorderRadius.circular(
-              20,
-            ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: colorScheme.surfaceContainerLow,
+          borderRadius: BorderRadius.circular(24),
+        ),
 
-            onTap: () {
-              final slug =
-                  form
-                      ?.nutrient
-                      ?.slug;
+        child: Column(
+          children: ingredients.asMap().entries.map((entry) {
+            final index = entry.key;
+            final item = entry.value;
 
-              if (slug == null) {
-                return;
-              }
+            final form = item.ingredientForm;
+            final nutrient = form?.nutrient;
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder:
-                      (_) =>
-                      NutrientDetailPage(
-                        slug: slug,
-                      ),
-                ),
-              );
-            },
+            final isLast = index == ingredients.length - 1;
 
-            child: Container(
-          padding:
-          const EdgeInsets.all(
-            16,
-          ),
-          decoration:
-          BoxDecoration(
-            color: Theme.of(
-              context,
-            ).colorScheme.surface,
-            borderRadius:
-            BorderRadius.circular(
-              20,
-            ),
-          ),
-          child:
-          Row(
-            children: [
-              Container(
-                width:
-                52,
-                height:
-                52,
-                decoration:
-                BoxDecoration(
-                  color:
-                  WellnessColors.primary
-                      .withOpacity(
-                    0.12,
-                  ),
-                  borderRadius:
-                  BorderRadius.circular(
-                    14,
-                  ),
-                ),
-                child:
-                const Icon(
-                  Icons.science,
-                  color:
-                  WellnessColors.primary,
-                ),
-              ),
+            return Column(
+              children: [
+                InkWell(
+                  borderRadius: BorderRadius.circular(24),
 
-              const SizedBox(
-                width:
-                12,
-              ),
+                  onTap: () {
+                    final slug = nutrient?.slug;
 
-              Expanded(
-                child:
-                Column(
-                  crossAxisAlignment:
-                  CrossAxisAlignment
-                      .start,
-                  children: [
-                    Text(
-                      form
-                          ?.nutrient
-                          ?.name ??
-                          '',
-                      style:
-                      const TextStyle(
-                        fontWeight:
-                        FontWeight.bold,
-                      ),
-                    ),
+                    if (slug == null) return;
 
-                    const SizedBox(
-                      height:
-                      4,
-                    ),
-
-                    Text(
-                      '${form?.saltForm ?? '—'}'
-                          ' · '
-                          '${NumberFormatter.withUnit(
-                        item.amountPerPill,
-                        item.unit,
-                      )}',
-                      style:
-                      const TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-
-                    if (form
-                        ?.bioavailability !=
-                        null)
-                      Padding(
-                        padding:
-                        const EdgeInsets.only(
-                          top:
-                          6,
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => NutrientDetailPage(
+                          slug: slug,
+                          selectedFormSlug: form?.slug,
                         ),
-                        child:
-                        Text(
-                          t.absorption + ': ${form!.bioavailability}',
-                          style:
-                          const TextStyle(
-                            color:
-                            WellnessColors.primary,
-                            fontWeight:
-                            FontWeight.w600,
+                      ),
+                    );
+                  },
+
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                      children: [
+                        /// LEFT INFO
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                nutrient?.name ?? form?.name ?? '—',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+
+                              if (form?.saltForm != null &&
+                                  form!.saltForm!.isNotEmpty)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 4),
+                                  child: Text(
+                                    form.saltForm!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
+                                      color: colorScheme.onSurfaceVariant,
+                                    ),
+                                  ),
+                                ),
+                            ],
                           ),
                         ),
-                      ),
-                  ],
-                ),
-              ),
 
-              const Icon(
-                Icons
-                    .chevron_right,
-              ),
-            ],
-          ),
-        )
-        );
-      },
+                        const SizedBox(width: 16),
+
+                        /// RIGHT SIDE
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ConstrainedBox(
+                              constraints: const BoxConstraints(maxWidth: 130),
+
+                              child: Text(
+                                NumberFormatter.dosage(
+                                  amount: item.amountPerPill,
+                                  unit: item.unit,
+                                  percentDv: item.percentDv,
+                                ),
+
+                                textAlign: TextAlign.right,
+                                softWrap: true,
+
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(width: 8),
+
+                            Icon(
+                              Icons.chevron_right,
+                              size: 20,
+                              color: colorScheme.onSurfaceVariant,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                if (!isLast)
+                  Divider(
+                    height: 1,
+                    indent: 20,
+                    endIndent: 20,
+                    color: colorScheme.outlineVariant,
+                  ),
+              ],
+            );
+          }).toList(),
+        ),
+      ),
     );
   }
 }

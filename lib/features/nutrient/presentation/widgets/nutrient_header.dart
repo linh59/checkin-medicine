@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../data/models/nutrient_detail_model.dart';
+import '../../data/models/nutrient_model.dart';
 
 class NutrientHeader
     extends StatelessWidget {
-  final NutrientDetailModel
+  final NutrientModel
   nutrient;
 
   const NutrientHeader({

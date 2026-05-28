@@ -92,5 +92,20 @@
   "adultFemale": "Nữ trưởng thành",
   "pregnant": "Phụ nữ mang thai",
   "child": "Trẻ em",
-  "safeDosageByGroup": "Liều an toàn theo nhóm"
+  "safeDosageByGroup": "Liều an toàn theo nhóm",
+  "usedInMedicine": "Đang dùng trong thuốc",
+  "benefits": "Tác dụng",
+  "sideEffects": "Tác dụng phụ",
+  "bestTakenWith": "Nên dùng cùng",
+  "avoidWith": "Tránh kết hợp",
+  "notes": "Ghi chú",
+  "noResults": "Không tìm thấy kết quả",
+  "salt": "Dạng muối",
+  "interactions": "Tương tác đã biết",
+  "noInteractions": "Chưa ghi nhận tương tác đáng chú ý",
+  "interactionWith": "Tương tác với {name}",
+  "severityLow": "Nhẹ",
+  "severityMedium": "Trung bình",
+  "severityHigh": "Nghiêm trọng",
+  "recommendation": "Khuyến nghị"
 }

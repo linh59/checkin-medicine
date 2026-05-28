@@ -1,32 +1,50 @@
 class NutrientSafeLimitModel {
   final String id;
+
   final String groupKind;
+
   final double? rda;
   final double? ul;
+
   final String? notes;
 
   NutrientSafeLimitModel({
     required this.id,
     required this.groupKind,
-    this.rda,
-    this.ul,
-    this.notes,
+    required this.rda,
+    required this.ul,
+    required this.notes,
   });
 
-  factory NutrientSafeLimitModel.fromJson(
+  factory NutrientSafeLimitModel
+      .fromJson(
       Map<String, dynamic> json,
       ) {
     return NutrientSafeLimitModel(
-      id: json['id'],
+      id:
+      json['id']
+          .toString(),
+
       groupKind:
-      json['group_kind'],
-      rda: (json['rda']
-      as num?)
-          ?.toDouble(),
-      ul: (json['ul']
-      as num?)
-          ?.toDouble(),
-      notes: json['notes'],
+      json['group_kind'] ??
+          '',
+
+      rda:
+      double.tryParse(
+        json['rda']
+            ?.toString() ??
+            '',
+      ),
+
+      ul:
+      double.tryParse(
+        json['ul']
+            ?.toString() ??
+            '',
+      ),
+
+      notes:
+      json['notes'],
     );
   }
 }

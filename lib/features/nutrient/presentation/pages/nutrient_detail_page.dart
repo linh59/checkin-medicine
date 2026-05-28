@@ -13,9 +13,13 @@ class NutrientDetailPage
     extends ConsumerWidget {
   final String slug;
 
+  final String?
+  selectedFormSlug;
+
   const NutrientDetailPage({
     super.key,
     required this.slug,
+    this.selectedFormSlug,
   });
 
   @override
@@ -28,6 +32,10 @@ class NutrientDetailPage
       context,
     )!;
 
+    final colorScheme =
+        Theme.of(context)
+            .colorScheme;
+
     final nutrientAsync =
     ref.watch(
       nutrientDetailProvider(
@@ -36,40 +44,43 @@ class NutrientDetailPage
     );
 
     return nutrientAsync.when(
-      loading:
-          () =>
+      loading: () =>
       const Scaffold(
         body:
         NutrientLoading(),
       ),
 
-      error:
-          (e, _) => Scaffold(
-        appBar:
-        AppBar(
-          leading:
-          const BackButton(),
-        ),
-        body: Center(
-          child:
-          Text(
-            e.toString(),
+      error: (e, _) =>
+          Scaffold(
+            appBar: AppBar(
+              leading:
+              const BackButton(),
+            ),
+            body: Center(
+              child: Padding(
+                padding:
+                const EdgeInsets.all(
+                  24,
+                ),
+                child: Text(
+                  e.toString(),
+                  textAlign:
+                  TextAlign.center,
+                ),
+              ),
+            ),
           ),
-        ),
-      ),
 
       data: (nutrient) {
         if (nutrient ==
             null) {
           return Scaffold(
-            appBar:
-            AppBar(
+            appBar: AppBar(
               leading:
               const BackButton(),
             ),
             body: Center(
-              child:
-              Text(
+              child: Text(
                 t.notFound,
               ),
             ),
@@ -77,59 +88,110 @@ class NutrientDetailPage
         }
 
         return Scaffold(
-          body:
-          NestedScrollView(
-            headerSliverBuilder:
-                (_, __) => [
-              SliverAppBar(
-                floating:
-                true,
-                snap:
-                true,
-                leading:
-                const BackButton(),
-                title:
-                Text(
-                  nutrient
-                      .name,
+          backgroundColor:
+          colorScheme
+              .surfaceContainerLowest,
+
+          extendBodyBehindAppBar:
+          false,
+
+          body: SafeArea(
+            top: false,
+
+            child:
+            NestedScrollView(
+              headerSliverBuilder:
+                  (_, innerBoxIsScrolled) => [
+                SliverAppBar(
+                  pinned: true,
+                  floating: false,
+                  snap: false,
+
+                  elevation: 0,
+                  scrolledUnderElevation:
+                  0,
+
+                  backgroundColor:
+                  colorScheme
+                      .surface,
+
+                  surfaceTintColor:
+                  Colors
+                      .transparent,
+
+                  leading:
+                  const BackButton(),
+
+                  title: AnimatedOpacity(
+                    duration:
+                    const Duration(
+                      milliseconds:
+                      200,
+                    ),
+
+                    opacity:
+                    innerBoxIsScrolled
+                        ? 1
+                        : 0,
+
+                    child: Text(
+                      nutrient.name,
+                      maxLines: 1,
+                      overflow:
+                      TextOverflow
+                          .ellipsis,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
 
-            body:
-            SingleChildScrollView(
-              padding:
-              const EdgeInsets.all(
-                16,
-              ),
-              child:
-              Column(
-                children: [
-                  NutrientHeader(
-                    nutrient:
-                    nutrient,
-                  ),
+              body:
+              SingleChildScrollView(
+                padding:
+                const EdgeInsets
+                    .fromLTRB(
+                  20,
+                  20,
+                  20,
+                  32,
+                ),
 
-                  const SizedBox(
-                    height:
-                    24,
-                  ),
+                child: Column(
+                  crossAxisAlignment:
+                  CrossAxisAlignment
+                      .start,
 
-                  NutrientSafeLimitSection(
-                    nutrient:
-                    nutrient,
-                  ),
+                  children: [
+                    /// HEADER
+                    NutrientHeader(
+                      nutrient:
+                      nutrient,
+                    ),
 
-                  const SizedBox(
-                    height:
-                    24,
-                  ),
+                    const SizedBox(
+                      height: 24,
+                    ),
 
-                  NutrientFormsSection(
-                    nutrient:
-                    nutrient,
-                  ),
-                ],
+                    /// SAFE LIMIT
+                    NutrientSafeLimitSection(
+                      nutrient:
+                      nutrient,
+                    ),
+
+                    const SizedBox(
+                      height: 24,
+                    ),
+
+                    /// FORMS
+                    NutrientFormsSection(
+                      nutrient:
+                      nutrient,
+
+                      selectedFormSlug:
+                      selectedFormSlug,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

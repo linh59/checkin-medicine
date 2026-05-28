@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/shared/widgets/theme_switcher.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../l10n/app_localizations.dart';
@@ -15,11 +16,14 @@ class SettingsPage extends StatelessWidget {
         title: Text(t.stats),
 
       ),
-      body: Center(
-        child: Text(
-          t.stats,
-          style: const TextStyle(fontSize: 24),
-        ),
+      body: Column(
+        children: [
+          Text(
+            t.settings,
+            style: const TextStyle(fontSize: 24),
+          ),
+          const ThemeSwitcher()
+        ]
       ),
     );
   }
