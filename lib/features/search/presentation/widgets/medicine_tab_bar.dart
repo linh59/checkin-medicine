@@ -1,16 +1,15 @@
+import 'package:checkin_medicine/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class SearchTabBar extends StatelessWidget {
   final TabController controller;
 
-  const SearchTabBar({
-    super.key,
-    required this.controller,
-  });
+  const SearchTabBar({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
 
     return Container(
       height: 52,
@@ -58,12 +57,12 @@ class SearchTabBar extends StatelessWidget {
                   Row(
                     children: [
                       _TabItem(
-                        label: "Medicines",
+                        label: t.medicines,
                         isActive: activeIndex == 0,
                         onTap: () => controller.animateTo(0),
                       ),
                       _TabItem(
-                        label: "Nutrients",
+                        label: t.nutrients,
                         isActive: activeIndex == 1,
                         onTap: () => controller.animateTo(1),
                       ),
@@ -110,10 +109,7 @@ class _TabItem extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w700,
 
-              /// ✅ FIX: color logic stable
-              color: isActive
-                  ? Colors.white
-                  : colorScheme.onSurfaceVariant,
+              color: isActive ? Colors.white : colorScheme.onSurfaceVariant,
             ),
 
             child: Text(label),

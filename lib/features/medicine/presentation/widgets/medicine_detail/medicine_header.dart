@@ -13,7 +13,7 @@ class MedicineHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final imageUrl = medicine.imageUrl; // giả sử model có field này
+    final imageUrl = medicine.imageUrl;
 
     return Container(
       width: double.infinity,
