@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/features/medicine/presentation/pages/medicine_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -5,56 +6,38 @@ import '../../../../l10n/app_localizations.dart';
 import '../providers/my_medicine_provider.dart';
 import '../widgets/empty_state_medicine.dart';
 import '../widgets/my_medicine_card.dart';
+import 'package:checkin_medicine/shared/widgets/profile_switcher.dart';
 
-class MyMedicinesPage
-    extends ConsumerWidget {
-  const MyMedicinesPage({
-    super.key,
-  });
+class MyMedicinesPage extends ConsumerWidget {
+  const MyMedicinesPage({super.key});
 
   @override
-  Widget build(
-      BuildContext context,
-      WidgetRef ref,
-      ) {
-    final medicines =
-    ref.watch(
-      myMedicinesProvider,
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final medicines = ref.watch(myMedicinesProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(
-            context,
-          )!
-              .myMedicineCabinet,
-        ),
+        title: Text(AppLocalizations.of(context)!.myMedicineCabinet),
+
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 12),
+            child: ProfileSwitcher(),
+          ),
+        ],
       ),
 
-      floatingActionButton:
-      FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // go search
+          /// go search
         },
-        child: const Icon(
-          Icons.add,
-        ),
+        child: const Icon(Icons.add),
       ),
 
       body: medicines.when(
-        loading: () =>
-        const Center(
-          child:
-          CircularProgressIndicator(),
-        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
 
-        error: (e, _) =>
-            Center(
-              child: Text(
-                e.toString(),
-              ),
-            ),
+        error: (e, _) => Center(child: Text(e.toString())),
 
         data: (items) {
           if (items.isEmpty) {
@@ -62,43 +45,37 @@ class MyMedicinesPage
           }
 
           return ListView.separated(
-            padding:
-            const EdgeInsets.all(
-              16,
-            ),
-            itemCount:
-            items.length,
+            padding: const EdgeInsets.all(16),
 
-            separatorBuilder:
-                (_, __) =>
-            const SizedBox(
-              height: 12,
-            ),
+            itemCount: items.length,
 
-            itemBuilder:
-                (_, index) {
-              final item =
-              items[index];
+            separatorBuilder: (_, __) => const SizedBox(height: 12),
+
+            itemBuilder: (_, index) {
+              final item = items[index];
 
               return MyMedicineCard(
-                medicine:
-                item,
+                medicine: item,
 
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => MedicineDetailPage(
+                        slug: item.medicine!.slug,
+                        isAddedMedicine: true,
+                        notes: item.notes,
+                      ),
+                    ),
+                  );
+                },
 
-                onDelete:
-                    () async {
+                onDelete: () async {
                   await ref
-                      .read(
-                    myMedicineRepositoryProvider,
-                  )
-                      .deleteMedicine(
-                    item.id,
-                  );
+                      .read(myMedicineRepositoryProvider)
+                      .deleteMedicine(item.id);
 
-                  ref.invalidate(
-                    myMedicinesProvider,
-                  );
+                  ref.invalidate(myMedicinesProvider);
                 },
               );
             },

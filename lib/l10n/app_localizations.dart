@@ -811,6 +811,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add medicines or supplements to create reminders and safety checks automatically.'**
   String get addMedicineDescription;
+
+  /// No description provided for @add_medicine_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add {brand}'**
+  String add_medicine_title(Object brand);
+
+  /// No description provided for @nickname.
+  ///
+  /// In en, this message translates to:
+  /// **'Nickname (optional)'**
+  String get nickname;
+
+  /// No description provided for @nicknameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Morning calcium'**
+  String get nicknameHint;
+
+  /// No description provided for @notesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 1 tablet after breakfast'**
+  String get notesHint;
+
+  /// No description provided for @saveToMyMedicine.
+  ///
+  /// In en, this message translates to:
+  /// **'Save to my medicines'**
+  String get saveToMyMedicine;
+
+  /// No description provided for @addMedicineSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Medicine added successfully'**
+  String get addMedicineSuccess;
+
+  /// No description provided for @noProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'No active profile'**
+  String get noProfile;
 }
 
 class _AppLocalizationsDelegate

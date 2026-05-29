@@ -117,5 +117,12 @@
   "logout": "Đăng xuất",
   "myMedicineCabinet": "Tủ thuốc",
   "noMedicinesYet": "Chưa có thuốc nào",
-  "addMedicineDescription": "Tìm và thêm thuốc/vitamin đang uống để hệ thống tự tạo lịch nhắc và kiểm tra an toàn."
+  "addMedicineDescription": "Tìm và thêm thuốc/vitamin đang uống để hệ thống tự tạo lịch nhắc và kiểm tra an toàn.",
+  "add_medicine_title": "Thêm {brand}",
+  "nickname": "Tên gọi riêng (tuỳ chọn)",
+  "nicknameHint": "VD: Canxi sáng",
+  "notesHint": "VD: sau ăn sáng 1 viên",
+  "saveToMyMedicine": "Lưu vào tủ thuốc",
+  "addMedicineSuccess": "Đã thêm thuốc thành công",
+  "noProfile": "Chưa có hồ sơ người dùng"
 }

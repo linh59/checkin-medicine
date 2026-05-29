@@ -117,5 +117,12 @@
   "logout": "Log Out",
   "myMedicineCabinet": "Medicine Cabinet",
   "noMedicinesYet": "No medicines yet",
-  "addMedicineDescription": "Add medicines or supplements to create reminders and safety checks automatically."
+  "addMedicineDescription": "Add medicines or supplements to create reminders and safety checks automatically.",
+  "add_medicine_title": "Add {brand}",
+  "nickname": "Nickname (optional)",
+  "nicknameHint": "e.g. Morning calcium",
+  "notesHint": "e.g. 1 tablet after breakfast",
+  "saveToMyMedicine": "Save to my medicines",
+  "addMedicineSuccess": "Medicine added successfully",
+  "noProfile": "No active profile"
 }

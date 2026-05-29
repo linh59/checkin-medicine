@@ -368,4 +368,27 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get addMedicineDescription =>
       'Tìm và thêm thuốc/vitamin đang uống để hệ thống tự tạo lịch nhắc và kiểm tra an toàn.';
+
+  @override
+  String add_medicine_title(Object brand) {
+    return 'Thêm $brand';
+  }
+
+  @override
+  String get nickname => 'Tên gọi riêng (tuỳ chọn)';
+
+  @override
+  String get nicknameHint => 'VD: Canxi sáng';
+
+  @override
+  String get notesHint => 'VD: sau ăn sáng 1 viên';
+
+  @override
+  String get saveToMyMedicine => 'Lưu vào tủ thuốc';
+
+  @override
+  String get addMedicineSuccess => 'Đã thêm thuốc thành công';
+
+  @override
+  String get noProfile => 'Chưa có hồ sơ người dùng';
 }

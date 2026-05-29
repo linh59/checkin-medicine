@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/shared/widgets/profile_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,8 +16,15 @@ import '../widgets/medicine_detail/warning_tab.dart';
 
 class MedicineDetailPage extends ConsumerStatefulWidget {
   final String slug;
+  final bool? isAddedMedicine;
+  final String? notes;
 
-  const MedicineDetailPage({super.key, required this.slug});
+  const MedicineDetailPage({
+    super.key,
+    required this.slug,
+    this.isAddedMedicine,
+    this.notes,
+  });
 
   @override
   ConsumerState<MedicineDetailPage> createState() => _MedicineDetailPageState();
@@ -100,6 +108,12 @@ class _MedicineDetailPageState extends ConsumerState<MedicineDetailPage>
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
+                  actions: const [
+                    Padding(
+                      padding: EdgeInsets.only(right: 12),
+                      child: ProfileSwitcher(),
+                    ),
+                  ],
                 ),
               ],
 
@@ -110,10 +124,11 @@ class _MedicineDetailPageState extends ConsumerState<MedicineDetailPage>
                     children: [
                       Padding(
                         padding: EdgeInsets.all(20),
-                        child: MedicineHeader(medicine: medicine),
+                        child: MedicineHeader(
+                          medicine: medicine,
+                          notes: widget.notes,
+                        ),
                       ),
-
-                     
 
                       MedicineTabBar(controller: _tabController),
                     ],
@@ -148,13 +163,15 @@ class _MedicineDetailPageState extends ConsumerState<MedicineDetailPage>
                   ),
 
                   /// BOTTOM ACTION
-                  SafeArea(
-                    top: false,
+                  widget.isAddedMedicine == true
+                      ? SizedBox()
+                      : SafeArea(
+                          top: false,
 
-                    minimum: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+                          minimum: const EdgeInsets.fromLTRB(16, 12, 16, 12),
 
-                    child: BottomAction(medicine: medicine),
-                  ),
+                          child: BottomAction(medicine: medicine),
+                        ),
                 ],
               ),
             ),

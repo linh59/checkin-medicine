@@ -369,4 +369,27 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get addMedicineDescription =>
       'Add medicines or supplements to create reminders and safety checks automatically.';
+
+  @override
+  String add_medicine_title(Object brand) {
+    return 'Add $brand';
+  }
+
+  @override
+  String get nickname => 'Nickname (optional)';
+
+  @override
+  String get nicknameHint => 'e.g. Morning calcium';
+
+  @override
+  String get notesHint => 'e.g. 1 tablet after breakfast';
+
+  @override
+  String get saveToMyMedicine => 'Save to my medicines';
+
+  @override
+  String get addMedicineSuccess => 'Medicine added successfully';
+
+  @override
+  String get noProfile => 'No active profile';
 }

@@ -1,156 +1,154 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/app_colors.dart';
 import '../../../data/models/medicine_detail_model.dart';
 
-class MedicineHeader
-    extends StatelessWidget {
-  final Medicine
-  medicine;
+class MedicineHeader extends StatelessWidget {
+  final Medicine medicine;
+  final String? notes;
 
-  const MedicineHeader({
-    required this.medicine,
-  });
+  const MedicineHeader({super.key, required this.medicine, this.notes});
 
   @override
-  Widget build(
-      BuildContext context,
-      ) {
-    final theme =
-    Theme.of(context);
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    final imageUrl = medicine.imageUrl; // giả sử model có field này
 
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.only(top: 30),
-
-      decoration:
-      BoxDecoration(
-        color: theme
-            .colorScheme
-            .surface,
-        borderRadius:
-        BorderRadius.circular(
-          20,
-        ),
+      margin: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: theme.dividerColor.withOpacity(0.08)),
       ),
-      child: Row(
-        crossAxisAlignment:
-        CrossAxisAlignment
-            .start,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 68,
-            height: 68,
-            decoration:
-            BoxDecoration(
-              color:
-              WellnessColors.primary
-                  .withOpacity(
-                0.12,
-              ),
-              borderRadius:
-              BorderRadius.circular(
-                18,
-              ),
-            ),
-            child:
-            const Icon(
-              Icons.medication,
-              color:
-              WellnessColors.primary,
-              size: 34,
-            ),
-          ),
-
-          const SizedBox(
-            width: 14,
-          ),
-
-          Expanded(
-            child:
-            Column(
-              crossAxisAlignment:
-              CrossAxisAlignment
-                  .start,
-              children: [
-                Text(
-                  medicine
-                      .brand,
-                  style: theme
-                      .textTheme
-                      .titleLarge
-                      ?.copyWith(
-                    fontWeight:
-                    FontWeight
-                        .bold,
-                  ),
-                ),
-
-                if (medicine
-                    .genericName !=
-                    null)
-                  Padding(
-                    padding:
-                    const EdgeInsets.only(
-                      top: 6,
+          /// TOP ROW (IMAGE + INFO)
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /// IMAGE (ENHANCED)
+              Container(
+                width: 86,
+                height: 86,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  color: theme.colorScheme.primary.withOpacity(0.08),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
                     ),
-                    child: Text(
-                      medicine
-                          .genericName!,
-                      style:
-                      const TextStyle(
-                        color:
-                        Colors.grey,
+                  ],
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: imageUrl != null && imageUrl.isNotEmpty
+                    ? Image.network(
+                        imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) {
+                          return const Icon(
+                            Icons.medication,
+                            size: 40,
+                            color: WellnessColors.primary,
+                          );
+                        },
+                      )
+                    : const Icon(
+                        Icons.medication,
+                        size: 40,
+                        color: WellnessColors.primary,
+                      ),
+              ),
+
+              const SizedBox(width: 14),
+
+              /// TEXT INFO
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      medicine.brand,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
 
-                const SizedBox(
-                  height: 10,
-                ),
+                    if (medicine.genericName != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 6),
+                        child: Text(
+                          medicine.genericName!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ),
 
-                Wrap(
-                  spacing:
-                  8,
-                  runSpacing:
-                  8,
-                  children: [
+                    const SizedBox(height: 10),
 
-                    if (medicine
-                        .servingSize !=
-                        null)
-                      Chip(
-                        label:
-                        Text(
-                          medicine
-                              .servingSize!,
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        if (medicine.servingSize != null)
+                          Chip(
+                            label: Text(medicine.servingSize!),
+                            visualDensity: VisualDensity.compact,
+                          ),
+                      ],
+                    ),
+
+                    if (medicine.manufacturer != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Text(
+                          medicine.manufacturer!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
                         ),
                       ),
                   ],
                 ),
-
-                if (medicine
-                    .manufacturer !=
-                    null)
-                  Padding(
-                    padding:
-                    const EdgeInsets.only(
-                      top: 8,
-                    ),
-                    child: Text(
-                      medicine
-                          .manufacturer!,
-                      style:
-                      const TextStyle(
-                        color:
-                        Colors.grey,
-                      ),
-                    ),
-                  ),
-              ],
-            ),
+              ),
+            ],
           ),
+
+          /// NOTES SECTION
+          if (notes != null && notes!.isNotEmpty) ...[
+            const SizedBox(height: 14),
+
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primary.withOpacity(0.06),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Text(
+                notes!,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                  height: 1.4,
+                ),
+              ),
+            ),
+          ],
         ],
       ),
     );

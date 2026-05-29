@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/features/my_medicines/presentation/widgets/add_medicine_sheet.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/app_colors.dart';
@@ -7,10 +8,7 @@ import '../../../data/models/medicine_detail_model.dart';
 class BottomAction extends StatelessWidget {
   final Medicine medicine;
 
-  const BottomAction({
-    super.key,
-    required this.medicine,
-  });
+  const BottomAction({super.key, required this.medicine});
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +40,24 @@ class BottomAction extends StatelessWidget {
 
           child: ElevatedButton.icon(
             onPressed: () {
-              // TODO: AddMedicineSheet
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                ),
+                builder: (_) => AddMedicineSheet(
+                  medicineId: medicine.id,
+                  brand: medicine.brand,
+                ),
+              );
             },
 
             icon: const Icon(Icons.add),
 
             label: Text(
               t.addMedicine,
-              style: const TextStyle(
-                fontWeight: FontWeight.w700,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.w700),
             ),
 
             style: ElevatedButton.styleFrom(
