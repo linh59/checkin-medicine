@@ -1,4 +1,5 @@
 import 'package:checkin_medicine/features/medicine/presentation/pages/medicine_detail_page.dart';
+import 'package:checkin_medicine/features/search/presentation/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -29,7 +30,10 @@ class MyMedicinesPage extends ConsumerWidget {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          /// go search
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const SearchPage()),
+          );
         },
         child: const Icon(Icons.add),
       ),
