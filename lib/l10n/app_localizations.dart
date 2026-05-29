@@ -751,6 +751,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recommendation'**
   String get recommendation;
+
+  /// No description provided for @adult.
+  ///
+  /// In en, this message translates to:
+  /// **'Adult'**
+  String get adult;
+
+  /// No description provided for @senior.
+  ///
+  /// In en, this message translates to:
+  /// **'Senior'**
+  String get senior;
+
+  /// No description provided for @reminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders'**
+  String get reminders;
+
+  /// No description provided for @darkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get darkMode;
+
+  /// No description provided for @security.
+  ///
+  /// In en, this message translates to:
+  /// **'Security'**
+  String get security;
+
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming Soon'**
+  String get comingSoon;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Log Out'**
+  String get logout;
+
+  /// No description provided for @myMedicineCabinet.
+  ///
+  /// In en, this message translates to:
+  /// **'Medicine Cabinet'**
+  String get myMedicineCabinet;
+
+  /// No description provided for @noMedicinesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No medicines yet'**
+  String get noMedicinesYet;
+
+  /// No description provided for @addMedicineDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Add medicines or supplements to create reminders and safety checks automatically.'**
+  String get addMedicineDescription;
 }
 
 class _AppLocalizationsDelegate

@@ -5,6 +5,7 @@ class MedicineModel {
   final String? genericName;
   final String? manufacturer;
   final String form;
+  final String? createdBy;
 
   MedicineModel({
     required this.id,
@@ -13,6 +14,7 @@ class MedicineModel {
     required this.form,
     this.genericName,
     this.manufacturer,
+    this.createdBy
   });
 
   factory MedicineModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,27 @@ class MedicineModel {
       genericName: json['generic_name'],
       manufacturer: json['manufacturer'],
       form: json['form'],
+      createdBy:
+      json['created_by'],
+    );
+  }
+
+  factory MedicineModel.fromMap(
+      Map<String, dynamic> map,
+      ) {
+    return MedicineModel(
+      id: map['id'] ?? '',
+      slug: map['slug'] ?? '',
+
+      brand: map['brand'] ?? '',
+
+      genericName:
+      map['generic_name'] ?? '',
+
+      form: map['form'],
+
+      createdBy:
+      map['created_by'],
     );
   }
 }

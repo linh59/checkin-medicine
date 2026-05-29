@@ -1,11 +1,12 @@
 import 'package:checkin_medicine/core/controllers/theme_controller.dart';
+import 'package:checkin_medicine/core/services/app_root.dart';
 import 'package:checkin_medicine/core/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'core/services/language_service.dart';
 import 'l10n/app_localizations.dart';
-import 'features/auth/splash_page.dart';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart'
@@ -18,12 +19,8 @@ Future<void> main() async {
     anonKey: 'sb_publishable_UWcNDzQDuRALfeKx2KEeZA_LLfzH29p',
   );
 
-  final supabase = Supabase.instance.client;
 
-  final medicines =
-  await supabase.from('medicines').select();
 
-  print(medicines);
 
   runApp(
     const ProviderScope(
@@ -78,7 +75,7 @@ class _MyAppState extends State<MyApp> {
               GlobalCupertinoLocalizations.delegate,
             ],
 
-            home: const SplashPage(),
+            home: const AppRoot()
           );
     },
     ),

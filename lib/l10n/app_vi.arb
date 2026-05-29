@@ -107,5 +107,15 @@
   "severityLow": "Nhẹ",
   "severityMedium": "Trung bình",
   "severityHigh": "Nghiêm trọng",
-  "recommendation": "Khuyến nghị"
+  "recommendation": "Khuyến nghị",
+  "adult": "Người lớn",
+  "senior": "Người cao tuổi",
+  "reminders": "Nhắc nhở",
+  "darkMode": "Chế độ tối",
+  "security": "Bảo mật",
+  "comingSoon": "Sắp ra mắt",
+  "logout": "Đăng xuất",
+  "myMedicineCabinet": "Tủ thuốc",
+  "noMedicinesYet": "Chưa có thuốc nào",
+  "addMedicineDescription": "Tìm và thêm thuốc/vitamin đang uống để hệ thống tự tạo lịch nhắc và kiểm tra an toàn."
 }

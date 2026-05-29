@@ -338,4 +338,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recommendation => 'Recommendation';
+
+  @override
+  String get adult => 'Adult';
+
+  @override
+  String get senior => 'Senior';
+
+  @override
+  String get reminders => 'Reminders';
+
+  @override
+  String get darkMode => 'Dark Mode';
+
+  @override
+  String get security => 'Security';
+
+  @override
+  String get comingSoon => 'Coming Soon';
+
+  @override
+  String get logout => 'Log Out';
+
+  @override
+  String get myMedicineCabinet => 'Medicine Cabinet';
+
+  @override
+  String get noMedicinesYet => 'No medicines yet';
+
+  @override
+  String get addMedicineDescription =>
+      'Add medicines or supplements to create reminders and safety checks automatically.';
 }

@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/features/my_medicines/presentation/pages/my_medicines_page.dart';
 import 'package:checkin_medicine/features/search/presentation/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -18,7 +19,7 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            // 🧠 HEADER
+            // HEADER
             Text(
               "${t.homeGreeting} 👋",
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
@@ -91,6 +92,14 @@ class _QuickActions extends StatelessWidget {
         _ActionCard(
           icon: Icons.medication,
           label: t.pharmacy,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const MyMedicinesPage(),
+              ),
+            );
+          },
         ),
 
         _ActionCard(

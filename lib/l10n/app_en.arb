@@ -107,5 +107,15 @@
   "severityLow": "Mild",
   "severityMedium": "Moderate",
   "severityHigh": "Severe",
-  "recommendation": "Recommendation"
+  "recommendation": "Recommendation",
+  "adult": "Adult",
+  "senior": "Senior",
+  "reminders": "Reminders",
+  "darkMode": "Dark Mode",
+  "security": "Security",
+  "comingSoon": "Coming Soon",
+  "logout": "Log Out",
+  "myMedicineCabinet": "Medicine Cabinet",
+  "noMedicinesYet": "No medicines yet",
+  "addMedicineDescription": "Add medicines or supplements to create reminders and safety checks automatically."
 }

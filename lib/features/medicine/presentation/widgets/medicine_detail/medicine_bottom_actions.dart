@@ -15,7 +15,6 @@ class BottomAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
 
     return SafeArea(
       top: false,
@@ -23,8 +22,6 @@ class BottomAction extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
 
         decoration: BoxDecoration(
-         
-
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),

@@ -337,4 +337,35 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get recommendation => 'Khuyến nghị';
+
+  @override
+  String get adult => 'Người lớn';
+
+  @override
+  String get senior => 'Người cao tuổi';
+
+  @override
+  String get reminders => 'Nhắc nhở';
+
+  @override
+  String get darkMode => 'Chế độ tối';
+
+  @override
+  String get security => 'Bảo mật';
+
+  @override
+  String get comingSoon => 'Sắp ra mắt';
+
+  @override
+  String get logout => 'Đăng xuất';
+
+  @override
+  String get myMedicineCabinet => 'Tủ thuốc';
+
+  @override
+  String get noMedicinesYet => 'Chưa có thuốc nào';
+
+  @override
+  String get addMedicineDescription =>
+      'Tìm và thêm thuốc/vitamin đang uống để hệ thống tự tạo lịch nhắc và kiểm tra an toàn.';
 }
