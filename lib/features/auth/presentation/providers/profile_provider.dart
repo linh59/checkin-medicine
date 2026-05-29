@@ -1,50 +1,43 @@
-import 'dart:async';
-
-import 'package:checkin_medicine/features/auth/data/models/managed_profile.dart';
-import 'package:checkin_medicine/features/auth/data/repositories/profile_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../auth/presentation/providers/auth_provider.dart';
+import '../../data/models/managed_profile.dart';
+import '../../data/repositories/profile_repository.dart';
+import 'auth_provider.dart';
 
-
-final activeProfileProvider =
+final profileProvider =
 StateNotifierProvider<
-    ActiveProfileNotifier,
-    ActiveProfileState>(
-      (ref) {
-    return ActiveProfileNotifier(
-      ref,
-    );
-  },
+    ProfileNotifier,
+    ProfileState>(
+      (ref) =>
+      ProfileNotifier(ref),
 );
 
-class ActiveProfileState {
+class ProfileState {
   final bool loading;
 
-  final ManagedProfileModel?
+  final ManagedProfile?
   profile;
 
-  final List<
-      ManagedProfileModel>
+  final List<ManagedProfile>
   profiles;
 
-  const ActiveProfileState({
+  const ProfileState({
     this.loading = true,
     this.profile,
     this.profiles =
     const [],
   });
 
-  ActiveProfileState copyWith({
+  ProfileState copyWith({
     bool? loading,
-    ManagedProfileModel?
+    ManagedProfile?
     profile,
-    List<
-        ManagedProfileModel>?
+    List<ManagedProfile>?
     profiles,
   }) {
-    return ActiveProfileState(
+    return ProfileState(
       loading:
       loading ??
           this.loading,
@@ -60,13 +53,13 @@ class ActiveProfileState {
   }
 }
 
-class ActiveProfileNotifier
+class ProfileNotifier
     extends StateNotifier<
-        ActiveProfileState> {
-  ActiveProfileNotifier(
-      this.ref)
-      : super(
-    const ActiveProfileState(),
+        ProfileState> {
+  ProfileNotifier(
+      this.ref,
+      ) : super(
+    const ProfileState(),
   ) {
     _init();
   }
@@ -76,10 +69,15 @@ class ActiveProfileNotifier
   final repository =
   ProfileRepository();
 
+  static const _key =
+      'active_profile_id';
+
   Future<void> _init() async {
     try {
       final auth =
-      ref.read(authProvider);
+      ref.read(
+        authProvider,
+      );
 
       final user =
           auth.user;
@@ -95,7 +93,29 @@ class ActiveProfileNotifier
       await repository
           .getProfiles();
 
-      final self =
+      final prefs =
+      await SharedPreferences
+          .getInstance();
+
+      final savedId =
+      prefs.getString(
+        _key,
+      );
+
+      ManagedProfile?
+      active;
+
+      if (savedId != null) {
+        active = profiles
+            .where(
+              (p) =>
+          p.id ==
+              savedId,
+        )
+            .firstOrNull;
+      }
+
+      active ??=
           profiles
               .where(
                 (p) =>
@@ -104,32 +124,44 @@ class ActiveProfileNotifier
           )
               .firstOrNull;
 
-      final active =
-          self ??
-              profiles
-                  .firstOrNull;
+      active ??=
+          profiles.firstOrNull;
 
       state = state.copyWith(
         loading: false,
         profiles: profiles,
         profile: active,
       );
-    } catch (_) {
+    } catch (e) {
       state = state.copyWith(
         loading: false,
       );
     }
   }
 
-  void setActiveProfile(
-      String id) {
+  Future<void>
+  setActiveProfile(
+      String id,
+      ) async {
     final profile =
         state.profiles
             .where(
-              (e) =>
-          e.id == id,
+              (e) => e.id == id,
         )
             .firstOrNull;
+
+    if (profile == null) {
+      return;
+    }
+
+    final prefs =
+    await SharedPreferences
+        .getInstance();
+
+    await prefs.setString(
+      _key,
+      id,
+    );
 
     state = state.copyWith(
       profile: profile,

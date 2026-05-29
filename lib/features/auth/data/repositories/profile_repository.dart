@@ -1,14 +1,12 @@
-import 'package:checkin_medicine/features/auth/data/models/managed_profile.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../models/managed_profile.dart';
 
 class ProfileRepository {
   final _supabase =
       Supabase.instance.client;
 
-  Future<
-      List<
-          ManagedProfileModel>>
+  Future<List<ManagedProfile>>
   getProfiles() async {
     final response =
     await _supabase
@@ -16,27 +14,29 @@ class ProfileRepository {
       'managed_profiles',
     )
         .select('''
-            id,
-            full_name,
-            avatar_url,
-            birth_year,
-            group_kinds,
-            linked_user_id,
-            created_by
-          ''')
+              id,
+              full_name,
+              avatar_url,
+              dob,
+              birth_year,
+              gender,
+              group_kinds,
+              notes,
+              linked_user_id,
+              created_by,
+              created_at,
+              updated_at
+            ''')
         .order(
       'created_at',
       ascending: true,
     );
 
     return response
-        .map<
-        ManagedProfileModel>(
+        .map<ManagedProfile>(
           (e) =>
-          ManagedProfileModel
-              .fromMap(
-            e,
-          ),
+          ManagedProfile
+              .fromMap(e),
     )
         .toList();
   }

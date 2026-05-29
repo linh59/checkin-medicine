@@ -1,4 +1,4 @@
-class ManagedProfileModel {
+class ManagedProfile {
   final String id;
 
   final String fullName;
@@ -15,10 +15,10 @@ class ManagedProfileModel {
   final String? linkedUserId;
   final String createdBy;
 
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
-  const ManagedProfileModel({
+  const ManagedProfile({
     required this.id,
     required this.fullName,
     this.avatarUrl,
@@ -29,14 +29,14 @@ class ManagedProfileModel {
     this.notes,
     this.linkedUserId,
     required this.createdBy,
-    required this.createdAt,
-    required this.updatedAt,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  factory ManagedProfileModel.fromMap(
+  factory ManagedProfile.fromMap(
       Map<String, dynamic> map,
       ) {
-    return ManagedProfileModel(
+    return ManagedProfile(
       id: map['id'] ?? '',
 
       fullName:
@@ -78,16 +78,14 @@ class ManagedProfileModel {
         map['created_at']
             ?.toString() ??
             '',
-      ) ??
-          DateTime.now(),
+      ),
 
       updatedAt:
       DateTime.tryParse(
         map['updated_at']
             ?.toString() ??
             '',
-      ) ??
-          DateTime.now(),
+      ),
     );
   }
 
@@ -95,9 +93,6 @@ class ManagedProfileModel {
   _parseGroupKinds(
       dynamic value,
       ) {
-    /// Supabase postgres array:
-    /// "{adult,child}"
-
     if (value == null) {
       return [];
     }
@@ -108,10 +103,8 @@ class ManagedProfileModel {
       );
     }
 
-    final text =
-    value.toString();
-
-    return text
+    return value
+        .toString()
         .replaceAll('{', '')
         .replaceAll('}', '')
         .split(',')

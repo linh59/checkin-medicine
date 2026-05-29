@@ -1,12 +1,12 @@
 import 'package:checkin_medicine/features/auth/presentation/providers/profile_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 import '../../data/models/my_medicine_model.dart';
 import '../../data/repositories/my_medicine_repository.dart';
 
 final myMedicineRepositoryProvider =
-Provider<MyMedicineRepository>(
+Provider<
+    MyMedicineRepository>(
       (ref) =>
       MyMedicineRepository(),
 );
@@ -15,13 +15,15 @@ final myMedicinesProvider =
 FutureProvider<
     List<MyMedicineModel>>(
       (ref) async {
-    final activeProfile =
+    final profileState =
     ref.watch(
-      activeProfileProvider,
+      profileProvider,
     );
 
     final profileId =
-        activeProfile.profile?.id;
+        profileState
+            .profile
+            ?.id;
 
     if (profileId == null) {
       return [];
