@@ -853,6 +853,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No active profile'**
   String get noProfile;
+
+  /// No description provided for @active.
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get active;
+
+  /// No description provided for @paused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get paused;
+
+  /// No description provided for @noTimeline.
+  ///
+  /// In en, this message translates to:
+  /// **'No timeline yet'**
+  String get noTimeline;
+
+  /// No description provided for @createTimelineHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a schedule to manage your medicine'**
+  String get createTimelineHint;
 }
 
 class _AppLocalizationsDelegate

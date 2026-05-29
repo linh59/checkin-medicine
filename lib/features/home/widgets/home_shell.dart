@@ -1,8 +1,7 @@
-import 'package:checkin_medicine/features/home/pages/family_page.dart';
 import 'package:checkin_medicine/features/home/pages/home_page.dart';
-import 'package:checkin_medicine/features/home/pages/schedule_page.dart';
 import 'package:checkin_medicine/features/home/pages/settings_page.dart';
 import 'package:checkin_medicine/features/home/pages/stats_page.dart';
+import 'package:checkin_medicine/features/timelines/presentation/pages/timeline_page.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
@@ -19,7 +18,7 @@ class _HomeShellState extends State<HomeShell> {
 
   late final pages = <Widget>[
     const HomePage(),
-    const SchedulePage(),
+    const TimelinePage(),
     const StatsPage(),
     // const FamilyPage(),
     const SettingsPage(),
@@ -30,9 +29,7 @@ class _HomeShellState extends State<HomeShell> {
     final t = AppLocalizations.of(context)!;
 
     return Scaffold(
-      body: SafeArea(
-        child: pages[index],
-      ),
+      body: SafeArea(child: pages[index]),
 
       bottomNavigationBar: NavigationBar(
         selectedIndex: index,
@@ -66,7 +63,6 @@ class _HomeShellState extends State<HomeShell> {
           //   selectedIcon: const Icon(Icons.family_restroom),
           //   label: t.family,
           // ),
-
           NavigationDestination(
             icon: const Icon(Icons.settings_outlined),
             selectedIcon: const Icon(Icons.settings),

@@ -4,7 +4,6 @@ import 'app_colors.dart';
 class AppTheme {
   static ThemeData light = ThemeData(
     useMaterial3: true,
-    scaffoldBackgroundColor: WellnessColors.backgroundLight,
 
     colorScheme: const ColorScheme.light(
       primary: WellnessColors.primary,
@@ -16,9 +15,7 @@ class AppTheme {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
-      ),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
     ),
 
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -26,9 +23,7 @@ class AppTheme {
         backgroundColor: WellnessColors.primary,
         foregroundColor: Colors.white,
         minimumSize: const Size.fromHeight(52),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       ),
     ),
   );
@@ -47,9 +42,7 @@ class AppTheme {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: WellnessColors.surfaceDark,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
-      ),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
     ),
   );
 }

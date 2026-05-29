@@ -124,5 +124,9 @@
   "notesHint": "e.g. 1 tablet after breakfast",
   "saveToMyMedicine": "Save to my medicines",
   "addMedicineSuccess": "Medicine added successfully",
-  "noProfile": "No active profile"
+  "noProfile": "No active profile",
+  "active": "Running",
+  "paused": "Paused",
+  "noTimeline": "No timeline yet",
+  "createTimelineHint": "Create a schedule to manage your medicine"
 }

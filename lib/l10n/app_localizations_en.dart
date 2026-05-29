@@ -392,4 +392,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noProfile => 'No active profile';
+
+  @override
+  String get active => 'Running';
+
+  @override
+  String get paused => 'Paused';
+
+  @override
+  String get noTimeline => 'No timeline yet';
+
+  @override
+  String get createTimelineHint => 'Create a schedule to manage your medicine';
 }

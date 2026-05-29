@@ -124,5 +124,9 @@
   "notesHint": "VD: sau ăn sáng 1 viên",
   "saveToMyMedicine": "Lưu vào tủ thuốc",
   "addMedicineSuccess": "Đã thêm thuốc thành công",
-  "noProfile": "Chưa có hồ sơ người dùng"
+  "noProfile": "Chưa có hồ sơ người dùng",
+  "active": "Đang chạy",
+  "paused": "Tạm dừng",
+  "noTimeline": "Chưa có timeline nào",
+  "createTimelineHint": "Tạo lịch uống thuốc để quản lý dễ hơn"
 }

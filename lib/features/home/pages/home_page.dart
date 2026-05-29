@@ -1,5 +1,6 @@
 import 'package:checkin_medicine/features/my_medicines/presentation/pages/my_medicines_page.dart';
 import 'package:checkin_medicine/features/search/presentation/pages/search_page.dart';
+import 'package:checkin_medicine/features/timelines/presentation/pages/timeline_page.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -18,13 +19,12 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             // HEADER
             Text(
               "${t.homeGreeting} 👋",
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 6),
@@ -59,6 +59,7 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
 class _QuickActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -82,9 +83,7 @@ class _QuickActions extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (_) => const SearchPage(),
-              ),
+              MaterialPageRoute(builder: (_) => const SearchPage()),
             );
           },
         ),
@@ -95,9 +94,7 @@ class _QuickActions extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (_) => const MyMedicinesPage(),
-              ),
+              MaterialPageRoute(builder: (_) => const MyMedicinesPage()),
             );
           },
         ),
@@ -105,11 +102,18 @@ class _QuickActions extends StatelessWidget {
         _ActionCard(
           icon: Icons.calendar_month,
           label: t.createSchedule,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const TimelinePage()),
+            );
+          },
         ),
       ],
     );
   }
 }
+
 class _ActionCard extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -137,10 +141,7 @@ class _ActionCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              color: WellnessColors.primary,
-            ),
+            Icon(icon, color: WellnessColors.primary),
 
             const SizedBox(height: 8),
 
@@ -170,10 +171,7 @@ class _SafetyCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.health_and_safety,
-            color: WellnessColors.primary,
-          ),
+          const Icon(Icons.health_and_safety, color: WellnessColors.primary),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -186,6 +184,7 @@ class _SafetyCard extends StatelessWidget {
     );
   }
 }
+
 class _TodayList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -194,10 +193,7 @@ class _TodayList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          t.todayCheckin,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
+        Text(t.todayCheckin, style: Theme.of(context).textTheme.titleMedium),
 
         const SizedBox(height: 10),
 
@@ -232,14 +228,8 @@ class _FamilySection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              t.family,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            TextButton(
-              onPressed: () {},
-              child: Text(t.manage),
-            ),
+            Text(t.family, style: Theme.of(context).textTheme.titleMedium),
+            TextButton(onPressed: () {}, child: Text(t.manage)),
           ],
         ),
 
@@ -266,10 +256,7 @@ class _FamilyCard extends StatelessWidget {
   final String name;
   final bool isSelf;
 
-  const _FamilyCard({
-    required this.name,
-    this.isSelf = false,
-  });
+  const _FamilyCard({required this.name, this.isSelf = false});
 
   @override
   Widget build(BuildContext context) {
@@ -287,14 +274,8 @@ class _FamilyCard extends StatelessWidget {
         children: [
           const Icon(Icons.medical_information, color: WellnessColors.primary),
           const SizedBox(height: 8),
-          Text(
-            name,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(
-            isSelf ? "Me" : "Family",
-            style: const TextStyle(fontSize: 12),
-          ),
+          Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(isSelf ? "Me" : "Family", style: const TextStyle(fontSize: 12)),
         ],
       ),
     );
@@ -313,9 +294,7 @@ class _AddFamilyCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.black12),
       ),
-      child: const Center(
-        child: Icon(Icons.add),
-      ),
+      child: const Center(child: Icon(Icons.add)),
     );
   }
 }

@@ -391,4 +391,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noProfile => 'Chưa có hồ sơ người dùng';
+
+  @override
+  String get active => 'Đang chạy';
+
+  @override
+  String get paused => 'Tạm dừng';
+
+  @override
+  String get noTimeline => 'Chưa có timeline nào';
+
+  @override
+  String get createTimelineHint => 'Tạo lịch uống thuốc để quản lý dễ hơn';
 }
