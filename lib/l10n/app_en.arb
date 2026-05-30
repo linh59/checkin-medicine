@@ -128,5 +128,20 @@
   "active": "Running",
   "paused": "Paused",
   "noTimeline": "No timeline yet",
-  "createTimelineHint": "Create a schedule to manage your medicine"
+  "createTimelineHint": "Create a schedule to manage your medicine",
+  "safety": "Safety",
+  "status": "Status",
+  "beforeMeal": "Before meal",
+  "afterMeal": "After meal",
+  "withMeal": "With meal",
+  "pillCount": "{count} pill(s)",
+  "@pillCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noScheduleYet": "No schedule yet",
+  "pills": "pill(s)"
 }

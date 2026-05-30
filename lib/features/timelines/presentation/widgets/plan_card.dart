@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/features/timelines/presentation/pages/timeline_detail_page.dart';
 import 'package:checkin_medicine/features/timelines/presentation/providers/timelines_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,94 +23,112 @@ class PlanCard extends ConsumerWidget {
       builder: (context, constraints) {
         final isTablet = constraints.maxWidth > 600;
 
-        return Container(
-          padding: EdgeInsets.all(isTablet ? 20 : 16),
-          margin: const EdgeInsets.only(bottom: 12),
-          decoration: BoxDecoration(
-            color: isActive
-                ? colorScheme.surface
-                : colorScheme.surfaceContainerHighest,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
+        return InkWell(
+          borderRadius: BorderRadius.circular(16),
+
+          onTap: () async {
+            /// 👉 OPEN DETAIL
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => TimelineDetailPage(timelineId: plan.id),
+              ),
+            );
+
+            /// 🔥 AUTO REFRESH LIST WHEN BACK
+            ref.invalidate(plansProvider);
+          },
+
+          child: Container(
+            padding: EdgeInsets.all(isTablet ? 20 : 16),
+            margin: const EdgeInsets.only(bottom: 12),
+            decoration: BoxDecoration(
               color: isActive
-                  ? colorScheme.primary.withOpacity(0.3)
-                  : colorScheme.outlineVariant,
+                  ? colorScheme.surface
+                  : colorScheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: isActive
+                    ? colorScheme.primary.withOpacity(0.3)
+                    : colorScheme.outlineVariant,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 10,
+                  color: Colors.black.withOpacity(0.05),
+                ),
+              ],
             ),
-            boxShadow: [
-              BoxShadow(blurRadius: 10, color: Colors.black.withOpacity(0.05)),
-            ],
-          ),
-          child: Row(
-            children: [
-              // ICON
-              Container(
-                width: isTablet ? 52 : 44,
-                height: isTablet ? 52 : 44,
-                decoration: BoxDecoration(
-                  color: isActive
-                      ? colorScheme.primary.withOpacity(0.1)
-                      : colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(
-                  Icons.calendar_month,
-                  color: isActive
-                      ? colorScheme.primary
-                      : colorScheme.onSurfaceVariant,
-                  size: isTablet ? 26 : 22,
-                ),
-              ),
 
-              const SizedBox(width: 12),
+            child: Row(
+              children: [
+                Container(
+                  width: isTablet ? 52 : 44,
+                  height: isTablet ? 52 : 44,
+                  decoration: BoxDecoration(
+                    color: isActive
+                        ? colorScheme.primary.withOpacity(0.1)
+                        : colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    Icons.calendar_month,
+                    color: isActive
+                        ? colorScheme.primary
+                        : colorScheme.onSurfaceVariant,
+                  ),
+                ),
 
-              // CONTENT
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      plan.name,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: isActive
-                            ? colorScheme.onSurface
-                            : colorScheme.onSurfaceVariant,
+                const SizedBox(width: 12),
+
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        plan.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: isActive
+                              ? colorScheme.onSurface
+                              : colorScheme.onSurfaceVariant,
+                        ),
                       ),
-                    ),
 
-                    const SizedBox(height: 4),
+                      const SizedBox(height: 4),
 
-                    Text(
-                      _buildSubtitle(t),
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
+                      Text(
+                        _buildSubtitle(t),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
 
-              const SizedBox(width: 8),
+                const SizedBox(width: 8),
 
-              // SWITCH
-              Switch(
-                value: isActive,
-                activeColor: colorScheme.primary,
-                onChanged: (v) {
-                  ref.read(plansProvider.notifier).togglePlan(plan.id, v);
-                },
-              ),
-            ],
+                Switch(
+                  value: isActive,
+                  onChanged: (v) {
+                    ref.read(plansProvider.notifier).togglePlan(plan.id, v);
+                  },
+                ),
+              ],
+            ),
           ),
         );
       },
     );
   }
 
-  /// 🌍 MULTI LANGUAGE SUPPORT
   String _buildSubtitle(AppLocalizations t) {
     final status = plan.isActive ? t.active : t.paused;
-
-    return "${plan.itemCount} ${t.medicine} · ${plan.mode} · $status";
+    return '${plan.itemCount} ${t.medicine} · ${plan.mode} · $status';
   }
 }

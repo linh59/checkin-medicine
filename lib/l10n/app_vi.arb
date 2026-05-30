@@ -128,5 +128,20 @@
   "active": "Đang chạy",
   "paused": "Tạm dừng",
   "noTimeline": "Chưa có timeline nào",
-  "createTimelineHint": "Tạo lịch uống thuốc để quản lý dễ hơn"
+  "createTimelineHint": "Tạo lịch uống thuốc để quản lý dễ hơn",
+  "safety": "An toàn",
+  "status": "Trạng thái",
+  "beforeMeal": "Trước ăn",
+  "afterMeal": "Sau ăn",
+  "withMeal": "Cùng bữa",
+  "pillCount": "{count} viên",
+  "@pillCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noScheduleYet": "Chưa có lịch uống",
+  "pills": "viên"
 }

@@ -404,4 +404,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get createTimelineHint => 'Create a schedule to manage your medicine';
+
+  @override
+  String get safety => 'Safety';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get beforeMeal => 'Before meal';
+
+  @override
+  String get afterMeal => 'After meal';
+
+  @override
+  String get withMeal => 'With meal';
+
+  @override
+  String pillCount(int count) {
+    return '$count pill(s)';
+  }
+
+  @override
+  String get noScheduleYet => 'No schedule yet';
+
+  @override
+  String get pills => 'pill(s)';
 }

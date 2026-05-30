@@ -877,6 +877,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create a schedule to manage your medicine'**
   String get createTimelineHint;
+
+  /// No description provided for @safety.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety'**
+  String get safety;
+
+  /// No description provided for @status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// No description provided for @beforeMeal.
+  ///
+  /// In en, this message translates to:
+  /// **'Before meal'**
+  String get beforeMeal;
+
+  /// No description provided for @afterMeal.
+  ///
+  /// In en, this message translates to:
+  /// **'After meal'**
+  String get afterMeal;
+
+  /// No description provided for @withMeal.
+  ///
+  /// In en, this message translates to:
+  /// **'With meal'**
+  String get withMeal;
+
+  /// No description provided for @pillCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} pill(s)'**
+  String pillCount(int count);
+
+  /// No description provided for @noScheduleYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No schedule yet'**
+  String get noScheduleYet;
+
+  /// No description provided for @pills.
+  ///
+  /// In en, this message translates to:
+  /// **'pill(s)'**
+  String get pills;
 }
 
 class _AppLocalizationsDelegate

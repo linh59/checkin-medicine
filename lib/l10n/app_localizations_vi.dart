@@ -403,4 +403,30 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get createTimelineHint => 'Tạo lịch uống thuốc để quản lý dễ hơn';
+
+  @override
+  String get safety => 'An toàn';
+
+  @override
+  String get status => 'Trạng thái';
+
+  @override
+  String get beforeMeal => 'Trước ăn';
+
+  @override
+  String get afterMeal => 'Sau ăn';
+
+  @override
+  String get withMeal => 'Cùng bữa';
+
+  @override
+  String pillCount(int count) {
+    return '$count viên';
+  }
+
+  @override
+  String get noScheduleYet => 'Chưa có lịch uống';
+
+  @override
+  String get pills => 'viên';
 }
