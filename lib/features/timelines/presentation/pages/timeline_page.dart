@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/features/timelines/presentation/widgets/detail/create_timeline_dialog.dart';
 import 'package:checkin_medicine/features/timelines/presentation/widgets/error_plan.dart';
 import 'package:checkin_medicine/features/timelines/presentation/widgets/header_summary.dart';
 import 'package:checkin_medicine/l10n/app_localizations.dart';
@@ -28,7 +29,19 @@ class TimelinePage extends ConsumerWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        actions: const [ProfileSwitcher(), SizedBox(width: 8)],
+        actions: [
+          const ProfileSwitcher(),
+          const SizedBox(width: 8),
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => const CreateTimelineDialog(),
+              );
+            },
+          ),
+        ],
       ),
 
       body: SafeArea(

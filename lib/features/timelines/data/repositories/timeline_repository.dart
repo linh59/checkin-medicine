@@ -88,4 +88,107 @@ plan_items(
   Future<void> deleteTimeline(String id) async {
     await supabase.from('plans').delete().eq('id', id);
   }
+
+  Future<String> createPlan({
+    required String profileId,
+    required String name,
+  }) async {
+    final result = await supabase
+        .from('plans')
+        .insert({
+          'profile_id': profileId,
+          'name': name,
+          'mode': 'manual',
+          'is_active': true,
+          'color': 'amber',
+        })
+        .select('id')
+        .single();
+
+    return result['id'] as String;
+  }
+
+  Future<void> addToPlan({
+    required String planId,
+    required String myMedicineId,
+    required double dose,
+    required String time,
+    String? withFood,
+  }) async {
+    final existing = await supabase
+        .from('plan_items')
+        .select('id')
+        .eq('plan_id', planId)
+        .eq('my_medicine_id', myMedicineId)
+        .maybeSingle();
+
+    String planItemId;
+
+    if (existing != null) {
+      planItemId = existing['id'];
+    } else {
+      final created = await supabase
+          .from('plan_items')
+          .insert({
+            'plan_id': planId,
+            'my_medicine_id': myMedicineId,
+            'dose_per_take': dose,
+            'repeat_kind': 'daily',
+            'repeat_interval': 1,
+            'total_per_day': dose,
+          })
+          .select('id')
+          .single();
+
+      planItemId = created['id'];
+    }
+
+    await supabase.from('plan_schedule').insert({
+      'plan_item_id': planItemId,
+      'time_of_day': '$time:00',
+      'with_food': withFood,
+    });
+  }
+
+  Future<void> addTdddoPlan({
+    required String planId,
+    required String myMedicineId,
+    required double dose,
+    required String time,
+    String? withFood,
+  }) async {
+    final existing = await supabase
+        .from('plan_items')
+        .select('id')
+        .eq('plan_id', planId)
+        .eq('my_medicine_id', myMedicineId)
+        .maybeSingle();
+
+    String planItemId;
+
+    if (existing != null) {
+      planItemId = existing['id'];
+    } else {
+      final created = await supabase
+          .from('plan_items')
+          .insert({
+            'plan_id': planId,
+            'my_medicine_id': myMedicineId,
+            'dose_per_take': dose,
+            'repeat_kind': 'daily',
+            'repeat_interval': 1,
+            'total_per_day': dose,
+          })
+          .select('id')
+          .single();
+
+      planItemId = created['id'];
+    }
+
+    await supabase.from('plan_schedule').insert({
+      'plan_item_id': planItemId,
+      'time_of_day': '$time:00',
+      'with_food': withFood,
+    });
+  }
 }
