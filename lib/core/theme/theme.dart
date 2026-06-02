@@ -35,6 +35,6 @@ class AppTheme {
       error: WellnessColors.error,
     ),
 
-    inputDecorationTheme: AppInputTheme.dark,
+    inputDecorationTheme: AppInputTheme.light,
   );
 }

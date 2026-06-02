@@ -977,7 +977,7 @@ abstract class AppLocalizations {
   /// No description provided for @addToPlan.
   ///
   /// In en, this message translates to:
-  /// **'Add to Plan'**
+  /// **'Add a plan'**
   String get addToPlan;
 
   /// No description provided for @add.
@@ -997,6 +997,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please select a medicine'**
   String get selectMedicine;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @deleteTimelineConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to delete this timeline?'**
+  String get deleteTimelineConfirm;
+
+  /// No description provided for @deleteSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleted successfully'**
+  String get deleteSuccess;
+
+  /// No description provided for @updateSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated successfully'**
+  String get updateSuccess;
+
+  /// No description provided for @addSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Added successfully'**
+  String get addSuccess;
+
+  /// No description provided for @noSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'No schedule'**
+  String get noSchedule;
 }
 
 class _AppLocalizationsDelegate

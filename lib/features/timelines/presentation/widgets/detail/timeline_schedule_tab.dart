@@ -182,7 +182,7 @@ class _ScheduleContent extends StatelessWidget {
 
                     return TimelineSlotCard(
                       slot: slot,
-                      isLast: index == slots.length - 1,
+                      // isLast: index == slots.length - 1,
                       onTap: () {
                         Navigator.push(
                           context,

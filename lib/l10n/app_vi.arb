@@ -155,5 +155,12 @@
    "addToPlan": "Thêm vào lịch",
   "add": "Thêm",
   "withFoodHint": "Trước ăn / sau ăn 30 phút...",
-  "selectMedicine": "Vui lòng chọn thuốc"
+  "selectMedicine": "Vui lòng chọn thuốc",
+  "confirm": "Xác nhận",
+  "deleteTimelineConfirm": "Bạn có muốn xóa lịch uống này không?",
+  "deleteSuccess": "Xóa thành công",
+  "updateSuccess": "Cập nhật thành công",
+  "addSuccess": "Thêm thành công",
+  "noSchedule": "Chưa có lịch"
+
 }

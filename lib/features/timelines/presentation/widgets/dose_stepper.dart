@@ -36,10 +36,7 @@ class DoseStepper extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        border: Border.all(color: WellnessColors.border),
-        borderRadius: BorderRadius.circular(12),
-      ),
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -49,7 +46,7 @@ class DoseStepper extends StatelessWidget {
 
           Row(
             children: [
-              IconButton.filledTonal(
+              IconButton.filled(
                 onPressed: _decrease,
                 icon: const Icon(Icons.remove),
               ),

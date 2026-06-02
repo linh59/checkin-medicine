@@ -17,30 +17,52 @@ class TimelineHeaderCard extends ConsumerWidget {
     final t = AppLocalizations.of(context)!;
     final repo = ref.read(timelineRepositoryProvider);
 
-    return Container(
-      padding: const EdgeInsets.all(22),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            WellnessColors.primary,
-            WellnessColors.primary.withOpacity(0.85),
+    Future<void> deleteTimeline() async {
+      final confirm = await showDialog<bool>(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(t.confirm),
+          content: Text(t.deleteTimelineConfirm),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text(t.cancel),
+            ),
+            FilledButton(
+              style: FilledButton.styleFrom(
+                backgroundColor: WellnessColors.error,
+              ),
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(t.delete),
+            ),
           ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(32),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 30,
-            offset: const Offset(0, 12),
-            color: WellnessColors.primary.withOpacity(0.18),
-          ),
-        ],
+      );
+
+      if (confirm != true) return;
+
+      await repo.deleteTimeline(timeline.id);
+
+      if (!context.mounted) return;
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(t.deleteSuccess)));
+
+      Navigator.pop(context, 'deleted');
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: WellnessColors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// HEADER
+          /// TOP ROW
           Row(
             children: [
               Expanded(
@@ -49,58 +71,60 @@ class TimelineHeaderCard extends ConsumerWidget {
                   children: [
                     Text(
                       timeline.name,
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headlineSmall
-                          ?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 4),
                     Text(
-                      timeline.profileName.isEmpty ? '' : timeline.profileName,
-                      style: const TextStyle(
-                        color: Colors.white70,
-                        fontSize: 15,
+                      timeline.profileName.isEmpty
+                          ? t.noProfile
+                          : timeline.profileName,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: WellnessColors.textSecondary(context),
                       ),
                     ),
                   ],
                 ),
               ),
 
-              /// SWITCH
-              Switch(
-                value: timeline.isActive,
+              /// SWITCH (smaller)
+              Transform.scale(
+                scale: 0.85,
+                child: Switch(
+                  value: timeline.isActive,
+                  onChanged: (value) async {
+                    await repo.toggleTimeline(timeline.id, value);
 
-                onChanged: (value) async {
-                  await repo.toggleTimeline(timeline.id, value);
+                    ref.invalidate(timelineDetailProvider(timeline.id));
+                    ref.invalidate(timelineRepositoryProvider);
+                  },
+                ),
+              ),
 
-                  ref.invalidate(timelineDetailProvider(timeline.id));
-                  ref.invalidate(timelineRepositoryProvider);
-                },
+              /// DELETE ICON (CLEAN)
+              IconButton(
+                icon: const Icon(Icons.delete_outline),
+                color: WellnessColors.error,
+                onPressed: deleteTimeline,
               ),
             ],
           ),
 
-          const SizedBox(height: 22),
+          const SizedBox(height: 12),
 
-          /// INFO
+          /// INFO ROW (compact instead of cards)
           Row(
             children: [
-              Expanded(
-                child: _InfoCard(
-                  title: t.status,
-                  value: timeline.isActive ? t.active : t.paused,
-                ),
+              _MiniInfo(
+                label: t.status,
+                value: timeline.isActive ? t.active : t.paused,
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _InfoCard(
-                  title: t.medicine,
-                  value: '${timeline.slots.length}',
-                ),
-              ),
+              const SizedBox(width: 16),
+              _MiniInfo(label: t.medicine, value: '${timeline.slots.length}'),
             ],
           ),
         ],
@@ -109,38 +133,30 @@ class TimelineHeaderCard extends ConsumerWidget {
   }
 }
 
-class _InfoCard extends StatelessWidget {
-  final String title;
+class _MiniInfo extends StatelessWidget {
+  final String label;
   final String value;
 
-  const _InfoCard({required this.title, required this.value});
+  const _MiniInfo({required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.12),
-        borderRadius: BorderRadius.circular(22),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(color: Colors.white70, fontSize: 12),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            color: WellnessColors.textSecondary(context),
           ),
-          const SizedBox(height: 4),
-          Text(
-            value,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 17,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          value,
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+        ),
+      ],
     );
   }
 }

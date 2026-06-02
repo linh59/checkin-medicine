@@ -456,7 +456,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirmDelete => 'Delete this schedule?';
 
   @override
-  String get addToPlan => 'Add to Plan';
+  String get addToPlan => 'Add a plan';
 
   @override
   String get add => 'Add';
@@ -466,4 +466,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectMedicine => 'Please select a medicine';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get deleteTimelineConfirm => 'Do you want to delete this timeline?';
+
+  @override
+  String get deleteSuccess => 'Deleted successfully';
+
+  @override
+  String get updateSuccess => 'Updated successfully';
+
+  @override
+  String get addSuccess => 'Added successfully';
+
+  @override
+  String get noSchedule => 'No schedule';
 }

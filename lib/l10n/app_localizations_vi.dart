@@ -465,4 +465,22 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get selectMedicine => 'Vui lòng chọn thuốc';
+
+  @override
+  String get confirm => 'Xác nhận';
+
+  @override
+  String get deleteTimelineConfirm => 'Bạn có muốn xóa lịch uống này không?';
+
+  @override
+  String get deleteSuccess => 'Xóa thành công';
+
+  @override
+  String get updateSuccess => 'Cập nhật thành công';
+
+  @override
+  String get addSuccess => 'Thêm thành công';
+
+  @override
+  String get noSchedule => 'Chưa có lịch';
 }

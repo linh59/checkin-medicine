@@ -41,31 +41,28 @@ class _TimelineDetailPageState extends ConsumerState<TimelineDetailPage>
     Future<void> _refresh(String action) async {
       ref.invalidate(timelineDetailProvider(widget.timelineId));
 
-      await Future.delayed(const Duration(milliseconds: 300));
+      await Future.delayed(const Duration(milliseconds: 200));
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            action == 'deleted'
-                ? 'Schedule deleted successfully'
-                : 'Schedule updated successfully',
-          ),
-        ),
-      );
+      String msg;
+
+      switch (action) {
+        case 'deleted':
+          msg = 'Schedule deleted successfully';
+          break;
+        case 'deleted plan':
+          msg = 'Plan item deleted successfully';
+          break;
+        default:
+          msg = 'Schedule updated successfully';
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
     }
 
     return Scaffold(
-      backgroundColor: isDark
-          ? const Color(0xFF0F172A)
-          : const Color(0xFFF6FAF9),
-
-      appBar: AppBar(
-        title: Text(t.schedule),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      appBar: AppBar(title: Text(t.schedule)),
 
       body: timelineAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -73,27 +70,28 @@ class _TimelineDetailPageState extends ConsumerState<TimelineDetailPage>
         error: (e, _) => Center(child: Text(e.toString())),
 
         data: (TimelineDetailModel timeline) {
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
+          return PopScope(
+            onPopInvoked: (didPop) {
+              // optional future enhancement
+            },
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TimelineHeaderCard(timeline: timeline),
 
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+                  const SizedBox(height: 16),
 
-              children: [
-                /// HEADER
-                TimelineHeaderCard(timeline: timeline),
+                  TimelineScheduleTab(
+                    controller: _tabController,
+                    timeline: timeline,
+                    onRefresh: _refresh,
+                  ),
 
-                const SizedBox(height: 16),
-
-                /// TAB SYSTEM
-                TimelineScheduleTab(
-                  controller: _tabController,
-                  timeline: timeline,
-                  onRefresh: _refresh,
-                ),
-
-                const SizedBox(height: 24),
-              ],
+                  const SizedBox(height: 24),
+                ],
+              ),
             ),
           );
         },
