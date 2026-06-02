@@ -143,5 +143,18 @@
     }
   },
   "noScheduleYet": "No schedule yet",
-  "pills": "pill(s)"
+  "pills": "pill(s)",
+  "dose": "Dose",
+  "editSchedule": "Edit Schedule",
+  "time": "Time",
+  "withFood": "With food",
+  "save": "Save",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "confirmDelete": "Delete this schedule?",
+   "addToPlan": "Add to Plan",
+  "add": "Add",
+  "withFoodHint": "Before/after meal 30 mins...",
+  "selectMedicine": "Please select a medicine"
+
 }

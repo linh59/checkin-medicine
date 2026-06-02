@@ -127,4 +127,24 @@ class PlansNotifier extends AsyncNotifier<List<PlanModel>> {
 
     await refresh();
   }
+
+  Future<void> updatePlanItem({
+    required String slotId,
+    required String planItemId,
+    required double dose,
+    required String time,
+    String? withFood,
+  }) async {
+    await repo.updatePlanItem(
+      slotId: slotId,
+      planItemId: planItemId,
+      dose: dose,
+      time: time,
+      withFood: withFood,
+    );
+  }
+
+  Future<void> deletePlanItem(String slotId) async {
+    await repo.deletePlanItem(slotId);
+  }
 }

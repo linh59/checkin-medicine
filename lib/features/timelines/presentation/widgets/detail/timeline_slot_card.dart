@@ -1,5 +1,6 @@
 import 'package:checkin_medicine/core/theme/app_colors.dart';
 import 'package:checkin_medicine/features/timelines/data/models/timeline_slot_model.dart';
+import 'package:checkin_medicine/features/timelines/presentation/pages/edit_plan_page.dart';
 import 'package:checkin_medicine/features/timelines/presentation/providers/timeline_detail_provider.dart';
 import 'package:checkin_medicine/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -9,28 +10,15 @@ class TimelineSlotCard extends ConsumerWidget {
   final TimelineSlotModel slot;
   final bool isLast;
   final VoidCallback onTap;
+  final Future<void> Function(String action)? onRefresh;
 
   const TimelineSlotCard({
     super.key,
     required this.slot,
     required this.isLast,
     required this.onTap,
+    this.onRefresh,
   });
-
-  String _foodLabel(BuildContext context, String? value) {
-    final t = AppLocalizations.of(context)!;
-
-    switch (value) {
-      case 'before':
-        return t.beforeMeal;
-      case 'after':
-        return t.afterMeal;
-      case 'with':
-        return t.withMeal;
-      default:
-        return '';
-    }
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,7 +35,6 @@ class TimelineSlotCard extends ConsumerWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// TIME (FIXED - NO WRAP)
           SizedBox(
             width: isTablet ? 64 : 54,
             child: FittedBox(
@@ -104,7 +91,7 @@ class TimelineSlotCard extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          /// MEDICINE NAME (FULL, NO ELLIPSIS)
+                          /// MEDICINE NAME
                           Text(
                             slot.nickname ?? slot.medicineName,
                             maxLines: 3,
@@ -145,7 +132,7 @@ class TimelineSlotCard extends ConsumerWidget {
                                   borderRadius: BorderRadius.circular(999),
                                 ),
                                 child: Text(
-                                  _foodLabel(context, slot.withFood),
+                                  slot.withFood ?? '',
                                   style: const TextStyle(
                                     color: WellnessColors.primary,
                                     fontSize: 12,
@@ -160,20 +147,38 @@ class TimelineSlotCard extends ConsumerWidget {
 
                     const SizedBox(width: 8),
 
-                    /// SWITCH
-                    Padding(
-                      padding: const EdgeInsets.only(top: 2),
-                      child: Transform.scale(
-                        scale: isTablet ? 0.95 : 0.82,
-                        child: Switch(
-                          value: slot.notifyEnabled,
-                          onChanged: (value) async {
-                            await repository.toggleNotify(slot.slotId, value);
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit_outlined),
+                          onPressed: () async {
+                            final result = await Navigator.push<String>(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => EditPlanItemPage(slot: slot),
+                              ),
+                            );
 
-                            ref.invalidate(timelineDetailProvider(slot.slotId));
+                            if (result != null && context.mounted) {
+                              onRefresh!(result);
+                            }
                           },
                         ),
-                      ),
+
+                        Transform.scale(
+                          scale: 0.82,
+                          child: Switch(
+                            value: slot.notifyEnabled,
+                            onChanged: (value) async {
+                              await repository.toggleNotify(slot.slotId, value);
+
+                              ref.invalidate(
+                                timelineDetailProvider(slot.slotId),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

@@ -143,5 +143,17 @@
     }
   },
   "noScheduleYet": "Chưa có lịch uống",
-  "pills": "viên"
+  "pills": "viên",
+  "dose": "Liều dùng",
+  "editSchedule": "Chỉnh sửa lịch",
+  "time": "Giờ",
+  "withFood": "Uống cùng thức ăn",
+  "save": "Lưu",
+  "delete": "Xoá",
+  "cancel": "Huỷ",
+  "confirmDelete": "Xoá lịch này?",
+   "addToPlan": "Thêm vào lịch",
+  "add": "Thêm",
+  "withFoodHint": "Trước ăn / sau ăn 30 phút...",
+  "selectMedicine": "Vui lòng chọn thuốc"
 }

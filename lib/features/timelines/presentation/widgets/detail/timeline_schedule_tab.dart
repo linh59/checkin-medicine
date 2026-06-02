@@ -1,6 +1,7 @@
 import 'package:checkin_medicine/features/medicine/presentation/pages/medicine_detail_page.dart';
 import 'package:checkin_medicine/features/timelines/data/models/timeline_detail_model.dart';
 import 'package:checkin_medicine/features/timelines/data/models/timeline_slot_model.dart';
+import 'package:checkin_medicine/features/timelines/presentation/pages/add_to_plan_page.dart';
 import 'package:checkin_medicine/features/timelines/presentation/widgets/detail/timeline_slot_card.dart';
 import 'package:checkin_medicine/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +9,13 @@ import 'package:flutter/material.dart';
 class TimelineScheduleTab extends StatelessWidget {
   final TabController controller;
   final TimelineDetailModel timeline;
+  final Future<void> Function(String action) onRefresh;
 
   const TimelineScheduleTab({
     super.key,
     required this.controller,
     required this.timeline,
+    required this.onRefresh,
   });
 
   @override
@@ -36,7 +39,11 @@ class TimelineScheduleTab extends StatelessWidget {
 
             children: [
               /// SCHEDULE
-              _ScheduleContent(slots: timeline.slots),
+              _ScheduleContent(
+                timelineId: timeline.id,
+                slots: timeline.slots,
+                onRefresh: onRefresh,
+              ),
 
               /// SAFETY
               _SafetyContent(title: t.safety, subtitle: t.comingSoon),
@@ -150,42 +157,78 @@ class _TabItem extends StatelessWidget {
 }
 
 class _ScheduleContent extends StatelessWidget {
+  final String timelineId;
   final List<TimelineSlotModel> slots;
-
-  const _ScheduleContent({required this.slots});
+  final Future<void> Function(String action) onRefresh;
+  const _ScheduleContent({
+    required this.timelineId,
+    required this.slots,
+    required this.onRefresh,
+  });
 
   @override
   Widget build(BuildContext context) {
-    if (slots.isEmpty) {
-      return const Center(child: Text("No schedule"));
-    }
+    return Column(
+      children: [
+        Expanded(
+          child: slots.isEmpty
+              ? const Center(child: Text('No schedule'))
+              : ListView.separated(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: slots.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 12),
+                  itemBuilder: (context, index) {
+                    final slot = slots[index];
 
-    return ListView.separated(
-      padding: const EdgeInsets.all(16),
-
-      itemCount: slots.length,
-
-      separatorBuilder: (_, __) => const SizedBox(height: 12),
-
-      itemBuilder: (context, index) {
-        final slot = slots[index];
-
-        return TimelineSlotCard(
-          slot: slot,
-          isLast: index == slots.length - 1,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => MedicineDetailPage(
-                  slug: slot.medicineSlug,
-                  isAddedMedicine: true,
+                    return TimelineSlotCard(
+                      slot: slot,
+                      isLast: index == slots.length - 1,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => MedicineDetailPage(
+                              slug: slot.medicineSlug,
+                              isAddedMedicine: true,
+                            ),
+                          ),
+                        );
+                      },
+                      onRefresh: (action) async {
+                        onRefresh(action);
+                      },
+                    );
+                  },
                 ),
+        ),
+
+        SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+            child: SizedBox(
+              width: double.infinity,
+              height: 52,
+              child: FilledButton.icon(
+                icon: const Icon(Icons.add),
+                label: const Text('Add To Plan'),
+                onPressed: () async {
+                  final result = await Navigator.push<String>(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => AddToPlanPage(planId: timelineId),
+                    ),
+                  );
+
+                  if (result != null) {
+                    onRefresh(result);
+                  }
+                },
               ),
-            );
-          },
-        );
-      },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

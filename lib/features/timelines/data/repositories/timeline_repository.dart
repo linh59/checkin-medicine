@@ -191,4 +191,26 @@ plan_items(
       'with_food': withFood,
     });
   }
+
+  Future<void> updatePlanItem({
+    required String slotId,
+    required String planItemId,
+    required double dose,
+    required String time,
+    String? withFood,
+  }) async {
+    await supabase
+        .from('plan_items')
+        .update({'dose_per_take': dose})
+        .eq('id', planItemId);
+
+    await supabase
+        .from('plan_schedule')
+        .update({'time_of_day': '$time:00', 'with_food': withFood})
+        .eq('id', slotId);
+  }
+
+  Future<void> deletePlanItem(String slotId) async {
+    await supabase.from('plan_schedule').delete().eq('id', slotId);
+  }
 }

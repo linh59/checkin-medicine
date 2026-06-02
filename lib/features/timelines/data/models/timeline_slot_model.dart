@@ -6,7 +6,7 @@ class TimelineSlotModel {
   final String medicineSlug;
   final String? nickname;
 
-  final int dose;
+  final double dose;
 
   final String time;
 
@@ -55,7 +55,7 @@ class TimelineSlotModel {
 
       nickname: json['nickname'],
 
-      dose: int.tryParse(json['dose'].toString()) ?? 1,
+      dose: double.tryParse(json['dose'].toString()) ?? 1,
 
       time: json['time'] ?? '08:00',
 

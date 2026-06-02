@@ -429,4 +429,40 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get pills => 'viên';
+
+  @override
+  String get dose => 'Liều dùng';
+
+  @override
+  String get editSchedule => 'Chỉnh sửa lịch';
+
+  @override
+  String get time => 'Giờ';
+
+  @override
+  String get withFood => 'Uống cùng thức ăn';
+
+  @override
+  String get save => 'Lưu';
+
+  @override
+  String get delete => 'Xoá';
+
+  @override
+  String get cancel => 'Huỷ';
+
+  @override
+  String get confirmDelete => 'Xoá lịch này?';
+
+  @override
+  String get addToPlan => 'Thêm vào lịch';
+
+  @override
+  String get add => 'Thêm';
+
+  @override
+  String get withFoodHint => 'Trước ăn / sau ăn 30 phút...';
+
+  @override
+  String get selectMedicine => 'Vui lòng chọn thuốc';
 }

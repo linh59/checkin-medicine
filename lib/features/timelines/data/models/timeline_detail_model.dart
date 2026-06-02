@@ -49,7 +49,7 @@ class TimelineDetailModel {
 
             nickname: item['my_medicines']?['nickname'],
 
-            dose: int.tryParse(item['dose_per_take'].toString()) ?? 1,
+            dose: double.tryParse(item['dose_per_take'].toString()) ?? 1,
 
             time: (schedule['time_of_day'] ?? '08:00:00').toString().substring(
               0,

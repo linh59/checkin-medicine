@@ -925,6 +925,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'pill(s)'**
   String get pills;
+
+  /// No description provided for @dose.
+  ///
+  /// In en, this message translates to:
+  /// **'Dose'**
+  String get dose;
+
+  /// No description provided for @editSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Schedule'**
+  String get editSchedule;
+
+  /// No description provided for @time.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
+
+  /// No description provided for @withFood.
+  ///
+  /// In en, this message translates to:
+  /// **'With food'**
+  String get withFood;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @confirmDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this schedule?'**
+  String get confirmDelete;
+
+  /// No description provided for @addToPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Plan'**
+  String get addToPlan;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
+
+  /// No description provided for @withFoodHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Before/after meal 30 mins...'**
+  String get withFoodHint;
+
+  /// No description provided for @selectMedicine.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a medicine'**
+  String get selectMedicine;
 }
 
 class _AppLocalizationsDelegate

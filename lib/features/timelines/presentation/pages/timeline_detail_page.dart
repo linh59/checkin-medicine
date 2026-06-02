@@ -38,6 +38,23 @@ class _TimelineDetailPageState extends ConsumerState<TimelineDetailPage>
     final timelineAsync = ref.watch(timelineDetailProvider(widget.timelineId));
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    Future<void> _refresh(String action) async {
+      ref.invalidate(timelineDetailProvider(widget.timelineId));
+
+      await Future.delayed(const Duration(milliseconds: 300));
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            action == 'deleted'
+                ? 'Schedule deleted successfully'
+                : 'Schedule updated successfully',
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       backgroundColor: isDark
@@ -72,6 +89,7 @@ class _TimelineDetailPageState extends ConsumerState<TimelineDetailPage>
                 TimelineScheduleTab(
                   controller: _tabController,
                   timeline: timeline,
+                  onRefresh: _refresh,
                 ),
 
                 const SizedBox(height: 24),

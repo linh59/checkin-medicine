@@ -430,4 +430,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pills => 'pill(s)';
+
+  @override
+  String get dose => 'Dose';
+
+  @override
+  String get editSchedule => 'Edit Schedule';
+
+  @override
+  String get time => 'Time';
+
+  @override
+  String get withFood => 'With food';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get confirmDelete => 'Delete this schedule?';
+
+  @override
+  String get addToPlan => 'Add to Plan';
+
+  @override
+  String get add => 'Add';
+
+  @override
+  String get withFoodHint => 'Before/after meal 30 mins...';
+
+  @override
+  String get selectMedicine => 'Please select a medicine';
 }

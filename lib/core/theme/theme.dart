@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/core/theme/app_input_theme.dart';
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
@@ -11,12 +12,7 @@ class AppTheme {
       surface: WellnessColors.surfaceLight,
       error: WellnessColors.error,
     ),
-
-    inputDecorationTheme: InputDecorationTheme(
-      filled: true,
-      fillColor: Colors.white,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
-    ),
+    inputDecorationTheme: AppInputTheme.light,
 
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -39,10 +35,6 @@ class AppTheme {
       error: WellnessColors.error,
     ),
 
-    inputDecorationTheme: InputDecorationTheme(
-      filled: true,
-      fillColor: WellnessColors.surfaceDark,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
-    ),
+    inputDecorationTheme: AppInputTheme.dark,
   );
 }
