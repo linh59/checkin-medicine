@@ -1,8 +1,9 @@
 import 'package:checkin_medicine/features/timelines/data/models/timeline_detail_model.dart';
-import 'package:checkin_medicine/features/timelines/presentation/providers/timeline_detail_provider.dart';
+import 'package:checkin_medicine/features/timelines/presentation/providers/timelines_provider.dart';
 import 'package:checkin_medicine/features/timelines/presentation/widgets/detail/timeline_header_card.dart';
 import 'package:checkin_medicine/features/timelines/presentation/widgets/detail/timeline_schedule_tab.dart';
 import 'package:checkin_medicine/l10n/app_localizations.dart';
+import 'package:checkin_medicine/shared/providers/app_refresh_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -37,7 +38,6 @@ class _TimelineDetailPageState extends ConsumerState<TimelineDetailPage>
 
     final timelineAsync = ref.watch(timelineDetailProvider(widget.timelineId));
 
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     Future<void> _refresh(String action) async {
       ref.invalidate(timelineDetailProvider(widget.timelineId));
 
@@ -71,8 +71,10 @@ class _TimelineDetailPageState extends ConsumerState<TimelineDetailPage>
 
         data: (TimelineDetailModel timeline) {
           return PopScope(
-            onPopInvoked: (didPop) {
-              // optional future enhancement
+            onPopInvokedWithResult: (didPop, result) {
+              if (didPop) {
+                ref.read(appRefreshProvider).refreshAll();
+              }
             },
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),

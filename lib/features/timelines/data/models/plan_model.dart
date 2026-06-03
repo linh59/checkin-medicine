@@ -9,6 +9,7 @@ class PlanModel {
   final DateTime createdAt;
 
   final int itemCount;
+  final bool archived;
 
   PlanModel({
     required this.id,
@@ -20,6 +21,7 @@ class PlanModel {
     required this.color,
     required this.createdAt,
     required this.itemCount,
+    required this.archived,
   });
 
   factory PlanModel.fromJson(Map<String, dynamic> json) {
@@ -40,6 +42,8 @@ class PlanModel {
       color: json['color'] ?? 'amber',
       createdAt: DateTime.parse(json['created_at']),
       itemCount: count,
+      archived:
+          json['archived'] == true || json['archived']?.toString() == 'true',
     );
   }
 }

@@ -1,6 +1,6 @@
-import 'package:checkin_medicine/features/home/data/models/today_timeline_group_model.dart';
-import 'package:checkin_medicine/features/home/data/models/today_timeline_item_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../models/today_timeline_group_model.dart';
+import '../models/today_timeline_item_model.dart';
 
 class TodayRepository {
   final _supabase = Supabase.instance.client;
@@ -16,10 +16,12 @@ class TodayRepository {
           plan_items(
             id,
             dose_per_take,
+            archived,
 
             my_medicines(
               id,
               nickname,
+              archived,
 
               medicines(
                 brand,
@@ -31,7 +33,8 @@ class TodayRepository {
               id,
               time_of_day,
               with_food,
-              notes
+              notes,
+              archived
             )
           )
         ''')
@@ -39,24 +42,20 @@ class TodayRepository {
         .eq('is_active', true);
 
     final now = DateTime.now();
-
     final start = DateTime(now.year, now.month, now.day);
-
     final end = start.add(const Duration(days: 1));
 
     final logs = await _supabase
         .from('intake_logs')
-        .select('''
-          plan_schedule_id,
-          status
-        ''')
+        .select('plan_schedule_id, status')
         .eq('profile_id', profileId)
         .gte('taken_at', start.toIso8601String())
         .lt('taken_at', end.toIso8601String());
 
     final takenSet = logs
-        .where((e) => e['status'] == 'taken')
-        .map((e) => e['plan_schedule_id'].toString())
+        .where((e) => (e['status'] ?? '') == 'taken')
+        .map((e) => e['plan_schedule_id']?.toString())
+        .whereType<String>()
         .toSet();
 
     final items = <TodayTimelineItem>[];
@@ -65,39 +64,32 @@ class TodayRepository {
       final planItems = plan['plan_items'] as List<dynamic>? ?? [];
 
       for (final item in planItems) {
-        final schedules = item['plan_schedule'] as List<dynamic>? ?? [];
+        if (item['archived'] == true) continue;
+
+        final schedules = (item['plan_schedule'] as List<dynamic>? ?? [])
+            .where((e) => e['archived'] != true)
+            .toList();
 
         final medicine = item['my_medicines'] ?? {};
-
         final medicineInfo = medicine['medicines'] ?? {};
+
+        final nickname = (medicine['nickname'] ?? '').toString();
+        final brand = (medicineInfo['brand'] ?? '').toString();
 
         for (final schedule in schedules) {
           final scheduleId = schedule['id']?.toString() ?? '';
 
-          final nickname = medicine['nickname']?.toString() ?? '';
-
-          final brand = medicineInfo['brand']?.toString() ?? '';
-
           items.add(
             TodayTimelineItem(
               scheduleId: scheduleId,
-
               planItemId: item['id']?.toString() ?? '',
-
               myMedicineId: medicine['id']?.toString() ?? '',
-
               medicineName: nickname.trim().isNotEmpty ? nickname : brand,
-
               nickname: nickname,
-
               dose: double.tryParse(item['dose_per_take'].toString()) ?? 1,
-
               timeOfDay: schedule['time_of_day']?.toString() ?? '08:00:00',
-
               withFood: schedule['with_food']?.toString(),
-
               notes: schedule['notes']?.toString(),
-
               taken: takenSet.contains(scheduleId),
             ),
           );
@@ -109,7 +101,6 @@ class TodayRepository {
 
     for (final item in items) {
       grouped.putIfAbsent(item.timeOfDay, () => []);
-
       grouped[item.timeOfDay]!.add(item);
     }
 

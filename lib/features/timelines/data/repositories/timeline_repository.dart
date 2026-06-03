@@ -10,6 +10,7 @@ class TimelineRepository {
         .from('plans')
         .select('*, plan_items(count)')
         .eq('profile_id', profileId)
+        .eq('archived', false)
         .order('created_at');
 
     return (res as List).map((e) => PlanModel.fromJson(e)).toList();
@@ -42,7 +43,7 @@ plan_items(
   dose_per_take,
   repeat_kind,
   repeat_interval,
-
+  archived,
   my_medicines(
     id,
     nickname,
@@ -64,12 +65,26 @@ plan_items(
     notify_enabled,
     notify_offset_min,
     notify_sound,
+    archived,
     created_at
   )
 )
 ''')
         .eq('id', id)
         .single();
+    final planItems = (response['plan_items'] as List<dynamic>? ?? [])
+        .where((e) => e['archived'] != true)
+        .map((e) {
+          e['plan_schedule'] = (e['plan_schedule'] as List<dynamic>? ?? [])
+              .where((s) => s['archived'] != true)
+              .toList();
+
+          return e;
+        })
+        .where((e) => (e['plan_schedule'] as List).isNotEmpty)
+        .toList();
+
+    response['plan_items'] = planItems;
 
     return TimelineDetailModel.fromJson(response);
   }
@@ -120,6 +135,7 @@ plan_items(
         .select('id')
         .eq('plan_id', planId)
         .eq('my_medicine_id', myMedicineId)
+        .eq('archived', false)
         .maybeSingle();
 
     String planItemId;
@@ -211,6 +227,30 @@ plan_items(
   }
 
   Future<void> deletePlanItem(String slotId) async {
-    await supabase.from('plan_schedule').delete().eq('id', slotId);
+    final schedule = await supabase
+        .from('plan_schedule')
+        .select('plan_item_id')
+        .eq('id', slotId)
+        .single();
+
+    final planItemId = schedule['plan_item_id'];
+
+    await supabase
+        .from('plan_schedule')
+        .update({'archived': true})
+        .eq('id', slotId);
+
+    final remain = await supabase
+        .from('plan_schedule')
+        .select('id')
+        .eq('plan_item_id', planItemId)
+        .eq('archived', false);
+
+    if (remain.isEmpty) {
+      await supabase
+          .from('plan_items')
+          .update({'archived': true})
+          .eq('id', planItemId);
+    }
   }
 }

@@ -14,6 +14,7 @@ class PlanScheduleModel {
   final String? notifySound;
 
   final DateTime? createdAt;
+  final bool archived;
 
   const PlanScheduleModel({
     required this.id,
@@ -26,6 +27,7 @@ class PlanScheduleModel {
     required this.notifyOffsetMin,
     required this.notifySound,
     required this.createdAt,
+    required this.archived,
   });
 
   factory PlanScheduleModel.fromJson(Map<String, dynamic> json) {
@@ -54,6 +56,8 @@ class PlanScheduleModel {
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])
           : null,
+      archived:
+          json['archived'] == true || json['archived']?.toString() == 'true',
     );
   }
 }

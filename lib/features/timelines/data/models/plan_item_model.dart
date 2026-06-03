@@ -6,6 +6,7 @@ class PlanItemModel {
   final String repeatKind;
   final int repeatInterval;
   final int totalPerDay;
+  final bool archived;
 
   PlanItemModel({
     required this.id,
@@ -15,6 +16,7 @@ class PlanItemModel {
     required this.repeatKind,
     required this.repeatInterval,
     required this.totalPerDay,
+    required this.archived,
   });
 
   factory PlanItemModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,8 @@ class PlanItemModel {
       repeatKind: json['repeat_kind'] ?? 'daily',
       repeatInterval: int.tryParse(json['repeat_interval'].toString()) ?? 1,
       totalPerDay: int.tryParse(json['total_per_day'].toString()) ?? 1,
+      archived:
+          json['archived'] == true || json['archived']?.toString() == 'true',
     );
   }
 }

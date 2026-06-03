@@ -9,37 +9,40 @@ class MyMedicineRepository {
     final response = await _supabase
         .from('my_medicines')
         .select('''
-        id,
-        profile_id,
-        medicine_id,
-        nickname,
-        custom_dose_per_take,
-        notes,
-        started_at,
-        archived,
-        created_at,
-        updated_at,
-
-        medicines (
           id,
-          slug,
-          brand,
-          generic_name,
-          manufacturer,
-          form,
-          created_by
-        ),
+          profile_id,
+          medicine_id,
+          nickname,
+          custom_dose_per_take,
+          notes,
+          started_at,
+          archived,
+          created_at,
+          updated_at,
 
-        plan_items (
-          id
-        )
-      ''')
+          medicines (
+            id,
+            slug,
+            brand,
+            generic_name,
+            manufacturer,
+            form,
+            created_by
+          ),
+
+          plan_items (
+            id,
+            archived
+          )
+        ''')
         .eq('profile_id', profileId)
         .eq('archived', false)
         .order('created_at', ascending: false);
 
     return response.map<MyMedicineModel>((e) {
-      final plans = e['plan_items'] as List<dynamic>? ?? [];
+      final plans = (e['plan_items'] as List<dynamic>? ?? [])
+          .where((p) => p['archived'] != true)
+          .toList();
 
       return MyMedicineModel.fromMap({...e, 'can_delete': plans.isEmpty});
     }).toList();
@@ -47,10 +50,13 @@ class MyMedicineRepository {
 
   Future<void> deleteMedicine(MyMedicineModel medicine) async {
     if (!medicine.canDelete) {
-      throw Exception('Medicine is used in timeline');
+      throw Exception('Medicine is being used in active timeline');
     }
 
-    await _supabase.from('my_medicines').delete().eq('id', medicine.id);
+    await _supabase
+        .from('my_medicines')
+        .update({'archived': true})
+        .eq('id', medicine.id);
   }
 
   Future<void> addMedicine({

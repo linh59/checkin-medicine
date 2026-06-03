@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/features/timelines/data/models/timeline_detail_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../auth/presentation/providers/profile_provider.dart';
@@ -78,6 +79,7 @@ class PlansNotifier extends AsyncNotifier<List<PlanModel>> {
             color: p.color,
             createdAt: p.createdAt,
             itemCount: p.itemCount,
+            archived: p.archived,
           );
         }
 
@@ -148,3 +150,8 @@ class PlansNotifier extends AsyncNotifier<List<PlanModel>> {
     await repo.deletePlanItem(slotId);
   }
 }
+
+final timelineDetailProvider =
+    FutureProvider.family<TimelineDetailModel, String>((ref, id) async {
+      return ref.read(timelineRepositoryProvider).getTimelineDetail(id);
+    });

@@ -21,7 +21,6 @@ class TimelineScheduleTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
 
     return Column(
       children: [
@@ -182,7 +181,7 @@ class _ScheduleContent extends StatelessWidget {
 
                     return TimelineSlotCard(
                       slot: slot,
-                      // isLast: index == slots.length - 1,
+
                       onTap: () {
                         Navigator.push(
                           context,

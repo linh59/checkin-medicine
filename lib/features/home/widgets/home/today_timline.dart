@@ -163,10 +163,14 @@ class TodayList extends ConsumerWidget {
 
                             FilledButton.icon(
                               onPressed: () async {
-                                final action = ref.read(todayActionProvider);
+                                final action = ref.read(
+                                  todayActionProvider.notifier,
+                                );
 
                                 if (item.taken) {
-                                  await action.undoTaken(item.scheduleId);
+                                  await action.undoTaken(
+                                    scheduleId: item.scheduleId,
+                                  );
                                 } else {
                                   await action.markAsTaken(
                                     scheduleId: item.scheduleId,

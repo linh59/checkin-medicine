@@ -1,8 +1,6 @@
 import 'package:checkin_medicine/core/theme/app_colors.dart';
 import 'package:checkin_medicine/features/timelines/data/models/timeline_detail_model.dart';
-import 'package:checkin_medicine/features/timelines/presentation/providers/timeline_detail_provider.dart';
-import 'package:checkin_medicine/features/timelines/presentation/providers/timelines_provider.dart'
-    hide timelineRepositoryProvider;
+import 'package:checkin_medicine/features/timelines/presentation/providers/timelines_provider.dart';
 import 'package:checkin_medicine/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

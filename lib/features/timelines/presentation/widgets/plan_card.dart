@@ -129,6 +129,6 @@ class PlanCard extends ConsumerWidget {
 
   String _buildSubtitle(AppLocalizations t) {
     final status = plan.isActive ? t.active : t.paused;
-    return '${plan.itemCount} ${t.medicine} · ${plan.mode} · $status';
+    return status;
   }
 }

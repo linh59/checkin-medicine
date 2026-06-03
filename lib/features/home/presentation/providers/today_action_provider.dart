@@ -1,44 +1,44 @@
-import 'package:checkin_medicine/features/auth/presentation/providers/profile_provider.dart';
-import 'package:checkin_medicine/features/home/presentation/providers/today_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../auth/presentation/providers/profile_provider.dart';
+import 'today_provider.dart';
+import '../../data/repositories/today_repository.dart';
 
-final todayActionProvider = Provider((ref) => TodayActionController(ref));
+final todayRepositoryProvider = Provider<TodayRepository>(
+  (ref) => TodayRepository(),
+);
 
-class TodayActionController {
-  final Ref ref;
+final todayActionProvider = AsyncNotifierProvider<TodayActionNotifier, void>(
+  TodayActionNotifier.new,
+);
 
-  TodayActionController(this.ref);
+class TodayActionNotifier extends AsyncNotifier<void> {
+  @override
+  Future<void> build() async {}
 
   Future<void> markAsTaken({
     required String scheduleId,
     required String myMedicineId,
   }) async {
-    final profileId = ref.read(profileProvider).profile?.id;
+    final repo = ref.read(todayRepositoryProvider);
+    final profileId = ref.read(profileProvider).profile!.id;
 
-    if (profileId == null) return;
+    await repo.markAsTaken(
+      profileId: profileId,
+      scheduleId: scheduleId,
+      myMedicineId: myMedicineId,
+    );
 
-    await ref
-        .read(todayRepositoryProvider)
-        .markAsTaken(
-          profileId: profileId,
-          scheduleId: scheduleId,
-          myMedicineId: myMedicineId,
-        );
-
+    // 🔥 FORCE UI UPDATE
     ref.invalidate(todayTimelineProvider);
   }
 
-  Future<void> undoTaken(String scheduleId) async {
-    final profileId = ref.read(profileProvider).profile?.id;
+  Future<void> undoTaken({required String scheduleId}) async {
+    final repo = ref.read(todayRepositoryProvider);
+    final profileId = ref.read(profileProvider).profile!.id;
 
-    if (profileId == null) {
-      return;
-    }
+    await repo.undoTaken(profileId: profileId, scheduleId: scheduleId);
 
-    await ref
-        .read(todayRepositoryProvider)
-        .undoTaken(profileId: profileId, scheduleId: scheduleId);
-
+    // 🔥 FORCE UI UPDATE
     ref.invalidate(todayTimelineProvider);
   }
 }
