@@ -1,9 +1,10 @@
+import 'package:checkin_medicine/features/home/widgets/home/today_timline.dart';
 import 'package:checkin_medicine/features/my_medicines/presentation/pages/my_medicines_page.dart';
 import 'package:checkin_medicine/features/search/presentation/pages/search_page.dart';
 import 'package:checkin_medicine/features/timelines/presentation/pages/timeline_page.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../l10n/app_localizations.dart';
+import '../../../../../core/theme/app_colors.dart';
+import '../../../../../l10n/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,7 +12,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-
     return SafeArea(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -46,13 +46,12 @@ class HomePage extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // 📋 TODAY LIST
-            _TodayList(),
+            TodayList(),
 
             const SizedBox(height: 20),
 
-            // 👨‍👩‍👧 FAMILY
-            _FamilySection(),
+            // FAMILY
+            // _FamilySection(),
           ],
         ),
       ),
@@ -181,38 +180,6 @@ class _SafetyCard extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _TodayList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(t.todayCheckin, style: Theme.of(context).textTheme.titleMedium),
-
-        const SizedBox(height: 10),
-
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: 3,
-          itemBuilder: (context, i) {
-            return Card(
-              child: ListTile(
-                leading: const Icon(Icons.medical_information),
-                title: Text("Medicine ${i + 1}"),
-                subtitle: const Text("08:00 - After breakfast"),
-                trailing: const Icon(Icons.check_circle_outline),
-              ),
-            );
-          },
-        ),
-      ],
     );
   }
 }
