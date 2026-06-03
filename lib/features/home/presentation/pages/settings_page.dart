@@ -1,53 +1,39 @@
+import 'package:checkin_medicine/features/auth/presentation/providers/auth_provider.dart';
 import 'package:checkin_medicine/features/home/widgets/logout_button.dart';
+import 'package:checkin_medicine/l10n/app_localizations.dart';
 import 'package:checkin_medicine/shared/widgets/theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-
-import '../../../l10n/app_localizations.dart';
-import '../../auth/presentation/pages/login_page.dart';
-import '../../auth/presentation/providers/auth_provider.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
-  const SettingsPage({
-    super.key,
-  });
+  const SettingsPage({super.key});
 
   @override
-  ConsumerState<SettingsPage> createState() =>
-      _SettingsPageState();
+  ConsumerState<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _SettingsPageState
-    extends ConsumerState<SettingsPage> {
+class _SettingsPageState extends ConsumerState<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final size = MediaQuery.of(context).size;
 
-    final horizontalPadding =
-    size.width < 600 ? 16.0 : 24.0;
+    final horizontalPadding = size.width < 600 ? 16.0 : 24.0;
 
     final auth = ref.watch(authProvider);
     final user = auth.user;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.settings),
-      ),
+      appBar: AppBar(title: Text(t.settings)),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: horizontalPadding,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
           child: Column(
             children: [
               const SizedBox(height: 12),
 
               /// PROFILE CARD
-              _ProfileCard(
-                email: user?.email,
-              ),
+              _ProfileCard(email: user?.email),
 
               const SizedBox(height: 16),
 
@@ -72,8 +58,6 @@ class _SettingsPageState
   }
 }
 
-
-
 /// =========================
 /// PROFILE CARD
 /// =========================
@@ -90,10 +74,7 @@ class _ProfileCard extends StatelessWidget {
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(
-            blurRadius: 10,
-            color: Colors.black.withOpacity(0.05),
-          ),
+          BoxShadow(blurRadius: 10, color: Colors.black.withOpacity(0.05)),
         ],
       ),
       child: Row(
@@ -180,10 +161,7 @@ class _SettingItem extends StatelessWidget {
           Expanded(
             child: Text(
               label,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-              ),
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
             ),
           ),
 

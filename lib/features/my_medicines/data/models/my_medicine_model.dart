@@ -2,13 +2,12 @@ import 'dart:convert';
 
 import 'package:checkin_medicine/features/search/data/models/medicine_model.dart';
 
-
-
 class MyMedicineModel {
   final String id;
 
   final String profileId;
   final String medicineId;
+  final bool canDelete;
 
   final String? nickname;
   final String? customDosePerTake;
@@ -27,6 +26,7 @@ class MyMedicineModel {
     required this.id,
     required this.profileId,
     required this.medicineId,
+    required this.canDelete,
     this.nickname,
     this.customDosePerTake,
     this.notes,
@@ -37,52 +37,34 @@ class MyMedicineModel {
     this.medicine,
   });
 
-  factory MyMedicineModel.fromMap(
-      Map<String, dynamic> map,
-      ) {
+  factory MyMedicineModel.fromMap(Map<String, dynamic> map) {
     return MyMedicineModel(
       id: map['id'] ?? '',
 
-      profileId:
-      map['profile_id'] ?? '',
+      profileId: map['profile_id'] ?? '',
 
-      medicineId:
-      map['medicine_id'] ?? '',
+      medicineId: map['medicine_id'] ?? '',
 
-      nickname:
-      map['nickname'],
+      canDelete: map['can_delete'] ?? true,
 
-      customDosePerTake:
-      map['custom_dose_per_take'],
+      nickname: map['nickname'],
 
-      notes:
-      map['notes'],
+      customDosePerTake: map['custom_dose_per_take'],
 
-      startedAt:
-      map['started_at'] != null
-          ? DateTime.tryParse(
-        map['started_at'],
-      )
+      notes: map['notes'],
+
+      startedAt: map['started_at'] != null
+          ? DateTime.tryParse(map['started_at'])
           : null,
 
-      archived:
-      map['archived'] == true,
+      archived: map['archived'] == true,
 
-      createdAt:
-      DateTime.parse(
-        map['created_at'],
-      ),
+      createdAt: DateTime.parse(map['created_at']),
 
-      updatedAt:
-      DateTime.parse(
-        map['updated_at'],
-      ),
+      updatedAt: DateTime.parse(map['updated_at']),
 
-      medicine:
-      map['medicines'] != null
-          ? MedicineModel.fromJson(
-        map['medicines'],
-      )
+      medicine: map['medicines'] != null
+          ? MedicineModel.fromJson(map['medicines'])
           : null,
     );
   }
@@ -93,30 +75,18 @@ class MyMedicineModel {
       'profile_id': profileId,
       'medicine_id': medicineId,
       'nickname': nickname,
-      'custom_dose_per_take':
-      customDosePerTake,
+      'custom_dose_per_take': customDosePerTake,
       'notes': notes,
-      'started_at':
-      startedAt
-          ?.toIso8601String(),
+      'started_at': startedAt?.toIso8601String(),
       'archived': archived,
-      'created_at':
-      createdAt
-          .toIso8601String(),
-      'updated_at':
-      updatedAt
-          .toIso8601String(),
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
     };
   }
 
-  factory MyMedicineModel.fromJson(
-      String source,
-      ) {
-    return MyMedicineModel.fromMap(
-      json.decode(source),
-    );
+  factory MyMedicineModel.fromJson(String source) {
+    return MyMedicineModel.fromMap(json.decode(source));
   }
 
-  String toJson() =>
-      json.encode(toMap());
+  String toJson() => json.encode(toMap());
 }

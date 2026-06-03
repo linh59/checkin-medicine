@@ -161,5 +161,12 @@
   "deleteSuccess": "Deleted successfully",
   "updateSuccess": "Updated successfully",
   "addSuccess": "Added successfully",
-  "noSchedule": "No schedule"
+  "noSchedule": "No schedule",
+   "createTimeline": "Create Timeline",
+  "timelineName": "Timeline name",
+  "create": "Create",
+  "medicineUsedInTimeline": "Used in timeline",
+  "note": "Note",
+  "markTaken": "Mark as taken",
+  "undoTaken": "Undo"
 }

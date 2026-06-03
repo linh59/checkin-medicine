@@ -2,6 +2,7 @@ import 'package:checkin_medicine/features/home/widgets/home/today_timline.dart';
 import 'package:checkin_medicine/features/my_medicines/presentation/pages/my_medicines_page.dart';
 import 'package:checkin_medicine/features/search/presentation/pages/search_page.dart';
 import 'package:checkin_medicine/features/timelines/presentation/pages/timeline_page.dart';
+import 'package:checkin_medicine/features/timelines/presentation/widgets/detail/create_timeline_dialog.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../l10n/app_localizations.dart';
@@ -102,9 +103,9 @@ class _QuickActions extends StatelessWidget {
           icon: Icons.calendar_month,
           label: t.createSchedule,
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const TimelinePage()),
+            showDialog(
+              context: context,
+              builder: (_) => const CreateTimelineDialog(),
             );
           },
         ),

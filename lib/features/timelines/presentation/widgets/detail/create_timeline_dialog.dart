@@ -1,6 +1,7 @@
 import 'package:checkin_medicine/features/auth/presentation/providers/profile_provider.dart';
 import 'package:checkin_medicine/features/timelines/presentation/pages/timeline_detail_page.dart';
 import 'package:checkin_medicine/features/timelines/presentation/providers/timeline_detail_provider.dart';
+import 'package:checkin_medicine/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,7 +19,7 @@ class _CreateTimelineDialogState extends ConsumerState<CreateTimelineDialog> {
   bool loading = false;
 
   Future<void> _create() async {
-    final profileState = ref.watch(profileProvider);
+    final profileState = ref.read(profileProvider);
 
     final profileId = profileState.profile?.id;
 
@@ -35,7 +36,6 @@ class _CreateTimelineDialogState extends ConsumerState<CreateTimelineDialog> {
         profileId: profileId,
         name: _controller.text.trim(),
       );
-
       if (!mounted) return;
 
       Navigator.pop(context);
@@ -61,27 +61,48 @@ class _CreateTimelineDialogState extends ConsumerState<CreateTimelineDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     final canCreate = _controller.text.trim().isNotEmpty && !loading;
+
     return AlertDialog(
-      title: const Text('Create Timeline'),
+      title: Text(t.createTimeline),
 
       content: TextField(
         controller: _controller,
+
         onChanged: (_) => setState(() {}),
-        decoration: const InputDecoration(hintText: 'Timeline name'),
+
+        textInputAction: TextInputAction.done,
+
+        onSubmitted: (_) {
+          if (canCreate) {
+            _create();
+          }
+        },
+
+        decoration: InputDecoration(hintText: t.timelineName),
       ),
+
       actions: [
         ElevatedButton(
           onPressed: canCreate ? _create : null,
+
           child: loading
               ? const SizedBox(
                   width: 18,
                   height: 18,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : const Text('Create'),
+              : Text(t.create),
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

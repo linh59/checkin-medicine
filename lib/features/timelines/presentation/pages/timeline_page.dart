@@ -47,36 +47,43 @@ class TimelinePage extends ConsumerWidget {
       body: SafeArea(
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 250),
-          child: plansAsync.when(
-            loading: () => const LoadingPlan(),
+          child: RefreshIndicator(
+            onRefresh: () async {
+              ref.invalidate(plansProvider);
 
-            error: (e, _) => ErrorPlan(error: e.toString()),
-
-            data: (plans) {
-              if (plans.isEmpty) {
-                return const EmptyPlan();
-              }
-
-              return Column(
-                children: [
-                  HeaderSummary(count: plans.length),
-
-                  const SizedBox(height: 8),
-
-                  Expanded(
-                    child: ListView.separated(
-                      physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                      itemCount: plans.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 12),
-                      itemBuilder: (context, i) {
-                        return PlanCard(plan: plans[i]);
-                      },
-                    ),
-                  ),
-                ],
-              );
+              await ref.read(plansProvider.future);
             },
+            child: plansAsync.when(
+              loading: () => const LoadingPlan(),
+
+              error: (e, _) => ErrorPlan(error: e.toString()),
+
+              data: (plans) {
+                if (plans.isEmpty) {
+                  return const EmptyPlan();
+                }
+
+                return Column(
+                  children: [
+                    HeaderSummary(count: plans.length),
+
+                    const SizedBox(height: 8),
+
+                    Expanded(
+                      child: ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                        itemCount: plans.length,
+                        separatorBuilder: (_, __) => const SizedBox(height: 12),
+                        itemBuilder: (context, i) {
+                          return PlanCard(plan: plans[i]);
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

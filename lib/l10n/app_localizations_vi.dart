@@ -483,4 +483,25 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noSchedule => 'Chưa có lịch';
+
+  @override
+  String get createTimeline => 'Tạo lịch dùng thuốc';
+
+  @override
+  String get timelineName => 'Tên lịch';
+
+  @override
+  String get create => 'Tạo';
+
+  @override
+  String get medicineUsedInTimeline => 'Đang được sử dụng trong lịch uống';
+
+  @override
+  String get note => 'Ghi chú';
+
+  @override
+  String get markTaken => 'Đánh dấu đã uống';
+
+  @override
+  String get undoTaken => 'Hoàn tác';
 }

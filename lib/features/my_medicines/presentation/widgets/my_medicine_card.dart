@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/models/my_medicine_model.dart';
@@ -30,7 +31,9 @@ class MyMedicineCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
+          color: medicine.canDelete
+              ? theme.colorScheme.surface
+              : WellnessColors.primary.withOpacity(0.03),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: theme.dividerColor.withOpacity(0.08)),
         ),
@@ -81,6 +84,51 @@ class MyMedicineCard extends StatelessWidget {
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
                       ),
+                      const SizedBox(height: 6),
+
+                      Wrap(
+                        spacing: 6,
+                        runSpacing: 6,
+                        children: [
+                          if (!medicine.canDelete)
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: WellnessColors.primary.withOpacity(0.08),
+                                borderRadius: BorderRadius.circular(999),
+                              ),
+                              child: const Text(
+                                "Used in timeline",
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+
+                          if (medicine.customDosePerTake != null)
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.green.withOpacity(0.08),
+                                borderRadius: BorderRadius.circular(999),
+                              ),
+                              child: Text(
+                                "${medicine.customDosePerTake}",
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -88,6 +136,40 @@ class MyMedicineCard extends StatelessWidget {
                 /// ACTIONS
                 Row(
                   children: [
+                    if (!medicine.canDelete)
+                      Container(
+                        margin: const EdgeInsets.only(right: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.orange.withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.lock_outline,
+                              size: 14,
+                              color: Colors.orange.shade700,
+                            ),
+
+                            const SizedBox(width: 4),
+
+                            Text(
+                              "In Timeline",
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.orange.shade700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
                     if (onEdit != null)
                       IconButton(
                         constraints: const BoxConstraints(),
@@ -99,9 +181,15 @@ class MyMedicineCard extends StatelessWidget {
                     IconButton(
                       constraints: const BoxConstraints(),
                       padding: EdgeInsets.zero,
-                      onPressed: onDelete,
-                      icon: const Icon(Icons.delete_outline),
-                      color: Colors.redAccent,
+                      onPressed: medicine.canDelete ? onDelete : null,
+                      icon: Icon(
+                        medicine.canDelete
+                            ? Icons.archive_outlined
+                            : Icons.lock_outline,
+                      ),
+                      color: medicine.canDelete
+                          ? WellnessColors.error
+                          : Colors.grey,
                     ),
                   ],
                 ),
@@ -122,12 +210,12 @@ class MyMedicineCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  medicine.notes!,
+                  title,
                   maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                    height: 1.3,
+                  overflow: TextOverflow.visible,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    height: 1.2,
                   ),
                 ),
               ),

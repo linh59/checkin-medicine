@@ -1033,6 +1033,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No schedule'**
   String get noSchedule;
+
+  /// No description provided for @createTimeline.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Timeline'**
+  String get createTimeline;
+
+  /// No description provided for @timelineName.
+  ///
+  /// In en, this message translates to:
+  /// **'Timeline name'**
+  String get timelineName;
+
+  /// No description provided for @create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get create;
+
+  /// No description provided for @medicineUsedInTimeline.
+  ///
+  /// In en, this message translates to:
+  /// **'Used in timeline'**
+  String get medicineUsedInTimeline;
+
+  /// No description provided for @note.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get note;
+
+  /// No description provided for @markTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as taken'**
+  String get markTaken;
+
+  /// No description provided for @undoTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undoTaken;
 }
 
 class _AppLocalizationsDelegate

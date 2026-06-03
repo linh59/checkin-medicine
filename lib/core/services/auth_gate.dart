@@ -1,4 +1,4 @@
-import 'package:checkin_medicine/features/home/pages/home_page.dart';
+import 'package:checkin_medicine/features/home/presentation/pages/home_page.dart';
 import 'package:checkin_medicine/features/home/widgets/home_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

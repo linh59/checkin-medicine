@@ -1,6 +1,6 @@
-import 'package:checkin_medicine/features/home/pages/home_page.dart';
-import 'package:checkin_medicine/features/home/pages/settings_page.dart';
-import 'package:checkin_medicine/features/home/pages/stats_page.dart';
+import 'package:checkin_medicine/features/home/presentation/pages/home_page.dart';
+import 'package:checkin_medicine/features/home/presentation/pages/settings_page.dart';
+import 'package:checkin_medicine/features/home/presentation/pages/stats_page.dart';
 import 'package:checkin_medicine/features/timelines/presentation/pages/timeline_page.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';

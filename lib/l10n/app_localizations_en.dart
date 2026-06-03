@@ -484,4 +484,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noSchedule => 'No schedule';
+
+  @override
+  String get createTimeline => 'Create Timeline';
+
+  @override
+  String get timelineName => 'Timeline name';
+
+  @override
+  String get create => 'Create';
+
+  @override
+  String get medicineUsedInTimeline => 'Used in timeline';
+
+  @override
+  String get note => 'Note';
+
+  @override
+  String get markTaken => 'Mark as taken';
+
+  @override
+  String get undoTaken => 'Undo';
 }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TodayList extends ConsumerWidget {
-  const TodayList();
+  const TodayList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +23,7 @@ class TodayList extends ConsumerWidget {
       ),
 
       error: (e, _) =>
-          Padding(padding: const EdgeInsets.all(16), child: Text('Error: $e')),
+          Padding(padding: const EdgeInsets.all(16), child: Text(e.toString())),
 
       data: (groups) {
         if (groups.isEmpty) {
@@ -61,7 +61,7 @@ class TodayList extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(999),
                     ),
                     child: Text(
-                      group.time,
+                      group.time.substring(0, 5),
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
                   ),
@@ -71,57 +71,97 @@ class TodayList extends ConsumerWidget {
                   ...group.items.map(
                     (item) => Card(
                       margin: const EdgeInsets.only(bottom: 10),
+
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+
                       child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        padding: const EdgeInsets.all(14),
+
+                        child: Column(
                           children: [
-                            Icon(
-                              item.taken
-                                  ? Icons.check_circle
-                                  : Icons.radio_button_unchecked,
-                              color: item.taken ? Colors.green : Colors.grey,
-                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  item.taken
+                                      ? Icons.check_circle
+                                      : Icons.radio_button_unchecked,
+                                  color: item.taken
+                                      ? Colors.green
+                                      : Colors.grey,
+                                  size: 28,
+                                ),
 
-                            const SizedBox(width: 12),
+                                const SizedBox(width: 12),
 
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    item.medicineName,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      /// FULL MEDICINE NAME
+                                      Text(
+                                        item.medicineName,
+                                        softWrap: true,
+                                        overflow: TextOverflow.visible,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+
+                                      if (item.nickname.isNotEmpty)
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            top: 4,
+                                          ),
+                                          child: Text(
+                                            item.nickname,
+                                            style: TextStyle(
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.primary,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+
+                                      const SizedBox(height: 8),
+
+                                      Text(
+                                        '${t.dose}: ${item.dose} ${t.pills}',
+                                      ),
+
+                                      if ((item.withFood ?? '').isNotEmpty)
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            top: 4,
+                                          ),
+                                          child: Text(
+                                            '🍽 ${t.withFood}: ${item.withFood}',
+                                          ),
+                                        ),
+
+                                      if ((item.notes ?? '').isNotEmpty)
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            top: 4,
+                                          ),
+                                          child: Text(
+                                            '📝 ${t.note}: ${item.notes}',
+                                          ),
+                                        ),
+                                    ],
                                   ),
+                                ),
 
-                                  if (item.nickname.isNotEmpty)
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: Text(item.nickname),
-                                    ),
-
-                                  const SizedBox(height: 6),
-
-                                  Text('Dose: ${item.dose}'),
-
-                                  if ((item.withFood ?? '').isNotEmpty)
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: Text('🍽 ${item.withFood}'),
-                                    ),
-
-                                  if ((item.notes ?? '').isNotEmpty)
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: Text('📝 ${item.notes}'),
-                                    ),
-                                ],
-                              ),
+                                const SizedBox(width: 8),
+                              ],
                             ),
 
-                            IconButton(
+                            FilledButton.icon(
                               onPressed: () async {
                                 final action = ref.read(todayActionProvider);
 
@@ -134,7 +174,15 @@ class TodayList extends ConsumerWidget {
                                   );
                                 }
                               },
-                              icon: Icon(item.taken ? Icons.undo : Icons.check),
+
+                              icon: Icon(
+                                item.taken ? Icons.undo : Icons.check,
+                                size: 18,
+                              ),
+
+                              label: Text(
+                                item.taken ? t.undoTaken : t.markTaken,
+                              ),
                             ),
                           ],
                         ),

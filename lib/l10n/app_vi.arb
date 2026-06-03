@@ -161,6 +161,13 @@
   "deleteSuccess": "Xóa thành công",
   "updateSuccess": "Cập nhật thành công",
   "addSuccess": "Thêm thành công",
-  "noSchedule": "Chưa có lịch"
+  "noSchedule": "Chưa có lịch",
+  "createTimeline": "Tạo lịch dùng thuốc",
+  "timelineName": "Tên lịch",
+  "create": "Tạo",
+  "medicineUsedInTimeline": "Đang được sử dụng trong lịch uống",
+  "note": "Ghi chú",
+  "markTaken": "Đánh dấu đã uống",
+  "undoTaken": "Hoàn tác"
 
 }
