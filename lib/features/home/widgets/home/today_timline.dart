@@ -46,26 +46,20 @@ class TodayList extends ConsumerWidget {
                 children: [
                   /// TIME CHIP
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: WellnessColors.primary,
-                      borderRadius: BorderRadius.circular(999),
-                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    // decoration: BoxDecoration(
+                    //   color: WellnessColors.border.withOpacity(0.5),
+                    //   borderRadius: BorderRadius.circular(999),
+                    // ),
                     child: Text(
                       group.time.substring(0, 5),
 
                       style: const TextStyle(
                         fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                        color: WellnessColors.surfaceLight,
+                        fontSize: 17,
                       ),
                     ),
                   ),
-
-                  const SizedBox(height: 10),
 
                   ...group.items.map((item) {
                     final action = ref.read(todayActionProvider.notifier);
@@ -74,14 +68,15 @@ class TodayList extends ConsumerWidget {
                       margin: const EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(14),
-                        color: item.taken
-                            ? WellnessColors.success.withOpacity(0.1)
-                            : Colors.transparent,
 
+                        color: item.taken
+                            ? WellnessColors.primary.withOpacity(0.1)
+                            : Colors.transparent,
                         border: Border.all(
+                          width: 2,
                           color: item.taken
-                              ? WellnessColors.success
-                              : WellnessColors.warning,
+                              ? WellnessColors.primary
+                              : WellnessColors.border,
                         ),
                       ),
                       child: Row(
@@ -201,7 +196,7 @@ class TodayList extends ConsumerWidget {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: item.taken
-                                      ? Colors.green.withOpacity(0.12)
+                                      ? Colors.transparent
                                       : WellnessColors.primary.withOpacity(
                                           0.12,
                                         ),
