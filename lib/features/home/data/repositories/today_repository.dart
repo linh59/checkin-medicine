@@ -91,6 +91,7 @@ class TodayRepository {
               withFood: schedule['with_food']?.toString(),
               notes: schedule['notes']?.toString(),
               taken: takenSet.contains(scheduleId),
+              planName: plan['name']?.toString(),
             ),
           );
         }

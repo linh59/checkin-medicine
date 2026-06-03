@@ -1,6 +1,6 @@
 import 'package:checkin_medicine/features/auth/presentation/providers/profile_provider.dart';
 import 'package:checkin_medicine/features/timelines/presentation/pages/timeline_detail_page.dart';
-import 'package:checkin_medicine/features/timelines/presentation/providers/timeline_detail_provider.dart';
+import 'package:checkin_medicine/features/timelines/presentation/providers/timelines_provider.dart';
 import 'package:checkin_medicine/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
