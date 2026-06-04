@@ -17,6 +17,7 @@ class TodayTimelineItem {
 
   final bool taken;
   final String? planName;
+  final DateTime? takenAt;
 
   const TodayTimelineItem({
     required this.scheduleId,
@@ -30,6 +31,7 @@ class TodayTimelineItem {
     required this.notes,
     required this.taken,
     this.planName,
+    this.takenAt,
   });
 
   TodayTimelineItem copyWith({bool? taken}) {
@@ -45,6 +47,7 @@ class TodayTimelineItem {
       notes: notes,
       taken: taken ?? this.taken,
       planName: planName,
+      takenAt: takenAt,
     );
   }
 }

@@ -47,16 +47,21 @@ class TodayRepository {
 
     final logs = await _supabase
         .from('intake_logs')
-        .select('plan_schedule_id, status')
+        .select('plan_schedule_id, status, taken_at')
         .eq('profile_id', profileId)
         .gte('taken_at', start.toIso8601String())
         .lt('taken_at', end.toIso8601String());
 
-    final takenSet = logs
-        .where((e) => (e['status'] ?? '') == 'taken')
-        .map((e) => e['plan_schedule_id']?.toString())
-        .whereType<String>()
-        .toSet();
+    final Map<String, DateTime> takenAtMap = {};
+
+    for (final e in logs) {
+      final scheduleId = e['plan_schedule_id']?.toString();
+      final takenAtRaw = e['taken_at'];
+
+      if (scheduleId == null || takenAtRaw == null) continue;
+
+      takenAtMap[scheduleId] = DateTime.parse(takenAtRaw);
+    }
 
     final items = <TodayTimelineItem>[];
 
@@ -84,13 +89,14 @@ class TodayRepository {
               scheduleId: scheduleId,
               planItemId: item['id']?.toString() ?? '',
               myMedicineId: medicine['id']?.toString() ?? '',
-              medicineName: nickname.trim().isNotEmpty ? nickname : brand,
+              medicineName: brand,
               nickname: nickname,
               dose: double.tryParse(item['dose_per_take'].toString()) ?? 1,
               timeOfDay: schedule['time_of_day']?.toString() ?? '08:00:00',
               withFood: schedule['with_food']?.toString(),
               notes: schedule['notes']?.toString(),
-              taken: takenSet.contains(scheduleId),
+              taken: takenAtMap[scheduleId] != null,
+              takenAt: takenAtMap[scheduleId],
               planName: plan['name']?.toString(),
             ),
           );

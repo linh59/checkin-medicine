@@ -168,5 +168,6 @@
   "medicineUsedInTimeline": "Used in timeline",
   "note": "Note",
   "markTaken": "Mark as taken",
-  "undoTaken": "Undo"
+  "undoTaken": "Undo",
+  "takenAt": "Taken at {time}"
 }

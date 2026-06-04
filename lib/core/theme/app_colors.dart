@@ -49,7 +49,7 @@ class WellnessColors {
   // BORDER
   // =========================================================
 
-  static const Color border = Color.fromARGB(255, 203, 208, 215);
+  static const Color border = Color.fromARGB(255, 213, 218, 225);
 
   static const Color divider = Color(0xFFF1F5F9);
 

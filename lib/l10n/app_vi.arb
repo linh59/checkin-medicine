@@ -167,7 +167,7 @@
   "create": "Tạo",
   "medicineUsedInTimeline": "Đang được sử dụng trong lịch uống",
   "note": "Ghi chú",
-  "markTaken": "Đánh dấu đã uống",
-  "undoTaken": "Hoàn tác"
-
+  "markTaken": "Đã uống",
+  "undoTaken": "Hoàn tác",
+  "takenAt": "Đã uống lúc {time}"
 }

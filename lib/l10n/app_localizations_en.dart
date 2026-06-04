@@ -505,4 +505,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get undoTaken => 'Undo';
+
+  @override
+  String takenAt(Object time) {
+    return 'Taken at $time';
+  }
 }

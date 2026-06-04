@@ -500,8 +500,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get note => 'Ghi chú';
 
   @override
-  String get markTaken => 'Đánh dấu đã uống';
+  String get markTaken => 'Đã uống';
 
   @override
   String get undoTaken => 'Hoàn tác';
+
+  @override
+  String takenAt(Object time) {
+    return 'Đã uống lúc $time';
+  }
 }

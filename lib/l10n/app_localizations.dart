@@ -1075,6 +1075,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Undo'**
   String get undoTaken;
+
+  /// No description provided for @takenAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Taken at {time}'**
+  String takenAt(Object time);
 }
 
 class _AppLocalizationsDelegate
