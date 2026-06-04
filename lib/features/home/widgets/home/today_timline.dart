@@ -82,20 +82,6 @@ class TodayList extends ConsumerWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // /// LEFT STATUS BAR
-                          // Container(
-                          //   width: 5,
-                          //   height: 90,
-                          //   decoration: BoxDecoration(
-                          //     color: item.taken
-                          //         ? Colors.green
-                          //         : WellnessColors.primary,
-                          //     borderRadius: const BorderRadius.only(
-                          //       topLeft: Radius.circular(14),
-                          //       bottomLeft: Radius.circular(14),
-                          //     ),
-                          //   ),
-                          // ),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -110,7 +96,7 @@ class TodayList extends ConsumerWidget {
                                     item.planName ?? '',
                                     style: const TextStyle(
                                       fontSize: 12,
-
+                                      color: Colors.grey,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -145,28 +131,19 @@ class TodayList extends ConsumerWidget {
                                   /// DOSE + FOOD
                                   Text(
                                     '${item.dose} ${t.pills}',
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black87,
-                                    ),
+                                    style: const TextStyle(fontSize: 15),
                                   ),
 
                                   Text(
                                     '${(item.withFood ?? '').isNotEmpty ? "${item.withFood}" : ""}',
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black87,
-                                    ),
+                                    style: const TextStyle(fontSize: 14),
                                   ),
                                   if ((item.notes ?? '').isNotEmpty)
                                     Padding(
                                       padding: const EdgeInsets.only(top: 4),
                                       child: Text(
                                         '📝 ${item.notes}',
-                                        style: const TextStyle(
-                                          fontSize: 11,
-                                          color: Colors.grey,
-                                        ),
+                                        style: const TextStyle(fontSize: 11),
                                       ),
                                     ),
                                 ],

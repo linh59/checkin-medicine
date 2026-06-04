@@ -92,24 +92,39 @@ class MyMedicineCard extends StatelessWidget {
                         children: [
                           if (!medicine.canDelete)
                             Container(
+                              margin: const EdgeInsets.only(right: 8),
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 8,
                                 vertical: 4,
                               ),
                               decoration: BoxDecoration(
-                                color: WellnessColors.primary.withOpacity(0.08),
+                                color: Colors.orange.withOpacity(0.12),
                                 borderRadius: BorderRadius.circular(999),
                               ),
-                              child: const Text(
-                                "Used in timeline",
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.lock_outline,
+                                    size: 14,
+                                    color: Colors.orange.shade700,
+                                  ),
+
+                                  const SizedBox(width: 4),
+
+                                  Text(
+                                    "In Timeline",
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.orange.shade700,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
 
-                          if (medicine.customDosePerTake != null)
+                          if (medicine.notes != null)
                             Container(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 8,
@@ -120,7 +135,7 @@ class MyMedicineCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(999),
                               ),
                               child: Text(
-                                "${medicine.customDosePerTake}",
+                                "${medicine.notes}",
                                 style: const TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
@@ -136,40 +151,6 @@ class MyMedicineCard extends StatelessWidget {
                 /// ACTIONS
                 Row(
                   children: [
-                    if (!medicine.canDelete)
-                      Container(
-                        margin: const EdgeInsets.only(right: 8),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.orange.withOpacity(0.12),
-                          borderRadius: BorderRadius.circular(999),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.lock_outline,
-                              size: 14,
-                              color: Colors.orange.shade700,
-                            ),
-
-                            const SizedBox(width: 4),
-
-                            Text(
-                              "In Timeline",
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.orange.shade700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
                     if (onEdit != null)
                       IconButton(
                         constraints: const BoxConstraints(),
@@ -184,7 +165,7 @@ class MyMedicineCard extends StatelessWidget {
                       onPressed: medicine.canDelete ? onDelete : null,
                       icon: Icon(
                         medicine.canDelete
-                            ? Icons.archive_outlined
+                            ? Icons.delete_outline
                             : Icons.lock_outline,
                       ),
                       color: medicine.canDelete
@@ -196,30 +177,30 @@ class MyMedicineCard extends StatelessWidget {
               ],
             ),
 
-            if (medicine.notes?.isNotEmpty == true) ...[
-              const SizedBox(height: 10),
+            // if (medicine.notes?.isNotEmpty == true) ...[
+            //   const SizedBox(height: 10),
 
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 8,
-                ),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withOpacity(0.06),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  title,
-                  maxLines: 2,
-                  overflow: TextOverflow.visible,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    height: 1.2,
-                  ),
-                ),
-              ),
-            ],
+            //   Container(
+            //     width: double.infinity,
+            //     padding: const EdgeInsets.symmetric(
+            //       horizontal: 10,
+            //       vertical: 8,
+            //     ),
+            //     decoration: BoxDecoration(
+            //       color: theme.colorScheme.primary.withOpacity(0.06),
+            //       borderRadius: BorderRadius.circular(12),
+            //     ),
+            //     child: Text(
+            //       title,
+            //       maxLines: 2,
+            //       overflow: TextOverflow.visible,
+            //       style: theme.textTheme.titleMedium?.copyWith(
+            //         fontWeight: FontWeight.w700,
+            //         height: 1.2,
+            //       ),
+            //     ),
+            //   ),
+            // ],
           ],
         ),
       ),
