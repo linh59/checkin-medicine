@@ -136,7 +136,7 @@ class TodayList extends ConsumerWidget {
 
                               const SizedBox(width: 10),
 
-                              /// ACTION BUTTON (APPLE HEALTH STYLE)
+                              /// ACTION BUTTON
                               InkWell(
                                 onTap: () async {
                                   if (item.taken) {
@@ -147,6 +147,7 @@ class TodayList extends ConsumerWidget {
                                     await action.markAsTaken(
                                       scheduleId: item.scheduleId,
                                       myMedicineId: item.myMedicineId,
+                                      dose: item.dose
                                     );
                                   }
                                 },

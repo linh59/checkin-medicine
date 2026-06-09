@@ -40,16 +40,13 @@ class _SearchPageState extends ConsumerState<SearchPage>
 
     debounce?.cancel();
 
-    debounce = Timer(
-      const Duration(milliseconds: 350),
-          () {
-        if (mounted) {
-          setState(() {
-            debouncedQuery = value.trim();
-          });
-        }
-      },
-    );
+    debounce = Timer(const Duration(milliseconds: 350), () {
+      if (mounted) {
+        setState(() {
+          debouncedQuery = value.trim();
+        });
+      }
+    });
   }
 
   @override
@@ -65,21 +62,15 @@ class _SearchPageState extends ConsumerState<SearchPage>
 
     final medicines = ref.watch(medicineSearchProvider(debouncedQuery));
     final nutrients = ref.watch(nutrientSearchProvider(debouncedQuery));
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.searchTitle),
-      ),
+      appBar: AppBar(title: Text(t.searchTitle)),
 
       body: Padding(
         padding: const EdgeInsets.all(16),
 
         child: Column(
           children: [
-            SearchInput(
-              hint: t.searchHint,
-              onChanged: onSearchChanged,
-            ),
+            SearchInput(hint: t.searchHint, onChanged: onSearchChanged),
 
             const SizedBox(height: 16),
 
@@ -93,27 +84,29 @@ class _SearchPageState extends ConsumerState<SearchPage>
                 children: [
                   medicines.when(
                     data: (list) => list.isEmpty
-                        ? EmptyState(title: t.noResults)
+                        ? EmptyState(title: t.noResults, query: query)
                         : ListView.builder(
-                      itemCount: list.length,
-                      itemBuilder: (_, i) {
-                        return MedicineResultCard(item: list[i]);
-                      },
-                    ),
-                    loading: () => const Center(child: CircularProgressIndicator()),
+                            itemCount: list.length,
+                            itemBuilder: (_, i) {
+                              return MedicineResultCard(item: list[i]);
+                            },
+                          ),
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
                     error: (e, _) => Center(child: Text(e.toString())),
                   ),
 
                   nutrients.when(
                     data: (list) => list.isEmpty
-                        ? EmptyState(title: t.noResults)
+                        ? EmptyState(title: t.noResults, query: query)
                         : ListView.builder(
-                      itemCount: list.length,
-                      itemBuilder: (_, i) {
-                        return NutrientResultCard(item: list[i]);
-                      },
-                    ),
-                    loading: () => const Center(child: CircularProgressIndicator()),
+                            itemCount: list.length,
+                            itemBuilder: (_, i) {
+                              return NutrientResultCard(item: list[i]);
+                            },
+                          ),
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
                     error: (e, _) => Center(child: Text(e.toString())),
                   ),
                 ],

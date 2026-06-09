@@ -4,25 +4,14 @@ import '../../data/models/medicine_model.dart';
 import '../../data/models/nutrient_model.dart';
 import '../../data/repositories/search_repository.dart';
 
-final searchRepositoryProvider =
-Provider(
-      (ref) => SearchRepository(),
-);
+final searchRepositoryProvider = Provider((ref) => SearchRepository());
 
 final medicineSearchProvider =
-FutureProvider.family<
-    List<MedicineModel>,
-    String>((ref, query) async {
-  return ref
-      .read(searchRepositoryProvider)
-      .searchMedicines(query);
-});
+    FutureProvider.family<List<MedicineModel>, String>((ref, query) async {
+      return ref.read(searchRepositoryProvider).searchMedicines(query);
+    });
 
 final nutrientSearchProvider =
-FutureProvider.family<
-    List<NutrientModel>,
-    String>((ref, query) async {
-  return ref
-      .read(searchRepositoryProvider)
-      .searchNutrients(query);
-});
+    FutureProvider.family<List<NutrientModel>, String>((ref, query) async {
+      return ref.read(searchRepositoryProvider).searchNutrients(query);
+    });

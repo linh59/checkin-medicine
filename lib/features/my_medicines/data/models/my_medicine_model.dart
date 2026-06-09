@@ -42,15 +42,12 @@ class MyMedicineModel {
       id: map['id'] ?? '',
 
       profileId: map['profile_id'] ?? '',
-
       medicineId: map['medicine_id'] ?? '',
 
       canDelete: map['can_delete'] ?? true,
 
       nickname: map['nickname'],
-
       customDosePerTake: map['custom_dose_per_take'],
-
       notes: map['notes'],
 
       startedAt: map['started_at'] != null
@@ -59,16 +56,19 @@ class MyMedicineModel {
 
       archived: map['archived'] == true,
 
-      createdAt: DateTime.parse(map['created_at']),
+      createdAt: map['created_at'] != null
+          ? DateTime.parse(map['created_at'])
+          : DateTime.now(),
 
-      updatedAt: DateTime.parse(map['updated_at']),
+      updatedAt: map['updated_at'] != null
+          ? DateTime.parse(map['updated_at'])
+          : DateTime.now(),
 
       medicine: map['medicines'] != null
           ? MedicineModel.fromJson(map['medicines'])
           : null,
     );
   }
-
   Map<String, dynamic> toMap() {
     return {
       'id': id,

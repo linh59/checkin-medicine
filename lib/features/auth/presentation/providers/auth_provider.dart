@@ -1,96 +1,114 @@
 import 'dart:async';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/services/auth_service.dart';
-
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 final authProvider =
-StateNotifierProvider<
-    AuthNotifier,
-    AuthState>(
+StateNotifierProvider<AuthNotifier, AuthState>(
       (ref) => AuthNotifier(),
 );
 
 class AuthState {
-  final Session? session;
   final User? user;
+  final Session? session;
   final bool loading;
 
   const AuthState({
-    this.session,
     this.user,
+    this.session,
     this.loading = true,
   });
 
   AuthState copyWith({
-    Session? session,
     User? user,
+    Session? session,
     bool? loading,
   }) {
     return AuthState(
-      session: session ??
-          this.session,
       user: user ?? this.user,
-      loading:
-      loading ?? this.loading,
+      session: session ?? this.session,
+      loading: loading ?? this.loading,
     );
   }
 }
 
-class AuthNotifier
-    extends StateNotifier<AuthState> {
-  AuthNotifier()
-      : super(
-    const AuthState(),
-  ) {
+class AuthNotifier extends StateNotifier<AuthState> {
+  AuthNotifier() : super(const AuthState()) {
     _init();
   }
 
-  final _authService =
-      AuthService.instance;
-
-  StreamSubscription?
-  _authSubscription;
+  final _auth = AuthService.instance;
+  StreamSubscription? _sub;
 
   Future<void> _init() async {
+    final session = _auth.currentSession;
+
+    state = state.copyWith(
+      user: session?.user,
+      session: session,
+      loading: false,
+    );
+
+    _sub = _auth.authStateChanges.listen((data) {
+      state = state.copyWith(
+        user: data.session?.user,
+        session: data.session,
+        loading: false,
+      );
+    });
+  }
+
+  Future<void> signUp(String email, String password) async {
+    state = state.copyWith(loading: true);
+
     try {
-      final session =
-          _authService.currentSession;
-
-      state = state.copyWith(
-        session: session,
-        user: session?.user,
-        loading: false,
+      final user = await _auth.signUp(
+        email: email,
+        password: password,
       );
 
-      _authSubscription =
-          _authService
-              .authStateChanges
-              .listen((data) {
-            final session =
-                data.session;
+      if (user == null) {
+        throw Exception("Sign up failed");
+      }
+    } finally {
+      state = state.copyWith(loading: false);
+    }
+  }
 
-            state = state.copyWith(
-              session: session,
-              user: session?.user,
-              loading: false,
-            );
-          });
-    } catch (_) {
-      state = state.copyWith(
-        loading: false,
+  Future<void> signIn(String email, String password) async {
+    state = state.copyWith(loading: true);
+
+    try {
+      final user = await _auth.signIn(
+        email: email,
+        password: password,
       );
+
+      if (user == null) {
+        throw Exception("Login failed");
+      }
+    } finally {
+      state = state.copyWith(loading: false);
     }
   }
 
   Future<void> signOut() async {
-    await _authService.signOut();
+    state = state.copyWith(loading: true);
+
+    await _auth.signOut();
+
+    state = const AuthState(
+      user: null,
+      session: null,
+      loading: false,
+    );
   }
+
 
   @override
   void dispose() {
-    _authSubscription?.cancel();
+    _sub?.cancel();
     super.dispose();
   }
 }

@@ -1,23 +1,25 @@
 import 'package:checkin_medicine/features/auth/presentation/pages/signup_page.dart';
+import 'package:checkin_medicine/features/auth/presentation/providers/auth_provider.dart';
 import 'package:checkin_medicine/shared/widgets/theme_switcher.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../core/services/auth_service.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../l10n/app_localizations.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({
     super.key,
   });
 
   @override
-  State<LoginPage> createState() =>
+  ConsumerState<LoginPage> createState() =>
       _LoginPageState();
 }
 
 class _LoginPageState
-    extends State<LoginPage> {
+    extends ConsumerState<LoginPage> {
   final emailCtrl =
   TextEditingController();
 
@@ -84,44 +86,44 @@ class _LoginPageState
     return ok;
   }
 
-  Future<void> login(
-      AppLocalizations t,
-      ) async {
-    FocusScope.of(context)
-        .unfocus();
+  Future<void> login(AppLocalizations t) async {
+    FocusScope.of(context).unfocus();
 
     if (!validate(t)) return;
 
-    setState(() {
-      loading = true;
-    });
+    setState(() => loading = true);
 
     try {
-      final res =
-      await auth.signIn(
-        email:
+      await ref.read(authProvider.notifier).signIn(
         emailCtrl.text.trim(),
-        password:
         passCtrl.text.trim(),
       );
 
-      if (res.user == null) {
-        throw Exception();
-      }
-
-      /// No navigation needed
-      /// AppRoot handles auth state
-    } catch (_) {
-      setState(() {
-        passError =
-            t.loginFailed;
-      });
-    } finally {
       if (!mounted) return;
 
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Login successful"),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      ///  NO NAVIGATION
+      /// AppRoot handles routing automatically
+    } catch (e) {
       setState(() {
-        loading = false;
+        passError = t.loginFailed;
       });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Login failed"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      if (!mounted) return;
+      setState(() => loading = false);
     }
   }
 

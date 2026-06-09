@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,8 +19,16 @@ class LogoutButton extends ConsumerWidget {
       await ref
           .read(authProvider.notifier)
           .signOut();
-    } catch (e) {
       if (!context.mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Logout successful"),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } catch (e) {
+
 
       ScaffoldMessenger.of(context)
           .showSnackBar(

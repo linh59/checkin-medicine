@@ -1,21 +1,19 @@
 import 'package:checkin_medicine/core/theme/app_colors.dart';
+import 'package:checkin_medicine/features/auth/presentation/providers/auth_provider.dart';
 import 'package:checkin_medicine/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/services/auth_service.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({
-    super.key,
-  });
+class SignupPage extends ConsumerStatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<SignupPage> createState() =>
-      _SignupPageState();
+  ConsumerState<SignupPage> createState() => _SignupPageState();
 }
-
 class _SignupPageState
-    extends State<SignupPage> {
+    extends ConsumerState<SignupPage> {
   final emailCtrl =
   TextEditingController();
 
@@ -82,44 +80,45 @@ class _SignupPageState
     return ok;
   }
 
-  Future<void> signup(
-      AppLocalizations t,
-      ) async {
-    FocusScope.of(context)
-        .unfocus();
+  Future<void> signup(AppLocalizations t) async {
+    FocusScope.of(context).unfocus();
 
     if (!validate(t)) return;
 
-    setState(() {
-      loading = true;
-    });
+    setState(() => loading = true);
 
     try {
-      final res =
-      await auth.signUp(
-        email:
+      await ref.read(authProvider.notifier).signUp(
         emailCtrl.text.trim(),
-        password:
         passCtrl.text.trim(),
       );
 
-      if (res.user == null) {
-        throw Exception();
-      }
-
-      /// No navigation needed
-      /// AppRoot handles auth state
-    } catch (_) {
-      setState(() {
-        passError =
-            t.loginFailed;
-      });
-    } finally {
       if (!mounted) return;
 
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Sign up successful"),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      Navigator.pop(
+        context,
+      );
+    } catch (e) {
       setState(() {
-        loading = false;
+        passError = t.loginFailed;
       });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Sign up failed: $e"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      if (!mounted) return;
+      setState(() => loading = false);
     }
   }
 

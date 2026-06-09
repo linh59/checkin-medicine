@@ -9,26 +9,17 @@ import 'l10n/app_localizations.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart'
-as provider;
+import 'package:provider/provider.dart' as provider;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Supabase.initialize(
-    url: 'https://ftmluxrhhbbxalhfbdbt.supabase.co',
-    anonKey: 'sb_publishable_UWcNDzQDuRALfeKx2KEeZA_LLfzH29p',
+    url: 'https://rgisxkljehavenlqlzle.supabase.co',
+    anonKey: 'sb_publishable_VNl6mbPWqZmGODpQjdfsjA_-OPeBELg',
   );
 
-
-
-
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: MyApp()));
 }
-
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -50,12 +41,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers:
-    [
-      ChangeNotifierProvider(create: (_) => ThemeController())
-    ],
-    child: provider.Consumer<ThemeController>(
-        builder: (context, theme, _){
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => ThemeController())],
+      child: provider.Consumer<ThemeController>(
+        builder: (context, theme, _) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: AppTheme.light,
@@ -63,10 +52,7 @@ class _MyAppState extends State<MyApp> {
             themeMode: theme.themeMode,
             locale: languageService.locale,
 
-            supportedLocales: const [
-              Locale('vi'),
-              Locale('en'),
-            ],
+            supportedLocales: const [Locale('vi'), Locale('en')],
 
             localizationsDelegates: const [
               AppLocalizations.delegate,
@@ -75,10 +61,10 @@ class _MyAppState extends State<MyApp> {
               GlobalCupertinoLocalizations.delegate,
             ],
 
-            home: const AppRoot()
+            home: const AppRoot(),
           );
-    },
-    ),
+        },
+      ),
     );
   }
 }

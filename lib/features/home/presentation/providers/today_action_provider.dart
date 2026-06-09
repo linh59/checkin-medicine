@@ -18,6 +18,8 @@ class TodayActionNotifier extends AsyncNotifier<void> {
   Future<void> markAsTaken({
     required String scheduleId,
     required String myMedicineId,
+    required double dose
+
   }) async {
     final repo = ref.read(todayRepositoryProvider);
     final profileId = ref.read(profileProvider).profile!.id;
@@ -26,9 +28,10 @@ class TodayActionNotifier extends AsyncNotifier<void> {
       profileId: profileId,
       scheduleId: scheduleId,
       myMedicineId: myMedicineId,
+      dose: dose
     );
 
-    // 🔥 FORCE UI UPDATE
+    // FORCE UI UPDATE
     ref.invalidate(todayTimelineProvider);
   }
 

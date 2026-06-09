@@ -1,6 +1,7 @@
 import 'package:checkin_medicine/features/home/widgets/home/quick_actions.dart';
 import 'package:checkin_medicine/features/home/widgets/home/today_timline.dart';
 import 'package:checkin_medicine/shared/providers/app_refresh_provider.dart';
+import 'package:checkin_medicine/shared/widgets/profile_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../core/theme/app_colors.dart';

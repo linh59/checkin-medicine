@@ -124,6 +124,7 @@ class TodayRepository {
     required String profileId,
     required String scheduleId,
     required String myMedicineId,
+    required double dose
   }) async {
     await _supabase.from('intake_logs').upsert({
       'profile_id': profileId,
@@ -131,6 +132,7 @@ class TodayRepository {
       'plan_schedule_id': scheduleId,
       'status': 'taken',
       'taken_at': DateTime.now().toIso8601String(),
+      'dose': dose
     });
   }
 
