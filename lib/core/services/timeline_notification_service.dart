@@ -1,7 +1,5 @@
 import 'package:checkin_medicine/core/services/notification_service.dart';
 import 'package:checkin_medicine/core/utils/notification_time_utils.dart';
-import 'package:checkin_medicine/features/timelines/data/models/timeline_slot_model.dart';
-import 'package:checkin_medicine/l10n/app_localizations.dart';
 
 class TimelineNotificationService {
 
