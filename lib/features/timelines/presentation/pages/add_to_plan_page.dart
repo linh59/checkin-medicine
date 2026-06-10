@@ -1,4 +1,5 @@
 import 'package:checkin_medicine/features/my_medicines/presentation/providers/my_medicine_provider.dart';
+import 'package:checkin_medicine/features/timelines/presentation/providers/schedules_provider.dart';
 import 'package:checkin_medicine/features/timelines/presentation/widgets/dose_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -64,8 +65,8 @@ class _AddToPlanPageState extends ConsumerState<AddToPlanPage> {
 
     try {
       await ref
-          .read(plansProvider.notifier)
-          .addToPlan(
+          .read(schedulesProvider.notifier)
+          .addScheduleToPlan(
             planId: widget.planId,
             myMedicineId: selectedMedicineId!,
             dose: dose,

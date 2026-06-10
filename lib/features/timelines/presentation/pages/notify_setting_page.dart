@@ -1,5 +1,5 @@
 import 'package:checkin_medicine/features/timelines/data/models/timeline_slot_model.dart';
-import 'package:checkin_medicine/features/timelines/presentation/providers/timelines_provider.dart';
+import 'package:checkin_medicine/features/timelines/presentation/providers/schedules_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -34,10 +34,11 @@ class _NotifySettingsPageState extends ConsumerState<NotifySettingsPage> {
     setState(() => loading = true);
 
     try {
-      await ref.read(timelineRepositoryProvider).toggleNotify(
-        widget.slot.slotId,
-        enabled,
-        offsetMin,
+
+      await ref.read(schedulesProvider.notifier).updateNotify(
+        slot: widget.slot,
+        enabled: enabled,
+        offsetMin: offsetMin,
       );
 
       if (mounted) {

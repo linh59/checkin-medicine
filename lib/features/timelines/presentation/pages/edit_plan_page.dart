@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/features/timelines/presentation/providers/schedules_provider.dart';
 import 'package:checkin_medicine/features/timelines/presentation/widgets/dose_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -66,9 +67,8 @@ class _EditPlanItemPageState extends ConsumerState<EditPlanItemPage> {
 
     try {
       await ref
-          .read(plansProvider.notifier)
-          .updatePlanItem(
-            slotId: widget.slot.slotId,
+          .read(schedulesProvider.notifier).updateScheduleOfPlan(
+            slot: widget.slot,
             planItemId: widget.slot.planItemId,
             dose: dose,
             time: timeString,
@@ -106,7 +106,7 @@ class _EditPlanItemPageState extends ConsumerState<EditPlanItemPage> {
 
     if (confirm != true) return;
 
-    await ref.read(plansProvider.notifier).deletePlanItem(widget.slot.slotId);
+    await ref.read(schedulesProvider.notifier).deleteScheduleOfPlan(widget.slot.slotId);
 
     if (!mounted) return;
 

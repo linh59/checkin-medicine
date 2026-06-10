@@ -1,5 +1,6 @@
 import 'package:checkin_medicine/core/controllers/theme_controller.dart';
 import 'package:checkin_medicine/core/services/app_root.dart';
+import 'package:checkin_medicine/core/services/notification_service.dart';
 import 'package:checkin_medicine/core/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,13 +11,22 @@ import 'l10n/app_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as provider;
-
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
     url: 'https://rgisxkljehavenlqlzle.supabase.co',
     anonKey: 'sb_publishable_VNl6mbPWqZmGODpQjdfsjA_-OPeBELg',
   );
+
+  // notify
+  WidgetsFlutterBinding.ensureInitialized();
+
+  tz.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation('Asia/Ho_Chi_Minh'));
+
+  await NotificationService.init();
 
   runApp(const ProviderScope(child: MyApp()));
 }

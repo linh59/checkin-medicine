@@ -1,4 +1,7 @@
+
+import 'package:checkin_medicine/core/services/timeline_notification_service.dart';
 import 'package:checkin_medicine/features/timelines/data/models/timeline_detail_model.dart';
+import 'package:checkin_medicine/features/timelines/data/models/timeline_slot_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../auth/presentation/providers/profile_provider.dart';
@@ -96,70 +99,9 @@ class PlansNotifier extends AsyncNotifier<List<PlanModel>> {
     }
   }
 
-  Future<void> addToPlan({
-    required String planId,
-    required String myMedicineId,
-    required double dose,
-    required String time,
-    String? withFood,
-  }) async {
-    await repo.addToPlan(
-      planId: planId,
-      myMedicineId: myMedicineId,
-      dose: dose,
-      time: time,
-      withFood: withFood,
-    );
-  }
-
-  // Future<void> deletePlan(String planId) async {
-  //   await repo.deletePlan(planId);
-
-  //   await refresh();
-  // }
-
-  Future<void> activatePlan(String planId) async {
-    await repo.togglePlan(planId, true);
-
-    await refresh();
-  }
-
-  Future<void> deactivatePlan(String planId) async {
-    await repo.togglePlan(planId, false);
-
-    await refresh();
-  }
-
-  Future<void> updatePlanItem({
-    required String slotId,
-    required String planItemId,
-    required double dose,
-    required String time,
-    String? withFood,
-  }) async {
-    await repo.updatePlanItem(
-      slotId: slotId,
-      planItemId: planItemId,
-      dose: dose,
-      time: time,
-      withFood: withFood,
-    );
-  }
-
-  Future<void> deletePlanItem(String slotId) async {
-    await repo.deletePlanItem(slotId);
-  }
-
-  Future<void> updatePlanItemNotify({
-    required String slotId,
-    required bool notifyEnabled,
-    required int offsetMin
-  }) async {
-    await repo.toggleNotify(
-     slotId, notifyEnabled, offsetMin
-    );
-  }
 }
+
+
 
 final timelineDetailProvider =
     FutureProvider.family<TimelineDetailModel, String>((ref, id) async {
