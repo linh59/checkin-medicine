@@ -149,6 +149,16 @@ class PlansNotifier extends AsyncNotifier<List<PlanModel>> {
   Future<void> deletePlanItem(String slotId) async {
     await repo.deletePlanItem(slotId);
   }
+
+  Future<void> updatePlanItemNotify({
+    required String slotId,
+    required bool notifyEnabled,
+    required int offsetMin
+  }) async {
+    await repo.toggleNotify(
+     slotId, notifyEnabled, offsetMin
+    );
+  }
 }
 
 final timelineDetailProvider =

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:checkin_medicine/features/search/presentation/providers/search_ai_medicine_privider.dart';
 
-class EmptyState extends ConsumerWidget {
-  final String title;
+class SearchAiSection extends ConsumerWidget {
   final String query;
 
-  const EmptyState({super.key, required this.title, required this.query});
+  const SearchAiSection({super.key, required this.query});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,30 +21,29 @@ class EmptyState extends ConsumerWidget {
 
           const SizedBox(height: 12),
 
-          Text(title, style: TextStyle(color: color.onSurfaceVariant)),
-
+          Text(query),
           const SizedBox(height: 16),
 
-          // Text(query),
-          //
-          //
-          // if (aiState is AsyncLoading)
-          //   const CircularProgressIndicator()
-          // else if (aiState is AsyncError)
-          //   Text("Error: ${aiState.error}")
-          // else if (aiState is AsyncData)
-          //   _buildAIResult(aiState.value!),
-          //
-          // const SizedBox(height: 20),
-          //
-          // /// 🔥 BUTTON = ONLY TRIGGER
-          // ElevatedButton(
-          //   onPressed: () {
-          //     ref.invalidate(medicineAIProvider(query)); // reset state
-          //     ref.refresh(medicineAIProvider(query)); // trigger call
-          //   },
-          //   child: const Text("Search with AI"),
-          // ),
+
+
+
+          if (aiState is AsyncLoading)
+            const CircularProgressIndicator()
+          else if (aiState is AsyncError)
+            Text("Error: ${aiState.error}")
+          else if (aiState is AsyncData)
+            _buildAIResult(aiState.value!),
+
+          const SizedBox(height: 20),
+
+          /// 🔥 BUTTON = ONLY TRIGGER
+          ElevatedButton(
+            onPressed: () {
+              ref.invalidate(medicineAIProvider(query)); // reset state
+              ref.refresh(medicineAIProvider(query)); // trigger call
+            },
+            child: const Text("Search with AI"),
+          ),
         ],
       ),
     );

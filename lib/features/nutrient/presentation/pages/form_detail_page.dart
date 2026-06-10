@@ -172,29 +172,139 @@ class FormDetailPage extends ConsumerWidget {
 
                           error: (e, _) => Text(e.toString()),
 
-                          data: (list) {
-                            if (list.isEmpty) {
-                              return Text(t.noData);
-                            }
+                            data: (list) {
+                              if (list.isEmpty) {
+                                return Text(t.noData);
+                              }
 
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: list.map((it) {
-                                return Container(
-                                  margin: const EdgeInsets.only(bottom: 12),
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    color: color.surface,
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child: Text(
-                                    it.description ?? '',
-                                    style: const TextStyle(height: 1.5),
-                                  ),
-                                );
-                              }).toList(),
-                            );
-                          },
+                              return Column(
+                                children: list.map((it) {
+                                  final severity = it.severity ?? 'mild';
+
+                                  Color severityColor;
+                                  switch (severity) {
+                                    case 'severe':
+                                      severityColor = Colors.red;
+                                      break;
+                                    case 'moderate':
+                                      severityColor = Colors.orange;
+                                      break;
+                                    case 'mild':
+                                      severityColor = Colors.green;
+                                      break;
+                                    default:
+                                      severityColor = Colors.grey;
+                                  }
+
+                                  return Container(
+                                    margin: const EdgeInsets.only(bottom: 14),
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      color: color.surface,
+                                      borderRadius: BorderRadius.circular(18),
+                                      border: Border.all(
+                                        color: severityColor.withOpacity(0.2),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        ///  HEADER (TWO DRUGS)
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  _DrugTag(
+                                                    label: it.formName ?? 'Unknown',
+                                                    color: Colors.blue,
+                                                  ),
+
+                                                  const SizedBox(height: 6),
+
+                                                  const Icon(Icons.sync_alt, size: 18),
+
+                                                  const SizedBox(height: 6),
+
+                                                  _DrugTag(
+                                                    label: it.interactsWithName ?? 'Unknown',
+                                                    color: Colors.deepPurple,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                            /// severity badge
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(
+                                                horizontal: 10,
+                                                vertical: 6,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: severityColor.withOpacity(0.15),
+                                                borderRadius: BorderRadius.circular(20),
+                                              ),
+                                              child: Text(
+                                                severity.toUpperCase(),
+                                                style: TextStyle(
+                                                  color: severityColor,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+
+                                        const SizedBox(height: 14),
+
+                                        /// DESCRIPTION
+                                        if ((it.description ?? '').isNotEmpty)
+                                          Text(
+                                            it.description!,
+                                            style: TextStyle(
+                                              height: 1.5,
+                                              color: Colors.grey.shade700,
+                                            ),
+                                          ),
+
+                                        const SizedBox(height: 12),
+
+                                        /// RECOMMENDATION BOX
+                                        if ((it.recommendation ?? '').isNotEmpty)
+                                          Container(
+                                            padding: const EdgeInsets.all(12),
+                                            decoration: BoxDecoration(
+                                              color: severityColor.withOpacity(0.08),
+                                              borderRadius: BorderRadius.circular(12),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.warning_amber_rounded,
+                                                  color: severityColor,
+                                                ),
+                                                const SizedBox(width: 8),
+                                                Expanded(
+                                                  child: Text(
+                                                    it.recommendation!,
+                                                    style: TextStyle(
+                                                      color: severityColor,
+                                                      fontWeight: FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
+                              );
+                            },
                         ),
                       ],
                     ),
@@ -203,6 +313,42 @@ class FormDetailPage extends ConsumerWidget {
               ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+/// =====================
+/// DrugTag
+/// =====================
+class _DrugTag extends StatelessWidget {
+  final String label;
+  final Color color;
+
+  const _DrugTag({
+    required this.label,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 6,
+      ),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.12),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: color.withOpacity(0.3),
+        ),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.w600,
         ),
       ),
     );

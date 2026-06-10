@@ -4,68 +4,40 @@ import 'package:checkin_medicine/features/nutrient/data/models/ingredient_form_m
 class Interaction {
   final String id;
 
-  final String aFormId;
-  final String bFormId;
+  final String? formId;
+  final String? formName;
 
-  final String severity;
-  final String description;
+  final String? interactsWithId;
+  final String? interactsWithName;
+
+  final String? severity;
+  final String? description;
   final String? recommendation;
 
-  final IngredientForm? a;
-  final IngredientForm? b;
-
-  Interaction({
+  const Interaction({
     required this.id,
-    required this.aFormId,
-    required this.bFormId,
-    required this.severity,
-    required this.description,
-    required this.recommendation,
-    required this.a,
-    required this.b,
+    this.formId,
+    this.formName,
+    this.interactsWithId,
+    this.interactsWithName,
+    this.severity,
+    this.description,
+    this.recommendation,
   });
 
-  factory Interaction.fromJson(
-      Map<String, dynamic> json,
-      ) {
+  factory Interaction.fromJson(Map<String, dynamic> json) {
     return Interaction(
-      id:
-      json['id']
-          .toString(),
+      id: json['id'] ?? '',
 
-      aFormId:
-      json['a_form_id']
-          .toString(),
+      formId: json['form_id'],
+      formName: json['form_name'],
 
-      bFormId:
-      json['b_form_id']
-          .toString(),
+      interactsWithId: json['interacts_with_id'],
+      interactsWithName: json['interacts_with_name'],
 
-      severity:
-      json['severity'] ??
-          '',
-
-      description:
-      json['description'] ??
-          '',
-
-      recommendation:
-      json[
-      'recommendation'],
-
-      a: json['a'] != null
-          ? IngredientForm
-          .fromJson(
-        json['a'],
-      )
-          : null,
-
-      b: json['b'] != null
-          ? IngredientForm
-          .fromJson(
-        json['b'],
-      )
-          : null,
+      severity: json['severity'],
+      description: json['description'],
+      recommendation: json['recommendation'],
     );
   }
 }

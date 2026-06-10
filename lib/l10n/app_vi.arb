@@ -169,5 +169,10 @@
   "note": "Ghi chú",
   "markTaken": "Đã uống",
   "undoTaken": "Hoàn tác",
-  "takenAt": "Đã uống lúc {time}"
+  "takenAt": "Đã uống lúc {time}",
+  "notificationSettings": "Cài đặt thông báo",
+  "enableNotification": "Bật thông báo",
+  "notifyBefore": "Thông báo trước",
+  "onTime": "Đúng giờ",
+  "minutes": "phút"
 }

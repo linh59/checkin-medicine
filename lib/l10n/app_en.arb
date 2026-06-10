@@ -169,5 +169,10 @@
   "note": "Note",
   "markTaken": "Mark as taken",
   "undoTaken": "Undo",
-  "takenAt": "Taken at {time}"
+  "takenAt": "Taken at {time}",
+  "notificationSettings": "Notification Settings",
+  "enableNotification": "Enable notification",
+  "notifyBefore": "Notify before",
+  "onTime": "On time",
+  "minutes": "min"
 }

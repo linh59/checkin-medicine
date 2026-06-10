@@ -64,7 +64,6 @@ plan_items(
     notes,
     notify_enabled,
     notify_offset_min,
-    notify_sound,
     archived,
     created_at
   )
@@ -93,15 +92,22 @@ plan_items(
     await supabase.from('plans').update({'is_active': active}).eq('id', id);
   }
 
-  Future<void> toggleNotify(String slotId, bool enabled) async {
+  Future<void> toggleNotify(String slotId, bool enabled, int offsetMin) async {
     await supabase
         .from('plan_schedule')
-        .update({'notify_enabled': enabled})
+        .update(
+        {'notify_enabled': enabled,
+          'notify_offset_min': offsetMin})
         .eq('id', slotId);
   }
 
+
+
   Future<void> deleteTimeline(String id) async {
-    await supabase.from('plans').delete().eq('id', id);
+    await supabase
+        .from('plans')
+        .update({'archived': true})
+        .eq('id', id);
   }
 
   Future<String> createPlan({
@@ -225,6 +231,7 @@ plan_items(
         .update({'time_of_day': '$time:00', 'with_food': withFood})
         .eq('id', slotId);
   }
+
 
   Future<void> deletePlanItem(String slotId) async {
     final schedule = await supabase

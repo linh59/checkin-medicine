@@ -15,7 +15,6 @@ class TimelineSlotModel {
 
   final bool notifyEnabled;
   final int notifyOffsetMin;
-  final String? notifySound;
 
   final int weekdayMask;
 
@@ -36,7 +35,6 @@ class TimelineSlotModel {
     required this.notes,
     required this.notifyEnabled,
     required this.notifyOffsetMin,
-    required this.notifySound,
     required this.weekdayMask,
     required this.repeatKind,
     required this.repeatInterval,
@@ -63,14 +61,10 @@ class TimelineSlotModel {
 
       notes: json['notes'],
 
-      notifyEnabled:
-          json['notify_enabled'] == true ||
-          json['notify_enabled']?.toString() == 'true',
+      notifyEnabled: json['notify_enabled'] ,
 
       notifyOffsetMin:
           int.tryParse(json['notify_offset_min']?.toString() ?? '') ?? 0,
-
-      notifySound: json['notify_sound']?.toString(),
 
       weekdayMask: int.tryParse(json['weekday_mask']?.toString() ?? '') ?? 127,
 

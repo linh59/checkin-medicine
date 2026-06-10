@@ -68,7 +68,6 @@ class TimelineDetailModel {
                 int.tryParse(schedule['notify_offset_min']?.toString() ?? '') ??
                 0,
 
-            notifySound: schedule['notify_sound']?.toString(),
 
             weekdayMask:
                 int.tryParse(schedule['weekday_mask']?.toString() ?? '') ?? 127,

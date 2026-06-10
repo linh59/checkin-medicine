@@ -510,4 +510,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String takenAt(Object time) {
     return 'Taken at $time';
   }
+
+  @override
+  String get notificationSettings => 'Notification Settings';
+
+  @override
+  String get enableNotification => 'Enable notification';
+
+  @override
+  String get notifyBefore => 'Notify before';
+
+  @override
+  String get onTime => 'On time';
+
+  @override
+  String get minutes => 'min';
 }

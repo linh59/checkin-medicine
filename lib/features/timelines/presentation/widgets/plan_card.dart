@@ -35,7 +35,7 @@ class PlanCard extends ConsumerWidget {
               ),
             );
 
-            /// 🔥 AUTO REFRESH LIST WHEN BACK
+            /// AUTO REFRESH LIST WHEN BACK
             ref.invalidate(plansProvider);
           },
 

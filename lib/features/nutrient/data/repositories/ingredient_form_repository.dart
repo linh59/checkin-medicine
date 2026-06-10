@@ -47,41 +47,13 @@ class IngredientFormRepository {
   getInteractions(
       String formId,
       ) async {
-    final response =
-    await supabase
-        .from(
-      'interactions',
-    )
-        .select('''
-        id,
-        severity,
-        description,
-        recommendation,
-        a_form_id,
-        b_form_id,
-
-        a:ingredient_forms!interactions_a_form_id_fkey (
-          id,
-          slug,
-          name
-        ),
-
-        b:ingredient_forms!interactions_b_form_id_fkey (
-          id,
-          slug,
-          name
-        )
-      ''')
-        .or(
-      'a_form_id.eq.$formId,b_form_id.eq.$formId',
-    );
+    final response = await supabase
+        .rpc('get_interactions', params: {
+      'p_form_id': formId,
+    });
 
     return (response as List)
-        .map(
-          (e) =>
-          Interaction
-              .fromJson(e),
-    )
+        .map((e) => Interaction.fromJson(e))
         .toList();
   }
 }

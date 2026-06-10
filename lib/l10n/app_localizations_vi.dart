@@ -509,4 +509,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String takenAt(Object time) {
     return 'Đã uống lúc $time';
   }
+
+  @override
+  String get notificationSettings => 'Cài đặt thông báo';
+
+  @override
+  String get enableNotification => 'Bật thông báo';
+
+  @override
+  String get notifyBefore => 'Thông báo trước';
+
+  @override
+  String get onTime => 'Đúng giờ';
+
+  @override
+  String get minutes => 'phút';
 }

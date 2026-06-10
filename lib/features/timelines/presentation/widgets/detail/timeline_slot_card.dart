@@ -1,6 +1,7 @@
 import 'package:checkin_medicine/features/timelines/data/models/timeline_slot_model.dart';
 import 'package:checkin_medicine/features/timelines/presentation/pages/edit_plan_page.dart';
 import 'package:checkin_medicine/features/timelines/presentation/providers/timelines_provider.dart';
+import 'package:checkin_medicine/features/timelines/presentation/pages/notify_setting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -37,7 +38,8 @@ class TimelineSlotCard extends ConsumerWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              Padding(
+                padding: EdgeInsetsGeometry.only(top: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -50,19 +52,27 @@ class TimelineSlotCard extends ConsumerWidget {
                       ),
                     ),
 
-                    /// SWITCH
-                    Transform.scale(
-                      scale: 0.7,
-                      child: Switch(
-                        value: slot.notifyEnabled,
-                        onChanged: (value) async {
-                          final repo = ref.read(timelineRepositoryProvider);
-                          await repo.toggleNotify(slot.slotId, value);
-
-                          ref.invalidate(timelineDetailProvider(slot.slotId));
-                        },
+                    IconButton(
+                      icon: Icon(
+                        slot.notifyEnabled
+                            ? Icons.notifications_active
+                            : Icons.notifications_off,
+                        color: slot.notifyEnabled ? Colors.green : Colors.grey,
                       ),
+                      onPressed: () async {
+                        final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => NotifySettingsPage(slot: slot),
+                          ),
+                        );
+
+                        if (result != null && context.mounted) {
+                          await onRefresh?.call('notify updated');
+                        }
+                      },
                     ),
+
                   ],
                 ),
               ),

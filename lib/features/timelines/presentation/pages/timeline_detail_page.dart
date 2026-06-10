@@ -58,7 +58,7 @@ class _TimelineDetailPageState extends ConsumerState<TimelineDetailPage>
           msg = 'Schedule updated successfully';
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg), backgroundColor: Colors.green,));
     }
 
     return Scaffold(

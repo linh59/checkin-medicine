@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:checkin_medicine/features/search/presentation/widgets/medicine_card.dart';
+import 'package:checkin_medicine/features/search/presentation/widgets/search_ai_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -73,7 +74,8 @@ class _SearchPageState extends ConsumerState<SearchPage>
             SearchInput(hint: t.searchHint, onChanged: onSearchChanged),
 
             const SizedBox(height: 16),
-
+            // SearchAiSection(query: query),
+            // const SizedBox(height: 16),
             SearchTabBar(controller: tabController),
 
             const SizedBox(height: 12),

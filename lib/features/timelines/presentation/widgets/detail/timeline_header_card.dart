@@ -75,16 +75,16 @@ class TimelineHeaderCard extends ConsumerWidget {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      timeline.profileName.isEmpty
-                          ? t.noProfile
-                          : timeline.profileName,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: WellnessColors.textSecondary(context),
-                      ),
-                    ),
+                    // const SizedBox(height: 4),
+                    // Text(
+                    //   timeline.profileName.isEmpty
+                    //       ? t.noProfile
+                    //       : timeline.profileName,
+                    //   style: TextStyle(
+                    //     fontSize: 13,
+                    //     color: WellnessColors.textSecondary(context),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

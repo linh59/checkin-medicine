@@ -1081,6 +1081,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Taken at {time}'**
   String takenAt(Object time);
+
+  /// No description provided for @notificationSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Settings'**
+  String get notificationSettings;
+
+  /// No description provided for @enableNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable notification'**
+  String get enableNotification;
+
+  /// No description provided for @notifyBefore.
+  ///
+  /// In en, this message translates to:
+  /// **'Notify before'**
+  String get notifyBefore;
+
+  /// No description provided for @onTime.
+  ///
+  /// In en, this message translates to:
+  /// **'On time'**
+  String get onTime;
+
+  /// No description provided for @minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'min'**
+  String get minutes;
 }
 
 class _AppLocalizationsDelegate
