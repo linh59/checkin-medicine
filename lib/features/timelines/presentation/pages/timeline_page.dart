@@ -30,18 +30,20 @@ class TimelinePage extends ConsumerWidget {
           ),
         ),
         actions: [
-          const ProfileSwitcher(),
-          const SizedBox(width: 8),
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) => const CreateTimelineDialog(),
-              );
-            },
+          Padding(
+            padding: EdgeInsets.only(right: 12),
+            child: ProfileSwitcher(),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (_) => const CreateTimelineDialog(),
+          );
+        },
+        child: const Icon(Icons.add),
       ),
 
       body: SafeArea(

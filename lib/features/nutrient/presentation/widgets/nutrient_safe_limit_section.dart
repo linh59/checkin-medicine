@@ -99,11 +99,11 @@ class NutrientSafeLimitSection extends StatelessWidget {
 
   String _groupLabel(String value, AppLocalizations t) {
     switch (value) {
-      case 'adult_male':
-        return t.adultMale;
+      case 'senior':
+        return t.senior;
 
-      case 'adult_female':
-        return t.adultFemale;
+      case 'adult':
+        return t.adult;
 
       case 'pregnant':
         return t.pregnant;
