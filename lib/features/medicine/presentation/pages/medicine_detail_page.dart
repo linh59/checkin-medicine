@@ -108,12 +108,12 @@ class _MedicineDetailPageState extends ConsumerState<MedicineDetailPage>
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  actions: const [
-                    Padding(
-                      padding: EdgeInsets.only(right: 12),
-                      child: ProfileSwitcher(),
-                    ),
-                  ],
+                  // actions: const [
+                  //   Padding(
+                  //     padding: EdgeInsets.only(right: 12),
+                  //     child: ProfileSwitcher(),
+                  //   ),
+                  // ],
                 ),
               ],
 

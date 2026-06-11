@@ -239,12 +239,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noData => 'No data available';
 
   @override
-  String get rda => 'RDA';
-
-  @override
-  String get ul => 'UL';
-
-  @override
   String get groupAdultMale => 'Adult Male';
 
   @override
@@ -525,4 +519,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get minutes => 'min';
+
+  @override
+  String get fullName => 'Full name';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get months => ' months';
+
+  @override
+  String get yearsOld => 'years';
+
+  @override
+  String get breastfeeding => 'Breastfeeding';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get lifeStage => 'Life stage';
+
+  @override
+  String get age => 'Age';
+
+  @override
+  String get source => 'Source';
+
+  @override
+  String get rda => 'RDA (Recommended)';
+
+  @override
+  String get oda => 'ODA (Optimal)';
+
+  @override
+  String get ul => 'UL (Upper Limit)';
+
+  @override
+  String get lactation => 'Lactation';
 }

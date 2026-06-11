@@ -238,12 +238,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noData => 'Chưa có dữ liệu';
 
   @override
-  String get rda => 'RDA';
-
-  @override
-  String get ul => 'UL';
-
-  @override
   String get groupAdultMale => 'Nam trưởng thành';
 
   @override
@@ -524,4 +518,46 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get minutes => 'phút';
+
+  @override
+  String get fullName => 'Họ tên';
+
+  @override
+  String get male => 'Nam';
+
+  @override
+  String get female => 'Nữ';
+
+  @override
+  String get months => ' tháng';
+
+  @override
+  String get yearsOld => 'tuổi';
+
+  @override
+  String get breastfeeding => 'Cho con bú';
+
+  @override
+  String get gender => 'Giới tính';
+
+  @override
+  String get lifeStage => 'Giai đoạn';
+
+  @override
+  String get age => 'Độ tuổi';
+
+  @override
+  String get source => 'Nguồn';
+
+  @override
+  String get rda => 'RDA (Khuyến nghị)';
+
+  @override
+  String get oda => 'ODA (Tối ưu)';
+
+  @override
+  String get ul => 'UL (Tối đa)';
+
+  @override
+  String get lactation => 'Cho con bú';
 }

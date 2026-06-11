@@ -31,10 +31,14 @@ class AuthService {
   Future<User?> signUp({
     required String email,
     required String password,
+    required String displayName
   }) async {
     final res = await client.auth.signUp(
       email: email,
       password: password,
+      data: {
+        'display_name': displayName
+      }
     );
 
     return res.user;

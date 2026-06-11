@@ -29,12 +29,12 @@ class TimelinePage extends ConsumerWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 12),
-            child: ProfileSwitcher(),
-          ),
-        ],
+        // actions: [
+        //   Padding(
+        //     padding: EdgeInsets.only(right: 12),
+        //     child: ProfileSwitcher(),
+        //   ),
+        // ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

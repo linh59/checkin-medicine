@@ -20,12 +20,12 @@ class MyMedicinesPage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.myMedicineCabinet),
 
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 12),
-            child: ProfileSwitcher(),
-          ),
-        ],
+        // actions: const [
+        //   Padding(
+        //     padding: EdgeInsets.only(right: 12),
+        //     child: ProfileSwitcher(),
+        //   ),
+        // ],
       ),
 
       floatingActionButton: FloatingActionButton(

@@ -14,6 +14,9 @@ class SignupPage extends ConsumerStatefulWidget {
 }
 class _SignupPageState
     extends ConsumerState<SignupPage> {
+  final displayNameCtrl =
+  TextEditingController();
+
   final emailCtrl =
   TextEditingController();
 
@@ -27,13 +30,17 @@ class _SignupPageState
 
   bool obscurePassword = true;
 
+  String? displayNameError;
   String? emailError;
   String? passError;
+
 
   @override
   void dispose() {
     emailCtrl.dispose();
     passCtrl.dispose();
+    displayNameCtrl.dispose();
+
     super.dispose();
   }
 
@@ -43,15 +50,24 @@ class _SignupPageState
     bool ok = true;
 
     setState(() {
+      displayNameError = null;
       emailError = null;
       passError = null;
 
+      final displayName =
+      displayNameCtrl.text.trim();
       final email =
       emailCtrl.text.trim();
 
       final pass =
       passCtrl.text.trim();
 
+      /// Display name
+      if (displayName.isEmpty) {
+        displayNameError =
+            t.passwordRequired;
+        ok = false;
+      }
       /// EMAIL
       if (email.isEmpty) {
         emailError =
@@ -91,6 +107,7 @@ class _SignupPageState
       await ref.read(authProvider.notifier).signUp(
         emailCtrl.text.trim(),
         passCtrl.text.trim(),
+        displayNameCtrl.text.trim()
       );
 
       if (!mounted) return;
@@ -226,6 +243,31 @@ class _SignupPageState
                       height: 28,
                     ),
 
+                    /// Display name
+                    TextField(
+                      controller:
+                      displayNameCtrl,
+
+                      textInputAction:
+                      TextInputAction
+                          .next,
+
+                      decoration:
+                      InputDecoration(
+                        labelText:
+                        t.fullName,
+                        errorText:
+                        displayNameError,
+                        prefixIcon:
+                        const Icon(
+                          Icons
+                              .person_2_outlined,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
                     /// EMAIL
                     TextField(
                       controller:

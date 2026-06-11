@@ -42,7 +42,6 @@ class ProfileSwitcher extends ConsumerWidget {
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
-          /// 🔥 FIX NULL VALUE CRASH
           value: current?.id ?? state.profiles.first.id,
 
           isDense: true,

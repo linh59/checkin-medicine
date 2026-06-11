@@ -554,18 +554,6 @@ abstract class AppLocalizations {
   /// **'No data available'**
   String get noData;
 
-  /// No description provided for @rda.
-  ///
-  /// In en, this message translates to:
-  /// **'RDA'**
-  String get rda;
-
-  /// No description provided for @ul.
-  ///
-  /// In en, this message translates to:
-  /// **'UL'**
-  String get ul;
-
   /// No description provided for @groupAdultMale.
   ///
   /// In en, this message translates to:
@@ -1111,6 +1099,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'min'**
   String get minutes;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full name'**
+  String get fullName;
+
+  /// No description provided for @male.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get female;
+
+  /// No description provided for @months.
+  ///
+  /// In en, this message translates to:
+  /// **' months'**
+  String get months;
+
+  /// No description provided for @yearsOld.
+  ///
+  /// In en, this message translates to:
+  /// **'years'**
+  String get yearsOld;
+
+  /// No description provided for @breastfeeding.
+  ///
+  /// In en, this message translates to:
+  /// **'Breastfeeding'**
+  String get breastfeeding;
+
+  /// No description provided for @gender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get gender;
+
+  /// No description provided for @lifeStage.
+  ///
+  /// In en, this message translates to:
+  /// **'Life stage'**
+  String get lifeStage;
+
+  /// No description provided for @age.
+  ///
+  /// In en, this message translates to:
+  /// **'Age'**
+  String get age;
+
+  /// No description provided for @source.
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get source;
+
+  /// No description provided for @rda.
+  ///
+  /// In en, this message translates to:
+  /// **'RDA (Recommended)'**
+  String get rda;
+
+  /// No description provided for @oda.
+  ///
+  /// In en, this message translates to:
+  /// **'ODA (Optimal)'**
+  String get oda;
+
+  /// No description provided for @ul.
+  ///
+  /// In en, this message translates to:
+  /// **'UL (Upper Limit)'**
+  String get ul;
+
+  /// No description provided for @lactation.
+  ///
+  /// In en, this message translates to:
+  /// **'Lactation'**
+  String get lactation;
 }
 
 class _AppLocalizationsDelegate
