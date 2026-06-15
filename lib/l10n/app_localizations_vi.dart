@@ -111,7 +111,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get myMedicines => 'Thuốc của tôi';
 
   @override
-  String get createMedicine => 'Tạo thuốc mới';
+  String get createMedicine => 'Thêm thuốc';
 
   @override
   String get medicineAndVitamin => 'Thuốc & Vitamin';
@@ -560,4 +560,82 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get lactation => 'Cho con bú';
+
+  @override
+  String get amountOfServing => 'Khẩu phần';
+
+  @override
+  String get amountOfServingHint => 'Ví dụ: 3,5 hoặc 3500';
+
+  @override
+  String get amountOfServingHelper =>
+      'Nhập đúng giá trị ghi trFên nhãn sản phẩm';
+
+  @override
+  String get pleaseEnterAmountOfServing => 'Vui lòng nhập khẩu phần';
+
+  @override
+  String get invalidNumber => 'Giá trị không hợp lệ';
+
+  @override
+  String get basicInformation => 'Thông tin cơ bản';
+
+  @override
+  String get manufacturerInformation => 'Nhà sản xuất';
+
+  @override
+  String get medicineInformation => 'Thông tin thuốc';
+
+  @override
+  String get medicineName => 'Tên thuốc';
+
+  @override
+  String get summary => 'Mô tả ngắn';
+
+  @override
+  String get country => 'Quốc gia';
+
+  @override
+  String get pillsPerServing => 'Số viên mỗi lần dùng';
+
+  @override
+  String get requiredField => 'Bắt buộc';
+
+  @override
+  String get effervescent => 'Viên sủi';
+
+  @override
+  String get medicineCreated => 'Tạo thuốc thành công';
+
+  @override
+  String get saveMedicine => 'Lưu thuốc';
+
+  @override
+  String get unit => 'Đơn vị';
+
+  @override
+  String get form => 'Dạng bào chế';
+
+  @override
+  String get addIngredient => 'Thêm thành phần';
+
+  @override
+  String ingredientDoseCalculation(int count) {
+    return 'Nhập liều cho $count viên. Hệ thống sẽ tự tính liều mỗi viên.';
+  }
+
+  @override
+  String get ingredientForms => 'Dạng hoạt chất';
+
+  @override
+  String get noIngredientFormsFound => 'Không tìm thấy dạng hoạt chất';
+
+  @override
+  String get error => 'Lỗi';
+
+  @override
+  String get selectNutrient => 'Chọn hoạt chất';
+
+  @override
+  String get noNutrientFound => 'Không tìm thấy dưỡng chất ';
 }

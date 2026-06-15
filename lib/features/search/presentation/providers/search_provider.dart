@@ -1,7 +1,7 @@
+import 'package:checkin_medicine/features/nutrient/data/models/nutrient_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/models/medicine_model.dart';
-import '../../data/models/nutrient_model.dart';
 import '../../data/repositories/search_repository.dart';
 
 final searchRepositoryProvider = Provider((ref) => SearchRepository());

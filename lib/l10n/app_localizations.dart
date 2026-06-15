@@ -1183,6 +1183,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Lactation'**
   String get lactation;
+
+  /// No description provided for @amountOfServing.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount of Serving'**
+  String get amountOfServing;
+
+  /// No description provided for @amountOfServingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 3.5 or 3500'**
+  String get amountOfServingHint;
+
+  /// No description provided for @amountOfServingHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the value exactly as shown on the label'**
+  String get amountOfServingHelper;
+
+  /// No description provided for @pleaseEnterAmountOfServing.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter amount of serving'**
+  String get pleaseEnterAmountOfServing;
+
+  /// No description provided for @invalidNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid number'**
+  String get invalidNumber;
+
+  /// No description provided for @basicInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Information'**
+  String get basicInformation;
+
+  /// No description provided for @manufacturerInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Manufacturer Information'**
+  String get manufacturerInformation;
+
+  /// No description provided for @medicineInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Medicine Information'**
+  String get medicineInformation;
+
+  /// No description provided for @medicineName.
+  ///
+  /// In en, this message translates to:
+  /// **'Medicine Name'**
+  String get medicineName;
+
+  /// No description provided for @summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get summary;
+
+  /// No description provided for @country.
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get country;
+
+  /// No description provided for @pillsPerServing.
+  ///
+  /// In en, this message translates to:
+  /// **'Pills per Serving'**
+  String get pillsPerServing;
+
+  /// No description provided for @requiredField.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get requiredField;
+
+  /// No description provided for @effervescent.
+  ///
+  /// In en, this message translates to:
+  /// **'Effervescent'**
+  String get effervescent;
+
+  /// No description provided for @medicineCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Medicine created successfully'**
+  String get medicineCreated;
+
+  /// No description provided for @saveMedicine.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Medicine'**
+  String get saveMedicine;
+
+  /// No description provided for @unit.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit'**
+  String get unit;
+
+  /// No description provided for @form.
+  ///
+  /// In en, this message translates to:
+  /// **'Form'**
+  String get form;
+
+  /// No description provided for @addIngredient.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Ingredient'**
+  String get addIngredient;
+
+  /// No description provided for @ingredientDoseCalculation.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the dosage for {count} pills. The system will automatically calculate the dosage per pill.'**
+  String ingredientDoseCalculation(int count);
+
+  /// No description provided for @ingredientForms.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredient Forms'**
+  String get ingredientForms;
+
+  /// No description provided for @noIngredientFormsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No ingredient forms found'**
+  String get noIngredientFormsFound;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @selectNutrient.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Nutrient'**
+  String get selectNutrient;
+
+  /// No description provided for @noNutrientFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No nutrients found'**
+  String get noNutrientFound;
 }
 
 class _AppLocalizationsDelegate

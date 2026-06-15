@@ -561,4 +561,82 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lactation => 'Lactation';
+
+  @override
+  String get amountOfServing => 'Amount of Serving';
+
+  @override
+  String get amountOfServingHint => 'e.g. 3.5 or 3500';
+
+  @override
+  String get amountOfServingHelper =>
+      'Enter the value exactly as shown on the label';
+
+  @override
+  String get pleaseEnterAmountOfServing => 'Please enter amount of serving';
+
+  @override
+  String get invalidNumber => 'Invalid number';
+
+  @override
+  String get basicInformation => 'Basic Information';
+
+  @override
+  String get manufacturerInformation => 'Manufacturer Information';
+
+  @override
+  String get medicineInformation => 'Medicine Information';
+
+  @override
+  String get medicineName => 'Medicine Name';
+
+  @override
+  String get summary => 'Summary';
+
+  @override
+  String get country => 'Country';
+
+  @override
+  String get pillsPerServing => 'Pills per Serving';
+
+  @override
+  String get requiredField => 'Required';
+
+  @override
+  String get effervescent => 'Effervescent';
+
+  @override
+  String get medicineCreated => 'Medicine created successfully';
+
+  @override
+  String get saveMedicine => 'Save Medicine';
+
+  @override
+  String get unit => 'Unit';
+
+  @override
+  String get form => 'Form';
+
+  @override
+  String get addIngredient => 'Add Ingredient';
+
+  @override
+  String ingredientDoseCalculation(int count) {
+    return 'Enter the dosage for $count pills. The system will automatically calculate the dosage per pill.';
+  }
+
+  @override
+  String get ingredientForms => 'Ingredient Forms';
+
+  @override
+  String get noIngredientFormsFound => 'No ingredient forms found';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get selectNutrient => 'Select Nutrient';
+
+  @override
+  String get noNutrientFound => 'No nutrients found';
 }

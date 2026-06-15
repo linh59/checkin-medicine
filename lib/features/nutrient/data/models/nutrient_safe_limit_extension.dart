@@ -16,19 +16,6 @@ extension NutrientSafeLimitX on NutrientSafeLimitModel {
     }
   }
 
-  String lifeStageText(AppLocalizations t) {
-    switch (lifeStage?.toLowerCase()) {
-      case 'pregnant':
-        return t.pregnant;
-
-      case 'lactation':
-        return t.breastfeeding;
-
-      default:
-        return lifeStage ?? '';
-    }
-  }
-
   String ageRangeText(AppLocalizations t) {
     if (ageMinMonths == null || ageMaxMonths == null) {
       return '';

@@ -1,7 +1,7 @@
+import 'package:checkin_medicine/features/nutrient/data/models/nutrient_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/medicine_model.dart';
-import '../models/nutrient_model.dart';
 
 class SearchRepository {
   final SupabaseClient _client = Supabase.instance.client;
@@ -19,14 +19,14 @@ form,
 summary
 ''');
 
-    // search keyword
     if (keyword.isNotEmpty) {
       query = query.or(
-        'brand.ilike.%$keyword%,generic_name.ilike.%$keyword%,manufacturer.ilike.%$keyword%',
+        'brand.ilike.%${keyword}%,generic_name.ilike.%${keyword}%,manufacturer.ilike.%${keyword}%',
       );
     }
 
-    final response = await query.limit(30);
+    final response = await query.order('brand', ascending: true).limit(100);
+
     return (response as List).map((e) => MedicineModel.fromJson(e)).toList();
   }
 

@@ -33,7 +33,7 @@
   "searchSubtitle": "Tìm thuốc, vitamin hoặc thành phần",
   "searchPlaceholder": "Magnesium, Caltrate, Centrum…",
   "myMedicines": "Thuốc của tôi",
-  "createMedicine": "Tạo thuốc mới",
+  "createMedicine": "Thêm thuốc",
   "medicineAndVitamin": "Thuốc & Vitamin",
   "ingredients": "Thành phần",
   "noMedicineFound": "Không tìm thấy thuốc nào",
@@ -186,5 +186,40 @@
   "rda": "RDA (Khuyến nghị)",
   "oda": "ODA (Tối ưu)",
   "ul": "UL (Tối đa)",
-  "lactation": "Cho con bú"
+  "lactation": "Cho con bú",
+  "amountOfServing": "Khẩu phần",
+  "amountOfServingHint": "Ví dụ: 3,5 hoặc 3500",
+  "amountOfServingHelper": "Nhập đúng giá trị ghi trFên nhãn sản phẩm",
+  "pleaseEnterAmountOfServing": "Vui lòng nhập khẩu phần",
+  "invalidNumber": "Giá trị không hợp lệ",
+  "basicInformation": "Thông tin cơ bản",
+  "manufacturerInformation": "Nhà sản xuất",
+  "medicineInformation": "Thông tin thuốc",
+  "medicineName": "Tên thuốc",
+  "summary": "Mô tả ngắn",
+  "country": "Quốc gia",
+  "pillsPerServing": "Số viên mỗi lần dùng",
+  "requiredField": "Bắt buộc",
+  "effervescent": "Viên sủi",
+  "medicineCreated": "Tạo thuốc thành công",
+  "saveMedicine": "Lưu thuốc",
+  "unit": "Đơn vị",
+  "form": "Dạng bào chế",
+  "addIngredient": "Thêm thành phần",
+  "ingredientDoseCalculation": "Nhập liều cho {count} viên. Hệ thống sẽ tự tính liều mỗi viên.",
+  "@ingredientDoseCalculation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ingredientForms": "Dạng hoạt chất",
+  "noIngredientFormsFound": "Không tìm thấy dạng hoạt chất",
+  "error": "Lỗi",
+  "selectNutrient": "Chọn hoạt chất",
+  "noNutrientFound": "Không tìm thấy dưỡng chất "
+
+
+
 }

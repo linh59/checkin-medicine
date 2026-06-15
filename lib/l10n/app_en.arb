@@ -186,5 +186,37 @@
   "rda": "RDA (Recommended)",
   "oda": "ODA (Optimal)",
   "ul": "UL (Upper Limit)",
-  "lactation": "Lactation"
+  "lactation": "Lactation",
+  "amountOfServing": "Amount of Serving",
+  "amountOfServingHint": "e.g. 3.5 or 3500",
+  "amountOfServingHelper": "Enter the value exactly as shown on the label",
+  "pleaseEnterAmountOfServing": "Please enter amount of serving",
+  "invalidNumber": "Invalid number",
+  "basicInformation": "Basic Information",
+  "manufacturerInformation": "Manufacturer Information",
+  "medicineInformation": "Medicine Information",
+  "medicineName": "Medicine Name",
+  "summary": "Summary",
+  "country": "Country",
+  "pillsPerServing": "Pills per Serving",
+  "requiredField": "Required",
+  "effervescent": "Effervescent",
+  "medicineCreated": "Medicine created successfully",
+  "saveMedicine": "Save Medicine",
+  "unit": "Unit",
+  "form": "Form",
+  "addIngredient": "Add Ingredient",
+  "ingredientDoseCalculation": "Enter the dosage for {count} pills. The system will automatically calculate the dosage per pill.",
+  "@ingredientDoseCalculation": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ingredientForms": "Ingredient Forms",
+  "noIngredientFormsFound": "No ingredient forms found",
+   "error": "Error",
+   "selectNutrient": "Select Nutrient",
+   "noNutrientFound": "No nutrients found"
 }
