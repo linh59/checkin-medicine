@@ -32,8 +32,7 @@ class Medicine {
   final int? pillsPerServing;
 
   /// IMPORTANT
-  final List<MedicineIngredient>
-  ingredients;
+  final List<MedicineIngredient> ingredients;
 
   Medicine({
     required this.id,
@@ -57,98 +56,65 @@ class Medicine {
     required this.ingredients,
   });
 
-  factory Medicine.fromJson(
-      Map<String, dynamic> json,
-      ) {
+  factory Medicine.fromJson(Map<String, dynamic> json) {
     return Medicine(
       id: json['id'].toString(),
       slug: json['slug'] ?? '',
 
       brand: json['brand'] ?? '',
-      genericName:
-      json['generic_name'] ?? '',
-      manufacturer:
-      json['manufacturer'] ?? '',
+      genericName: json['generic_name'] ?? '',
+      manufacturer: json['manufacturer'] ?? '',
 
       form: json['form'] ?? '',
-      servingSize:
-      json['serving_size'] ?? '',
+      servingSize: json['serving_size'] ?? '',
 
       imageUrl: json['image_url'],
 
       summary: json['summary'],
-      description:
-      json['description'],
+      description: json['description'],
 
-      warnings: _parseList(
-        json['warnings'],
-      ),
+      warnings: _parseList(json['warnings']),
 
       category: json['category'],
       country: json['country'],
 
       strength: json['strength'],
-      strengthUnit:
-      json['strength_unit'],
+      strengthUnit: json['strength_unit'],
 
       isDeleted:
-      json['is_deleted'] ==
-          true ||
-          json['is_deleted']
-              ?.toString() ==
-              'true',
+          json['is_deleted'] == true ||
+          json['is_deleted']?.toString() == 'true',
 
-      createdBy:
-      json['created_by'],
+      createdBy: json['created_by'],
 
-      pillsPerServing:
-      int.tryParse(
-        json['pills_per_serving']
-            ?.toString() ??
-            '',
+      pillsPerServing: int.tryParse(
+        json['pills_per_serving']?.toString() ?? '',
       ),
 
       /// Parse relation
       ingredients:
-      (json[
-      'medicine_ingredients']
-      as List?)
-          ?.map(
-            (e) =>
-            MedicineIngredient
-                .fromJson(e),
-      )
-          .toList() ??
+          (json['medicine_ingredients'] as List?)
+              ?.map((e) => MedicineIngredient.fromJson(e))
+              .toList() ??
           [],
     );
   }
 
-  static List<String> _parseList(
-      dynamic value,
-      ) {
+  static List<String> _parseList(dynamic value) {
     if (value == null) {
       return [];
     }
 
     if (value is List) {
-      return value
-          .map(
-            (e) => e.toString(),
-      )
-          .toList();
+      return value.map((e) => e.toString()).toList();
     }
 
     if (value is String) {
       try {
-        final decoded =
-        jsonDecode(value);
+        final decoded = jsonDecode(value);
 
         if (decoded is List) {
-          return decoded
-              .map(
-                (e) => e.toString(),
-          )
-              .toList();
+          return decoded.map((e) => e.toString()).toList();
         }
       } catch (_) {}
     }

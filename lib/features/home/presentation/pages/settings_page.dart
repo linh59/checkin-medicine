@@ -24,8 +24,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
     final auth = ref.watch(authProvider);
     final user = auth.user;
-    final displayNameUser = user?.userMetadata?['display_name'];
-    final emailUser = user?.userMetadata?['email'];
+
 
     return Scaffold(
       appBar: AppBar(title: Text(t.settings)),
@@ -37,7 +36,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               const SizedBox(height: 12),
 
               /// PROFILE CARD
-              _ProfileCard(email: emailUser, name: displayNameUser),
+              if(user != null)
+              _ProfileCard(user: user),
 
               const SizedBox(height: 16),
 
@@ -68,13 +68,14 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 /// PROFILE CARD
 /// =========================
 class _ProfileCard extends StatelessWidget {
-  final String email;
-  final String name;
+  final User user;
 
-  const _ProfileCard({required this.email, required this.name});
+  const _ProfileCard({required this.user});
 
   @override
   Widget build(BuildContext context) {
+    final name = user.userMetadata?['display_name'];
+    final email = user.userMetadata?['email'];
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -105,7 +106,7 @@ class _ProfileCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name,
+                  name ?? '',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -114,7 +115,7 @@ class _ProfileCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(email, style: TextStyle(fontSize: 12, color: Colors.grey)),
+                Text(email ?? '', style: TextStyle(fontSize: 12, color: Colors.grey)),
               ],
             ),
           ),

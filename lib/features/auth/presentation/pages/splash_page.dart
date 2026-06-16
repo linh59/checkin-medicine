@@ -1,48 +1,57 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/theme/app_colors.dart';
-
+import '../../../../l10n/app_localizations.dart';
 
 class SplashPage extends StatelessWidget {
-  const SplashPage({
-    super.key,
-  });
+  const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment:
-          MainAxisAlignment.center,
-          children: const [
-            Icon(
-              Icons.spa,
-              size: 72,
-              color:
-              WellnessColors.primary,
-            ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 24,
+          ),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: 420,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                
+                  const SizedBox(height: 24),
 
-            SizedBox(height: 12),
+                  /// APP NAME
+                  Text(
+                    'Pill Track',
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
 
-            Text(
-              'CalmCare',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight:
-                FontWeight.bold,
+                  const SizedBox(height: 12),
+
+                  /// SUBTITLE
+                  Text(
+                    t.loginSubtitle,
+                    textAlign: TextAlign.center,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ],
               ),
             ),
-
-            SizedBox(height: 6),
-
-            Text(
-              'Your health companion',
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
