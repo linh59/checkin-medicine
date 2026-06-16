@@ -60,7 +60,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordMin => 'Minimum 6 characters';
 
   @override
-  String get loginSubtitle => 'Manage your medication safely';
+  String get loginSubtitle =>
+      'Manage medications, vitamins, and nutrients daily — safely for the whole family.';
 
   @override
   String get schedule => 'Schedule';

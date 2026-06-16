@@ -203,7 +203,7 @@ abstract class AppLocalizations {
   /// No description provided for @loginSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Manage your medication safely'**
+  /// **'Manage medications, vitamins, and nutrients daily — safely for the whole family.'**
   String get loginSubtitle;
 
   /// No description provided for @schedule.

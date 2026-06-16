@@ -60,7 +60,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get passwordMin => 'Tối thiểu 6 ký tự';
 
   @override
-  String get loginSubtitle => 'Quản lý thuốc của bạn an toàn mỗi ngày';
+  String get loginSubtitle =>
+      'Quản lý thuốc, vitamin & khoáng chất mỗi ngày — an toàn cho cả gia đình.';
 
   @override
   String get schedule => 'Lịch uống';

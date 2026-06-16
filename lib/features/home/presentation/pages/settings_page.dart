@@ -1,9 +1,11 @@
 import 'package:checkin_medicine/features/auth/presentation/providers/auth_provider.dart';
 import 'package:checkin_medicine/features/home/widgets/logout_button.dart';
 import 'package:checkin_medicine/l10n/app_localizations.dart';
+import 'package:checkin_medicine/shared/widgets/language_switcher.dart';
 import 'package:checkin_medicine/shared/widgets/theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
@@ -22,6 +24,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
     final auth = ref.watch(authProvider);
     final user = auth.user;
+    final displayNameUser = user?.userMetadata?['display_name'];
+    final emailUser = user?.userMetadata?['email'];
 
     return Scaffold(
       appBar: AppBar(title: Text(t.settings)),
@@ -33,7 +37,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               const SizedBox(height: 12),
 
               /// PROFILE CARD
-              _ProfileCard(email: user?.email),
+              _ProfileCard(email: emailUser, name: displayNameUser),
 
               const SizedBox(height: 16),
 
@@ -43,11 +47,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 label: t.darkMode,
                 trailing: const ThemeSwitcher(),
               ),
-
-              const Spacer(),
+              const SizedBox(height: 16),
 
               /// LOGOUT BUTTON
               const LogoutButton(),
+
+              const Spacer(),
+              LanguageSwitcher(),
 
               const SizedBox(height: 16),
             ],
@@ -62,9 +68,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 /// PROFILE CARD
 /// =========================
 class _ProfileCard extends StatelessWidget {
-  final String? email;
+  final String email;
+  final String name;
 
-  const _ProfileCard({required this.email});
+  const _ProfileCard({required this.email, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +105,7 @@ class _ProfileCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  email ?? "-",
+                  name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -107,10 +114,7 @@ class _ProfileCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 2),
-                const Text(
-                  "Tài khoản Pill App",
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
-                ),
+                Text(email, style: TextStyle(fontSize: 12, color: Colors.grey)),
               ],
             ),
           ),

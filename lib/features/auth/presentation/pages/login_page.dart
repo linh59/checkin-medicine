@@ -1,5 +1,6 @@
 import 'package:checkin_medicine/features/auth/presentation/pages/signup_page.dart';
 import 'package:checkin_medicine/features/auth/presentation/providers/auth_provider.dart';
+import 'package:checkin_medicine/shared/widgets/language_switcher.dart';
 import 'package:checkin_medicine/shared/widgets/theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,25 +10,18 @@ import '../../../../../core/theme/app_colors.dart';
 import '../../../../../l10n/app_localizations.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({
-    super.key,
-  });
+  const LoginPage({super.key});
 
   @override
-  ConsumerState<LoginPage> createState() =>
-      _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState
-    extends ConsumerState<LoginPage> {
-  final emailCtrl =
-  TextEditingController();
+class _LoginPageState extends ConsumerState<LoginPage> {
+  final emailCtrl = TextEditingController();
 
-  final passCtrl =
-  TextEditingController();
+  final passCtrl = TextEditingController();
 
-  final auth =
-      AuthService.instance;
+  final auth = AuthService.instance;
 
   bool loading = false;
 
@@ -43,42 +37,32 @@ class _LoginPageState
     super.dispose();
   }
 
-  bool validate(
-      AppLocalizations t,
-      ) {
+  bool validate(AppLocalizations t) {
     bool ok = true;
 
     setState(() {
       emailError = null;
       passError = null;
 
-      final email =
-      emailCtrl.text.trim();
+      final email = emailCtrl.text.trim();
 
-      final pass =
-      passCtrl.text.trim();
+      final pass = passCtrl.text.trim();
 
       /// EMAIL
       if (email.isEmpty) {
-        emailError =
-            t.emailRequired;
+        emailError = t.emailRequired;
         ok = false;
-      } else if (!email
-          .contains("@")) {
-        emailError =
-            t.invalidEmail;
+      } else if (!email.contains("@")) {
+        emailError = t.invalidEmail;
         ok = false;
       }
 
       /// PASSWORD
       if (pass.isEmpty) {
-        passError =
-            t.passwordRequired;
+        passError = t.passwordRequired;
         ok = false;
-      } else if (pass.length <
-          6) {
-        passError =
-            t.passwordMin;
+      } else if (pass.length < 6) {
+        passError = t.passwordMin;
         ok = false;
       }
     });
@@ -94,19 +78,18 @@ class _LoginPageState
     setState(() => loading = true);
 
     try {
-      await ref.read(authProvider.notifier).signIn(
-        emailCtrl.text.trim(),
-        passCtrl.text.trim(),
-      );
+      await ref
+          .read(authProvider.notifier)
+          .signIn(emailCtrl.text.trim(), passCtrl.text.trim());
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Login successful"),
-          backgroundColor: Colors.green,
-        ),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(
+      //     content: Text("Login successful"),
+      //     backgroundColor: Colors.green,
+      //   ),
+      // );
 
       ///  NO NAVIGATION
       /// AppRoot handles routing automatically
@@ -116,10 +99,7 @@ class _LoginPageState
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Login failed"),
-          backgroundColor: Colors.red,
-        ),
+        SnackBar(content: Text("Login failed"), backgroundColor: Colors.red),
       );
     } finally {
       if (!mounted) return;
@@ -128,269 +108,143 @@ class _LoginPageState
   }
 
   @override
-  Widget build(
-      BuildContext context,
-      ) {
-    final t =
-    AppLocalizations.of(
-      context,
-    )!;
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
 
-    final theme =
-    Theme.of(context);
+    final theme = Theme.of(context);
 
     return GestureDetector(
       onTap: () {
-        FocusScope.of(
-          context,
-        ).unfocus();
+        FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        backgroundColor:
-        theme
-            .scaffoldBackgroundColor,
+        backgroundColor: theme.scaffoldBackgroundColor,
         body: SafeArea(
           child: Center(
-            child:
-            SingleChildScrollView(
-              padding:
-              const EdgeInsets.symmetric(
-                horizontal: 24,
-              ),
-              child:
-              ConstrainedBox(
-                constraints:
-                const BoxConstraints(
-                  maxWidth: 420,
-                ),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 420),
                 child: Column(
                   children: [
                     /// ICON
                     Container(
-                      padding:
-                      const EdgeInsets.all(
-                        16,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: WellnessColors.primary.withOpacity(0.1),
+                        shape: BoxShape.circle,
                       ),
-                      decoration:
-                      BoxDecoration(
-                        color:
-                        WellnessColors
-                            .primary
-                            .withOpacity(
-                          0.1,
-                        ),
-                        shape:
-                        BoxShape.circle,
-                      ),
-                      child:
-                      const Icon(
-                        Icons
-                            .medical_services,
+                      child: const Icon(
+                        Icons.medical_services,
                         size: 40,
-                        color:
-                        WellnessColors
-                            .primary,
+                        color: WellnessColors.primary,
                       ),
                     ),
 
-                    const SizedBox(
-                      height: 16,
-                    ),
+                    const SizedBox(height: 16),
 
                     /// TITLE
                     Text(
                       t.loginTitle,
-                      style: theme
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(
-                        fontWeight:
-                        FontWeight
-                            .bold,
+                      style: theme.textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
 
-                    const SizedBox(
-                      height: 6,
-                    ),
+                    const SizedBox(height: 6),
 
                     Text(
                       t.loginSubtitle,
-                      textAlign:
-                      TextAlign
-                          .center,
-                      style: theme
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(
-                        color:
-                        Colors.grey,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: Colors.grey,
                       ),
                     ),
 
-                    const SizedBox(
-                      height: 28,
-                    ),
+                    const SizedBox(height: 28),
 
                     /// EMAIL
                     TextField(
-                      controller:
-                      emailCtrl,
-                      keyboardType:
-                      TextInputType
-                          .emailAddress,
-                      textInputAction:
-                      TextInputAction
-                          .next,
-                      autofillHints:
-                      const [
-                        AutofillHints
-                            .email,
-                      ],
-                      decoration:
-                      InputDecoration(
-                        labelText:
-                        t.email,
-                        errorText:
-                        emailError,
-                        prefixIcon:
-                        const Icon(
-                          Icons
-                              .email_outlined,
-                        ),
+                      controller: emailCtrl,
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      autofillHints: const [AutofillHints.email],
+                      decoration: InputDecoration(
+                        labelText: t.email,
+                        errorText: emailError,
+                        prefixIcon: const Icon(Icons.email_outlined),
                       ),
                     ),
 
-                    const SizedBox(
-                      height: 14,
-                    ),
+                    const SizedBox(height: 14),
 
                     /// PASSWORD
                     TextField(
-                      controller:
-                      passCtrl,
-                      obscureText:
-                      obscurePassword,
-                      textInputAction:
-                      TextInputAction
-                          .done,
-                      autofillHints:
-                      const [
-                        AutofillHints
-                            .password,
-                      ],
-                      onSubmitted:
-                          (_) =>
-                          login(
-                            t,
-                          ),
-                      decoration:
-                      InputDecoration(
-                        labelText:
-                        t.password,
-                        errorText:
-                        passError,
-                        prefixIcon:
-                        const Icon(
-                          Icons
-                              .lock_outline,
-                        ),
+                      controller: passCtrl,
+                      obscureText: obscurePassword,
+                      textInputAction: TextInputAction.done,
+                      autofillHints: const [AutofillHints.password],
+                      onSubmitted: (_) => login(t),
+                      decoration: InputDecoration(
+                        labelText: t.password,
+                        errorText: passError,
+                        prefixIcon: const Icon(Icons.lock_outline),
 
                         /// SHOW / HIDE
-                        suffixIcon:
-                        IconButton(
-                          onPressed:
-                              () {
-                            setState(
-                                  () {
-                                obscurePassword =
-                                !obscurePassword;
-                              },
-                            );
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              obscurePassword = !obscurePassword;
+                            });
                           },
-                          icon:
-                          Icon(
+                          icon: Icon(
                             obscurePassword
-                                ? Icons
-                                .visibility_off_outlined
-                                : Icons
-                                .visibility_outlined,
+                                ? Icons.visibility_off_outlined
+                                : Icons.visibility_outlined,
                           ),
                         ),
                       ),
                     ),
 
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
 
                     /// LOGIN BUTTON
                     SizedBox(
                       width: double.infinity,
                       height: 52,
-                      child:
-                      ElevatedButton(
-                        onPressed:
-                        loading
-                            ? null
-                            : () =>
-                            login(
-                              t,
-                            ),
-                        child:
-                        loading
+                      child: ElevatedButton(
+                        onPressed: loading ? null : () => login(t),
+                        child: loading
                             ? const SizedBox(
-                          height:
-                          18,
-                          width:
-                          18,
-                          child:
-                          CircularProgressIndicator(
-                            strokeWidth:
-                            2,
-                            color:
-                            Colors.white,
-                          ),
-                        )
-                            : Text(
-                          t.login,
-                        ),
+                                height: 18,
+                                width: 18,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Text(t.login),
                       ),
                     ),
 
-                    const SizedBox(
-                      height: 12,
-                    ),
+                    const SizedBox(height: 12),
 
                     /// SIGNUP
                     TextButton(
-                      onPressed:
-                          () {
+                      onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder:
-                                (_) =>
-                            const SignupPage(),
-                          ),
+                          MaterialPageRoute(builder: (_) => const SignupPage()),
                         );
                       },
                       child: Text(
                         t.createAccount,
-                        style:
-                        const TextStyle(
-                          color:
-                          WellnessColors
-                              .primary,
-                        ),
+                        style: const TextStyle(color: WellnessColors.primary),
                       ),
                     ),
+                    const SizedBox(height: 12),
 
-                    const SizedBox(
-                      height: 12,
-                    ),
-
-                    const ThemeSwitcher(),
+                    LanguageSwitcher(),
                   ],
                 ),
               ),
