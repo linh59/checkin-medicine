@@ -2,37 +2,34 @@ import 'package:checkin_medicine/core/services/notification_service.dart';
 import 'package:checkin_medicine/core/utils/notification_time_utils.dart';
 
 class TimelineNotificationService {
-
   static Future<void> syncSlot({
     required String slotId,
     required bool notifyEnabled,
     required int notifyOffsetMin,
     required String time,
     required String medicineName,
-    required double dose
+    required double dose,
+  }) async {
+    final notificationId = slotId.hashCode;
 
-}) async {
+    /// Luôn huỷ notification cũ
+    await NotificationService.cancel(notificationId);
 
-    /// 1. always cancel old notification
-    await NotificationService.cancel(slotId.hashCode);
-
-    /// 2. check enable
+    /// Nếu user tắt nhắc thuốc thì dừng
     if (!notifyEnabled) return;
 
-    /// 3. compute time
+    /// Tính thời gian nhắc
     final notifyTime = NotificationTimeUtils.buildNotifyTime(
       time,
-      notifyOffsetMin ?? 0,
+      notifyOffsetMin,
     );
 
-    /// 4. schedule new
-    if (notifyTime.isAfter(DateTime.now())) {
-      await NotificationService.scheduleNotification(
-        id: slotId.hashCode,
-        title: 'Đến giờ uống thuốc',
-        body: '$time: $medicineName',
-        dateTime: notifyTime,
-      );
-    }
+    /// Schedule notification lặp hằng ngày
+    await NotificationService.scheduleNotification(
+      id: notificationId,
+      title: 'Đến giờ uống thuốc',
+      body: '$time • $dose viên $medicineName',
+      dateTime: notifyTime,
+    );
   }
 }

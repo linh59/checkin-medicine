@@ -3,20 +3,20 @@ class NotificationTimeUtils {
       String time,
       int offsetMin,
       ) {
+    final parts = time.split(':');
+
     final now = DateTime.now();
 
-    final parts = time.split(':');
-    final hour = int.parse(parts[0]);
-    final minute = int.parse(parts[1]);
-
-    final scheduled = DateTime(
+    final medicineTime = DateTime(
       now.year,
       now.month,
       now.day,
-      hour,
-      minute,
+      int.parse(parts[0]),
+      int.parse(parts[1]),
     );
 
-    return scheduled.subtract(Duration(minutes: offsetMin));
+    return medicineTime.subtract(
+      Duration(minutes: offsetMin),
+    );
   }
 }

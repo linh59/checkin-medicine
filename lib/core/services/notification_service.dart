@@ -61,7 +61,7 @@ class NotificationService {
 
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
 
-      matchDateTimeComponents: null,
+      matchDateTimeComponents: DateTimeComponents.time,
 
     );
   }
