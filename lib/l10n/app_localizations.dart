@@ -1333,6 +1333,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No nutrients found'**
   String get noNutrientFound;
+
+  /// No description provided for @basedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on'**
+  String get basedOn;
 }
 
 class _AppLocalizationsDelegate

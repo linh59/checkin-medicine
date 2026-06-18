@@ -218,8 +218,6 @@
   "noIngredientFormsFound": "Không tìm thấy dạng hoạt chất",
   "error": "Lỗi",
   "selectNutrient": "Chọn hoạt chất",
-  "noNutrientFound": "Không tìm thấy dưỡng chất "
-
-
-
+  "noNutrientFound": "Không tìm thấy dưỡng chất ",
+  "basedOn": "Dựa trên"
 }

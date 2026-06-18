@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/core/extension/medicine_form_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/bumber_formatter.dart';
@@ -25,7 +26,12 @@ class OverviewTab
     final colorScheme =
         Theme.of(context)
             .colorScheme;
+    final hasServingData = medicine.ingredients.any(
+          (e) => e.amountPerServing != null,
+    );
 
+    final servingText =
+        '${t.basedOn} ${hasServingData ? medicine.pillsPerServing ?? 1 : 1} ${medicine.form.localized(t) }';
     return SingleChildScrollView(
       physics:
       const BouncingScrollPhysics(),
@@ -76,10 +82,11 @@ class OverviewTab
             ),
 
           /// INGREDIENT SUMMARY
+
           _OverviewCard(
             title:
             t.ingredientSummary,
-
+            subtitle: servingText,
             icon:
             Icons.science_outlined,
 
@@ -153,7 +160,7 @@ class OverviewTab
                                   ),
 
                                   Text(
-                                    item.unit ??
+                                    item.ingredientForm?.saltForm ??
                                         '',
 
                                     style: Theme.of(
@@ -174,8 +181,32 @@ class OverviewTab
                               width:
                               12,
                             ),
+                            // Amount per serving
+                            if(item.amountPerServing != null && item.amountPerServing! > 0)
+                              Text(
+                                NumberFormatter
+                                    .dosage(
+                                  amount: item
+                                      .amountPerServing,
 
-                            /// DOSAGE
+                                  unit:
+                                  item.unit,
+
+
+                                ),
+
+                                style: Theme.of(
+                                    context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(
+                                  fontWeight:
+                                  FontWeight
+                                      .w700,
+                                ),
+                              ),
+                            /// Amount per pill
+                            if(item.amountPerPill! > 0)
                             Text(
                               NumberFormatter
                                   .dosage(
@@ -199,6 +230,8 @@ class OverviewTab
                                     .w700,
                               ),
                             ),
+
+
                           ],
                         ),
                       ),
@@ -226,84 +259,68 @@ class OverviewTab
   }
 }
 
-class _OverviewCard
-    extends StatelessWidget {
+class _OverviewCard extends StatelessWidget {
   final String title;
+  final String? subtitle;
   final IconData icon;
   final Widget child;
 
   const _OverviewCard({
     required this.title,
+    this.subtitle,
     required this.icon,
     required this.child,
   });
 
   @override
-  Widget build(
-      BuildContext context,
-      ) {
-    final colorScheme =
-        Theme.of(context)
-            .colorScheme;
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
-      width:
-      double.infinity,
-
-      padding:
-      const EdgeInsets.all(
-        20,
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(24),
       ),
-
-      decoration:
-      BoxDecoration(
-        color: colorScheme
-            .surfaceContainerLow,
-
-        borderRadius:
-        BorderRadius.circular(
-          24,
-        ),
-      ),
-
       child: Column(
-        crossAxisAlignment:
-        CrossAxisAlignment
-            .start,
-
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               Icon(
                 icon,
                 size: 20,
-                color:
-                colorScheme
-                    .primary,
+                color: colorScheme.primary,
               ),
-
-              const SizedBox(
-                width: 10,
-              ),
-
-              Text(
-                title,
-                style: Theme.of(
-                    context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(
-                  fontWeight:
-                  FontWeight
-                      .w700,
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ],
           ),
 
-          const SizedBox(
-            height: 18,
-          ),
+          if (subtitle != null) ...[
+            const SizedBox(height: 4),
+            Text(
+              subtitle!,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ],
+
 
           child,
         ],

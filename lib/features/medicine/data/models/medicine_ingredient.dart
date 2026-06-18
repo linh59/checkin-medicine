@@ -5,7 +5,9 @@ class MedicineIngredient {
   final String? medicineId;
   final String? formId;
 
-  final double amountPerPill;
+  final double? amountPerPill;
+  final double? amountPerServing;
+
   final String unit;
   final double? percentDv;
   final IngredientForm?
@@ -15,7 +17,8 @@ class MedicineIngredient {
     required this.id,
     required this.medicineId,
     required this.formId,
-    required this.amountPerPill,
+    this.amountPerPill,
+    this.amountPerServing,
     required this.unit,
     required this.percentDv,
     required this.ingredientForm,
@@ -42,6 +45,14 @@ class MedicineIngredient {
       double.tryParse(
         json[
         'amount_per_pill']
+            ?.toString() ??
+            '',
+      ) ??
+          0,
+      amountPerServing:
+      double.tryParse(
+        json[
+        'amount_per_serving']
             ?.toString() ??
             '',
       ) ??

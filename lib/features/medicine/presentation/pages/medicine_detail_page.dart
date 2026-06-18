@@ -150,6 +150,8 @@ class _MedicineDetailPageState extends ConsumerState<MedicineDetailPage>
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: IngredientsTab(
                             ingredients: medicine.ingredients,
+                            pillsPerServing: medicine.pillsPerServing ?? 1,
+                            form: medicine.form,
                           ),
                         ),
 

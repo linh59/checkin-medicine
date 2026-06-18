@@ -37,7 +37,7 @@ class AdminMedicineRepository {
                   (e) => {
                     'medicine_id': medicineId,
                     'form_id': e.formId,
-                    'amount_per_pill': e.amountPerPill,
+                    'amount_per_serving': e.amountPerServing,
                     'unit': e.unit,
                   },
                 )

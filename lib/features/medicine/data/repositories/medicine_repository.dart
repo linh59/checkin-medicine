@@ -15,7 +15,9 @@ class MedicineRepository {
           *,
           medicine_ingredients (
             id,
+           
             amount_per_pill,
+            amount_per_serving,
             unit,
             percent_dv,
             ingredient_forms (

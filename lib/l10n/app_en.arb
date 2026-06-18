@@ -218,5 +218,6 @@
   "noIngredientFormsFound": "No ingredient forms found",
    "error": "Error",
    "selectNutrient": "Select Nutrient",
-   "noNutrientFound": "No nutrients found"
+   "noNutrientFound": "No nutrients found",
+   "basedOn": "Based on"
 }

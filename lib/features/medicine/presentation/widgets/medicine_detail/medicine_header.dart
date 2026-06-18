@@ -1,3 +1,5 @@
+import 'package:checkin_medicine/core/extension/medicine_form_extension.dart';
+import 'package:checkin_medicine/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/app_colors.dart';
@@ -14,6 +16,7 @@ class MedicineHeader extends StatelessWidget {
     final theme = Theme.of(context);
 
     final imageUrl = medicine.imageUrl;
+    final t = AppLocalizations.of(context)!;
 
     return Container(
       width: double.infinity,
@@ -101,9 +104,9 @@ class MedicineHeader extends StatelessWidget {
                       spacing: 8,
                       runSpacing: 8,
                       children: [
-                        if (medicine.servingSize != null)
+                        if (medicine.pillsPerServing != null)
                           Chip(
-                            label: Text(medicine.servingSize!),
+                            label: Text('${medicine.pillsPerServing!} ${medicine.form.localized(t)}'),
                             visualDensity: VisualDensity.compact,
                           ),
                       ],

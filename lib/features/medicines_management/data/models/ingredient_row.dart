@@ -50,7 +50,7 @@ class IngredientRow {
       saltForm: null,
       input: const MedicineIngredientInput(
         formId: '',
-        amountPerPill: 0,
+        amountPerServing: 0,
         unit: 'mg',
       ),
       localId: '',

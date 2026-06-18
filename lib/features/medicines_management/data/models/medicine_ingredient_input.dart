@@ -1,7 +1,7 @@
 class MedicineIngredientInput {
   final String formId;
 
-  final double amountPerPill;
+  final double amountPerServing;
 
   final String unit;
 
@@ -9,7 +9,7 @@ class MedicineIngredientInput {
 
   const MedicineIngredientInput({
     required this.formId,
-    required this.amountPerPill,
+    required this.amountPerServing,
     required this.unit,
     this.percentDv,
   });
@@ -18,8 +18,8 @@ class MedicineIngredientInput {
     return MedicineIngredientInput(
       formId: json['form_id']?.toString() ?? '',
 
-      amountPerPill:
-          double.tryParse(json['amount_per_pill']?.toString() ?? '') ?? 0,
+      amountPerServing:
+          double.tryParse(json['amount_per_serving']?.toString() ?? '') ?? 0,
 
       unit: json['unit']?.toString() ?? '',
 
@@ -30,7 +30,7 @@ class MedicineIngredientInput {
   Map<String, dynamic> toJson() {
     return {
       'form_id': formId,
-      'amount_per_pill': amountPerPill,
+      'amount_per_serving': amountPerServing,
       'unit': unit,
       'percent_dv': percentDv,
     };
@@ -38,13 +38,13 @@ class MedicineIngredientInput {
 
   MedicineIngredientInput copyWith({
     String? formId,
-    double? amountPerPill,
+    double? amountPerServing,
     String? unit,
     double? percentDv,
   }) {
     return MedicineIngredientInput(
       formId: formId ?? this.formId,
-      amountPerPill: amountPerPill ?? this.amountPerPill,
+      amountPerServing: amountPerServing ?? this.amountPerServing,
       unit: unit ?? this.unit,
       percentDv: percentDv ?? this.percentDv,
     );

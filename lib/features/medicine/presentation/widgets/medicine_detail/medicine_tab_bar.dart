@@ -26,9 +26,6 @@ class MedicineTabBar extends StatelessWidget {
 
       child: TabBar(
         controller: controller,
-
-
-
         dividerColor: Colors.transparent,
         indicatorSize: TabBarIndicatorSize.tab,
 

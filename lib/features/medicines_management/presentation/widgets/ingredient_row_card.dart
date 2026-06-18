@@ -74,7 +74,7 @@ class IngredientRowCard extends StatelessWidget {
 
                       onChanged(
                         row.copyWith(
-                          input: row.input.copyWith(amountPerPill: value),
+                          input: row.input.copyWith(amountPerServing: value),
                         ),
                       );
                     },

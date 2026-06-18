@@ -639,4 +639,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noNutrientFound => 'Không tìm thấy dưỡng chất ';
+
+  @override
+  String get basedOn => 'Dựa trên';
 }

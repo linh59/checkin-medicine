@@ -640,4 +640,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noNutrientFound => 'No nutrients found';
+
+  @override
+  String get basedOn => 'Based on';
 }
