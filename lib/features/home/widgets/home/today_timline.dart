@@ -6,8 +6,8 @@ import 'package:checkin_medicine/features/home/presentation/providers/today_acti
 import 'package:checkin_medicine/features/home/presentation/providers/today_provider.dart';
 import 'package:checkin_medicine/l10n/app_localizations.dart';
 
-class TodayList extends ConsumerWidget {
-  const TodayList({super.key});
+class TodayTimeline extends ConsumerWidget {
+  const TodayTimeline({super.key});
 
   String _formatTime(DateTime time) {
     final h = time.hour.toString().padLeft(2, '0');
