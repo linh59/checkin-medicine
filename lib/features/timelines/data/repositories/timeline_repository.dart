@@ -103,11 +103,14 @@ plan_items(
 
 
 
-  Future<void> deleteTimeline(String id) async {
-    await supabase
-        .from('plans')
-        .update({'archived': true})
-        .eq('id', id);
+  Future<void> deletePlanRepository(String id) async {
+    await supabase.rpc(
+      'toggle_archive_plan',
+      params: {
+        'p_plan_id': id,
+        'p_is_archived': true,
+      },
+    );
   }
 
   Future<String> createPlan({

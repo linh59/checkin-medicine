@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:checkin_medicine/features/timelines/presentation/providers/timelines_provider.dart';
-import 'package:checkin_medicine/shared/widgets/profile_switcher.dart';
 
 import '../widgets/plan_card.dart';
 import '../widgets/loading_plan.dart';

@@ -99,6 +99,22 @@ class PlansNotifier extends AsyncNotifier<List<PlanModel>> {
     }
   }
 
+  Future<void> deletePlan(String id) async {
+    final current = state.value ?? [];
+
+    state = AsyncValue.data(
+      current.where((p) => p.id != id).toList(),
+    );
+
+    try {
+      await repo.deletePlanRepository(id);
+
+      // await refresh();
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+      await refresh();
+    }
+  }
 }
 
 

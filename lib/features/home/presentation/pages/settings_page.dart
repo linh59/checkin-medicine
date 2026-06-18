@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:checkin_medicine/features/auth/presentation/providers/auth_provider.dart';
 import 'package:checkin_medicine/features/home/widgets/logout_button.dart';
 import 'package:checkin_medicine/l10n/app_localizations.dart';
@@ -76,6 +78,10 @@ class _ProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final name = user.userMetadata?['display_name'];
     final email = user.userMetadata?['email'];
+    print(
+      const JsonEncoder.withIndent('  ')
+          .convert(user),
+    );
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(

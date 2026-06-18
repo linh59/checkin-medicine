@@ -24,7 +24,7 @@ class SplashPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                
+
                   const SizedBox(height: 24),
 
                   /// APP NAME

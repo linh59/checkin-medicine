@@ -39,7 +39,7 @@ class TimelineHeaderCard extends ConsumerWidget {
 
       if (confirm != true) return;
 
-      await repo.deleteTimeline(timeline.id);
+      await ref.read(plansProvider.notifier).deletePlan(timeline.id);
 
       if (!context.mounted) return;
 
@@ -95,10 +95,8 @@ class TimelineHeaderCard extends ConsumerWidget {
                 child: Switch(
                   value: timeline.isActive,
                   onChanged: (value) async {
-                    await repo.toggleTimeline(timeline.id, value);
-
+                    await ref.read(plansProvider.notifier).togglePlan(timeline.id, value);
                     ref.invalidate(timelineDetailProvider(timeline.id));
-                    ref.invalidate(timelineRepositoryProvider);
                   },
                 ),
               ),

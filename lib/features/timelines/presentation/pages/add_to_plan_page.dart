@@ -130,26 +130,33 @@ class _AddToPlanPageState extends ConsumerState<AddToPlanPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   DropdownButtonFormField<String>(
-                    value: selectedMedicineId,
+                    isExpanded: true,
+                    menuMaxHeight: 400, // hoặc MediaQuery.of(context).size.height * 0.5
+                    initialValue: selectedMedicineId,
                     decoration: InputDecoration(
                       labelText: t.medicine,
                       border: const OutlineInputBorder(),
                     ),
                     items: medicines.map((m) {
-                      return DropdownMenuItem(
+                      final name = (m.nickname?.isNotEmpty ?? false)
+                          ? m.nickname!
+                          : (m.medicine?.brand ?? '');
+
+                      return DropdownMenuItem<String>(
                         value: m.id,
                         child: Text(
-                          (m.nickname?.isNotEmpty ?? false)
-                              ? m.nickname!
-                              : (m.medicine?.brand ?? ''),
+                          name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       );
                     }).toList(),
                     onChanged: (value) {
-                      setState(() => selectedMedicineId = value);
+                      setState(() {
+                        selectedMedicineId = value;
+                      });
                     },
                   ),
-
                   const SizedBox(height: 16),
 
                   DoseStepper(

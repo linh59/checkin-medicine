@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:checkin_medicine/core/theme/app_colors.dart';
+import 'package:checkin_medicine/features/auth/domain/app_role.dart';
 import 'package:checkin_medicine/features/medicines_management/presentation/pages/create_medicine_page.dart';
 import 'package:checkin_medicine/features/search/presentation/widgets/medicine_card.dart';
 import 'package:checkin_medicine/features/search/presentation/widgets/search_ai_section.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import '../../../auth/presentation/providers/user_role_provider.dart';
 import '../providers/search_provider.dart';
 
 import '../widgets/medicine_tab_bar.dart';
@@ -62,6 +64,7 @@ class _SearchPageState extends ConsumerState<SearchPage>
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+    final roleAsync = ref.watch(currentUserRoleProvider);
 
     final medicines = ref.watch(medicineSearchProvider(debouncedQuery));
     final nutrients = ref.watch(nutrientSearchProvider(debouncedQuery));
@@ -69,20 +72,33 @@ class _SearchPageState extends ConsumerState<SearchPage>
       appBar: AppBar(
         title: Text(t.searchTitle),
         actions: [
-          TextButton.icon(
-            icon: const Icon(Icons.medication_outlined),
-            label: Text(t.createMedicine),
-            onPressed: () async {
-              final result = await Navigator.push<bool>(
-                context,
-                MaterialPageRoute(builder: (_) => const CreateMedicinePage()),
-              );
+          roleAsync.when(
+              data: (role){
 
-              if (result == true) {
-                ref.invalidate(medicineSearchProvider(debouncedQuery));
+              if (role == AppRole.admin) {
+              return TextButton.icon(
+                icon: const Icon(Icons.medication_outlined),
+                label: Text(t.createMedicine),
+                onPressed: () async {
+                  final result = await Navigator.push<bool>(
+                    context,
+                    MaterialPageRoute(builder: (_) => const CreateMedicinePage()),
+                  );
+
+                  if (result == true) {
+                    ref.invalidate(medicineSearchProvider(debouncedQuery));
+                  }
+                },
+              );
               }
-            },
-          ),
+
+              return SizedBox();
+              },
+              loading: () => const CircularProgressIndicator(),
+              error: (e, _) => Text(e.toString())
+                  )
+
+
         ],
       ),
 
