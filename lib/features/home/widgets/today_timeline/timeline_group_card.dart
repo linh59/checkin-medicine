@@ -322,15 +322,6 @@ class TimelineGroupCard extends ConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          const Icon(
-                            Icons.check_circle,
-                            size: 18,
-                            color: Colors.green,
-                          ),
-
-                          const SizedBox(
-                            width: 8,
-                          ),
 
                           Text(
                             t.takenAt(

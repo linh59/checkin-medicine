@@ -1,3 +1,4 @@
+import 'package:checkin_medicine/core/theme/app_colors.dart';
 import 'package:checkin_medicine/features/home/widgets/today_timeline/timeline_group_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -69,8 +70,15 @@ class TodayList extends ConsumerWidget {
               value: totalMedicines == 0
                   ? 0
                   : takenMedicines / totalMedicines,
-              minHeight: 8,
+              minHeight: 10,
               borderRadius: BorderRadius.circular(999),
+
+              backgroundColor: WellnessColors.primary
+                  .withValues(alpha: 0.12),
+
+              valueColor: AlwaysStoppedAnimation<Color>(
+                WellnessColors.primary,
+              ),
             ),
 
             const SizedBox(height: 8),
