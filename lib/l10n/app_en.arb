@@ -10,7 +10,7 @@
   "loginSuccess": "Login successful",
   "loginFailed": "Login failed",
   "signupTitle": "Create Account",
-  "signupSuccess": "Account created successfully",
+  "signupSuccessMessage": "Sign up successful",
   "signupFailed": "Signup failed",
   "invalidEmail": "Invalid email format",
   "emailRequired": "Email is required",
@@ -219,5 +219,10 @@
    "error": "Error",
    "selectNutrient": "Select Nutrient",
    "noNutrientFound": "No nutrients found",
-   "basedOn": "Based on"
+   "basedOn": "Based on",
+  "deleteAccount": "Delete account",
+  "deleteAccountConfirm": "Are you sure you want to permanently delete your account? This action cannot be undone and all your data will be removed.",
+  "accountDeletedSuccessfully": "Your account has been deleted successfully.",
+  "deleteAccountWarning": "This action cannot be undone.",
+  "signupFailedMessage": "Something went wrong. Please try again"
 }

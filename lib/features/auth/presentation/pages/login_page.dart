@@ -78,35 +78,33 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     setState(() => loading = true);
 
     try {
-      await ref
-          .read(authProvider.notifier)
-          .signIn(emailCtrl.text.trim(), passCtrl.text.trim());
+      await ref.read(authProvider.notifier).signIn(
+        emailCtrl.text.trim(),
+        passCtrl.text.trim(),
+      );
 
       if (!mounted) return;
 
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   const SnackBar(
-      //     content: Text("Login successful"),
-      //     backgroundColor: Colors.green,
-      //   ),
-      // );
-
-      ///  NO NAVIGATION
-      /// AppRoot handles routing automatically
     } catch (e) {
+      if (!mounted) return;
+
       setState(() {
         passError = t.loginFailed;
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Login failed"), backgroundColor: Colors.red),
+        SnackBar(
+          content: Text(t.loginFailed),
+          backgroundColor: Colors.red,
+        ),
       );
+
     } finally {
       if (!mounted) return;
+
       setState(() => loading = false);
     }
   }
-
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;

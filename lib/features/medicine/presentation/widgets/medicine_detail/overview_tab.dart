@@ -50,10 +50,10 @@ class OverviewTab
                   .isNotEmpty)
             _OverviewCard(
               title:
-              t.description,
+              t.summary,
 
               icon: Icons
-                  .description_outlined,
+                  .summarize_outlined,
 
               child: Text(
                 medicine.summary!,
@@ -81,8 +81,31 @@ class OverviewTab
               height: 20,
             ),
 
-          /// INGREDIENT SUMMARY
+          medicine.description != null ? _OverviewCard(
+            title:
+            t.description,
 
+            icon: Icons
+                .description_outlined,
+
+            child: Text(
+              medicine.description!,
+              style: Theme.of(
+                  context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(
+                height:
+                1.75,
+
+                color:
+                colorScheme
+                    .onSurfaceVariant,
+              ),
+            ),
+          ) : SizedBox(),
+
+          /// INGREDIENT SUMMARY
           _OverviewCard(
             title:
             t.ingredientSummary,

@@ -42,7 +42,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signupTitle => 'Create Account';
 
   @override
-  String get signupSuccess => 'Account created successfully';
+  String get signupSuccessMessage => 'Sign up successful';
 
   @override
   String get signupFailed => 'Signup failed';
@@ -643,4 +643,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get basedOn => 'Based on';
+
+  @override
+  String get deleteAccount => 'Delete account';
+
+  @override
+  String get deleteAccountConfirm =>
+      'Are you sure you want to permanently delete your account? This action cannot be undone and all your data will be removed.';
+
+  @override
+  String get accountDeletedSuccessfully =>
+      'Your account has been deleted successfully.';
+
+  @override
+  String get deleteAccountWarning => 'This action cannot be undone.';
+
+  @override
+  String get signupFailedMessage => 'Something went wrong. Please try again';
 }

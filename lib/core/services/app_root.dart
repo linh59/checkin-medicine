@@ -25,7 +25,7 @@ class AppRoot extends ConsumerWidget {
     }
 
     /// Not logged in
-    if (auth.user == null) {
+    if (auth.session == null || auth.user == null) {
       return const LoginPage();
     }
 

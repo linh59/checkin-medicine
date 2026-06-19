@@ -164,11 +164,11 @@ abstract class AppLocalizations {
   /// **'Create Account'**
   String get signupTitle;
 
-  /// No description provided for @signupSuccess.
+  /// No description provided for @signupSuccessMessage.
   ///
   /// In en, this message translates to:
-  /// **'Account created successfully'**
-  String get signupSuccess;
+  /// **'Sign up successful'**
+  String get signupSuccessMessage;
 
   /// No description provided for @signupFailed.
   ///
@@ -1339,6 +1339,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Based on'**
   String get basedOn;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get deleteAccount;
+
+  /// No description provided for @deleteAccountConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to permanently delete your account? This action cannot be undone and all your data will be removed.'**
+  String get deleteAccountConfirm;
+
+  /// No description provided for @accountDeletedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account has been deleted successfully.'**
+  String get accountDeletedSuccessfully;
+
+  /// No description provided for @deleteAccountWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This action cannot be undone.'**
+  String get deleteAccountWarning;
+
+  /// No description provided for @signupFailedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again'**
+  String get signupFailedMessage;
 }
 
 class _AppLocalizationsDelegate

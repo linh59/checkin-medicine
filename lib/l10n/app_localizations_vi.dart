@@ -42,7 +42,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get signupTitle => 'Tạo tài khoản';
 
   @override
-  String get signupSuccess => 'Tạo tài khoản thành công';
+  String get signupSuccessMessage => 'Đăng ký thành công.';
 
   @override
   String get signupFailed => 'Tạo tài khoản thất bại';
@@ -642,4 +642,21 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get basedOn => 'Dựa trên';
+
+  @override
+  String get deleteAccount => 'Xóa tài khoản';
+
+  @override
+  String get deleteAccountConfirm =>
+      'Bạn có chắc chắn muốn xóa vĩnh viễn tài khoản của mình không? Hành động này không thể hoàn tác và toàn bộ dữ liệu của bạn sẽ bị xóa.';
+
+  @override
+  String get accountDeletedSuccessfully =>
+      'Tài khoản của bạn đã được xóa thành công.';
+
+  @override
+  String get deleteAccountWarning => 'Hành động này không thể hoàn tác.';
+
+  @override
+  String get signupFailedMessage => 'Có lỗi xảy ra, vui lòng thử lại';
 }

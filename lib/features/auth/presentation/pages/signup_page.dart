@@ -107,29 +107,29 @@ class _SignupPageState
       await ref.read(authProvider.notifier).signUp(
         emailCtrl.text.trim(),
         passCtrl.text.trim(),
-        displayNameCtrl.text.trim()
+        displayNameCtrl.text.trim(),
       );
 
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Sign up successful"),
+        SnackBar(
+          content: Text(t.signupSuccessMessage),
           backgroundColor: Colors.green,
         ),
       );
 
-      Navigator.pop(
-        context,
-      );
+      Navigator.pop(context);
     } catch (e) {
+      if (!mounted) return;
+
       setState(() {
-        passError = t.loginFailed;
+        passError = t.signupFailedMessage;
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Sign up failed: $e"),
+          content: Text(t.signupFailed),
           backgroundColor: Colors.red,
         ),
       );
@@ -138,7 +138,6 @@ class _SignupPageState
       setState(() => loading = false);
     }
   }
-
   @override
   Widget build(
       BuildContext context,
