@@ -273,6 +273,46 @@ class OverviewTab
             ),
           ),
 
+          if ((medicine.sourceName ?? '').isNotEmpty ||
+              (medicine.sourceUrl ?? '').isNotEmpty)
+            _OverviewCard(
+              title: t.sourceName,
+              icon: Icons.link_outlined,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if ((medicine.sourceName ?? '').isNotEmpty)
+                    Text(
+                      medicine.sourceName ?? '',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
+                          ?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+
+                  if (medicine.sourceUrl != null &&
+                      medicine.sourceUrl!.isNotEmpty) ...[
+                    const SizedBox(height: 8),
+
+                    GestureDetector(
+                      onTap: () {
+                        // TODO: mở link
+                        // launchUrl(Uri.parse(medicine.sourceUrl!));
+                      },
+                      child: Text(
+                        medicine.sourceUrl!,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
           const SizedBox(
             height: 24,
           ),

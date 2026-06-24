@@ -224,5 +224,10 @@
   "deleteAccountConfirm": "Bạn có chắc chắn muốn xóa vĩnh viễn tài khoản của mình không? Hành động này không thể hoàn tác và toàn bộ dữ liệu của bạn sẽ bị xóa.",
   "accountDeletedSuccessfully": "Tài khoản của bạn đã được xóa thành công.",
   "deleteAccountWarning": "Hành động này không thể hoàn tác.",
-  "signupFailedMessage": "Có lỗi xảy ra, vui lòng thử lại"
+  "signupFailedMessage": "Có lỗi xảy ra, vui lòng thử lại",
+  "sourceInformation": "Nguồn tham khảo",
+  "sourceName": "Tên nguồn",
+  "sourceNameHint": "Website chính thức, nhãn sản phẩm...",
+  "sourceUrlOptional": "Đường dẫn nguồn (không bắt buộc)",
+  "invalidUrl": "Vui lòng nhập URL hợp lệ"
 }

@@ -22,6 +22,8 @@ class AdminMedicineRepository {
           'description': model.description,
           'pills_per_serving': model.pillsPerServing,
           'warnings': model.warnings,
+          'source_name': model.sourceName,
+          'source_url': model.sourceUrl
         })
         .select()
         .single();

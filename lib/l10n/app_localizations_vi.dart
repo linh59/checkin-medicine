@@ -659,4 +659,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get signupFailedMessage => 'Có lỗi xảy ra, vui lòng thử lại';
+
+  @override
+  String get sourceInformation => 'Nguồn tham khảo';
+
+  @override
+  String get sourceName => 'Tên nguồn';
+
+  @override
+  String get sourceNameHint => 'Website chính thức, nhãn sản phẩm...';
+
+  @override
+  String get sourceUrlOptional => 'Đường dẫn nguồn (không bắt buộc)';
+
+  @override
+  String get invalidUrl => 'Vui lòng nhập URL hợp lệ';
 }

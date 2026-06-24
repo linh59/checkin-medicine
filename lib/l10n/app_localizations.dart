@@ -1369,6 +1369,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong. Please try again'**
   String get signupFailedMessage;
+
+  /// No description provided for @sourceInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Source Information'**
+  String get sourceInformation;
+
+  /// No description provided for @sourceName.
+  ///
+  /// In en, this message translates to:
+  /// **'Source Name'**
+  String get sourceName;
+
+  /// No description provided for @sourceNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Official Website, Product Label...'**
+  String get sourceNameHint;
+
+  /// No description provided for @sourceUrlOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Source URL (Optional)'**
+  String get sourceUrlOptional;
+
+  /// No description provided for @invalidUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid URL'**
+  String get invalidUrl;
 }
 
 class _AppLocalizationsDelegate

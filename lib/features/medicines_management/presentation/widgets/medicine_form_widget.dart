@@ -22,6 +22,7 @@ class _MedicineFormWidgetState extends ConsumerState<MedicineFormWidget> {
 
   final genericController = TextEditingController();
 
+
   final slugController = TextEditingController();
 
   final manufacturerController = TextEditingController();
@@ -35,6 +36,10 @@ class _MedicineFormWidgetState extends ConsumerState<MedicineFormWidget> {
   final pillsPerServingController = TextEditingController(text: '1');
 
   final warningController = TextEditingController();
+
+  final sourceNameController = TextEditingController();
+
+  final sourceUrlController = TextEditingController();
 
   String form = 'tablet';
 
@@ -81,6 +86,8 @@ class _MedicineFormWidgetState extends ConsumerState<MedicineFormWidget> {
     descriptionController.dispose();
     pillsPerServingController.dispose();
     warningController.dispose();
+    sourceNameController.dispose();
+    sourceUrlController.dispose();
 
     super.dispose();
   }
@@ -104,7 +111,7 @@ class _MedicineFormWidgetState extends ConsumerState<MedicineFormWidget> {
                 decoration: InputDecoration(labelText: t.medicineName),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Required';
+                    return t.requiredField;
                   }
 
                   return null;
@@ -121,6 +128,13 @@ class _MedicineFormWidgetState extends ConsumerState<MedicineFormWidget> {
                 controller: summaryController,
                 maxLines: 3,
                 decoration: InputDecoration(labelText: t.summary),
+              ),
+              const SizedBox(height: 12),
+
+              TextFormField(
+                controller: descriptionController,
+                maxLines: 5,
+                decoration: InputDecoration(labelText: t.description),
               ),
             ],
           ),
@@ -142,7 +156,52 @@ class _MedicineFormWidgetState extends ConsumerState<MedicineFormWidget> {
               ),
             ],
           ),
+          const SizedBox(height: 16),
 
+          _section(
+            title: t.sourceInformation,
+            children: [
+              TextFormField(
+                controller: sourceNameController,
+                decoration: InputDecoration(
+                  labelText: t.sourceName,
+                  hintText: t.sourceNameHint,
+                ),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return t.requiredField;
+                  }
+
+                  return null;
+                },
+              ),
+
+              const SizedBox(height: 12),
+
+              TextFormField(
+                controller: sourceUrlController,
+                keyboardType: TextInputType.url,
+                decoration: InputDecoration(
+                  labelText: t.sourceUrlOptional,
+                  hintText: 'https://example.com',
+                ),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return null;
+                  }
+
+                  final uri = Uri.tryParse(value.trim());
+
+                  if (uri == null ||
+                      !(uri.scheme == 'http' || uri.scheme == 'https')) {
+                    return t.invalidUrl;
+                  }
+
+                  return null;
+                },
+              ),
+            ],
+          ),
           const SizedBox(height: 16),
 
           _section(
@@ -209,6 +268,19 @@ class _MedicineFormWidgetState extends ConsumerState<MedicineFormWidget> {
                     if (!_formKey.currentState!.validate()) {
                       return;
                     }
+                    // VALIDATION invalidIngredient
+                    final invalidIngredient = ingredientRows.any(
+                          (e) => e.input.formId.trim().isEmpty,
+                    );
+
+                    if (invalidIngredient) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('All ingredients must have form selected'),
+                        ),
+                      );
+                      return;
+                    }
 
                     final model = MedicineForm(
                       brand: brandController.text,
@@ -227,9 +299,15 @@ class _MedicineFormWidgetState extends ConsumerState<MedicineFormWidget> {
                           .toList(),
 
                       ingredients: ingredientRows
-                          .where((e) => e.input.formId.isNotEmpty)
+                          .where((e) => e.input.formId.trim().isNotEmpty)
                           .map((e) => e.input)
                           .toList(),
+                      sourceName: sourceNameController.text.trim(),
+
+                      sourceUrl: sourceUrlController.text.trim().isEmpty
+                          ? null
+                          : sourceUrlController.text.trim(),
+
                     );
                     await ref
                         .read(createMedicineProvider.notifier)

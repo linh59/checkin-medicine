@@ -31,6 +31,9 @@ class Medicine {
   final String? createdBy;
   final int? pillsPerServing;
 
+  final String sourceName;
+  final String? sourceUrl;
+
   /// IMPORTANT
   final List<MedicineIngredient> ingredients;
 
@@ -54,6 +57,8 @@ class Medicine {
     required this.createdBy,
     required this.pillsPerServing,
     required this.ingredients,
+    required this.sourceName,
+    required this.sourceUrl
   });
 
   factory Medicine.fromJson(Map<String, dynamic> json) {
@@ -97,6 +102,8 @@ class Medicine {
               ?.map((e) => MedicineIngredient.fromJson(e))
               .toList() ??
           [],
+      sourceName: json['source_name'] ?? '',
+      sourceUrl: json['source_url'] ?? '',
     );
   }
 

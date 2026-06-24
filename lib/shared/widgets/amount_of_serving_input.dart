@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AmountOfServingField extends StatelessWidget {
-  final double? initialValue;
   final ValueChanged<double> onChanged;
 
   const AmountOfServingField({
     super.key,
-    required this.initialValue,
     required this.onChanged,
   });
 
@@ -25,7 +23,6 @@ class AmountOfServingField extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
 
     return TextFormField(
-      initialValue: initialValue?.toString(),
 
       keyboardType: const TextInputType.numberWithOptions(
         decimal: true,
@@ -39,7 +36,6 @@ class AmountOfServingField extends StatelessWidget {
 
       decoration: InputDecoration(
         labelText: t.amountOfServing,
-        hintText: t.amountOfServingHint,
         border: const OutlineInputBorder(),
       ),
 

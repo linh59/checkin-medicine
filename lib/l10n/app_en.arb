@@ -224,5 +224,10 @@
   "deleteAccountConfirm": "Are you sure you want to permanently delete your account? This action cannot be undone and all your data will be removed.",
   "accountDeletedSuccessfully": "Your account has been deleted successfully.",
   "deleteAccountWarning": "This action cannot be undone.",
-  "signupFailedMessage": "Something went wrong. Please try again"
+  "signupFailedMessage": "Something went wrong. Please try again",
+  "sourceInformation": "Source Information",
+  "sourceName": "Source Name",
+  "sourceNameHint": "Official Website, Product Label...",
+  "sourceUrlOptional": "Source URL (Optional)",
+  "invalidUrl": "Please enter a valid URL"
 }

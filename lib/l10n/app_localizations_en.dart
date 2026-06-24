@@ -660,4 +660,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signupFailedMessage => 'Something went wrong. Please try again';
+
+  @override
+  String get sourceInformation => 'Source Information';
+
+  @override
+  String get sourceName => 'Source Name';
+
+  @override
+  String get sourceNameHint => 'Official Website, Product Label...';
+
+  @override
+  String get sourceUrlOptional => 'Source URL (Optional)';
+
+  @override
+  String get invalidUrl => 'Please enter a valid URL';
 }

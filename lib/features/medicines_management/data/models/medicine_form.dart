@@ -23,6 +23,9 @@ class MedicineForm {
   final int? pillsPerServing;
   final List<MedicineIngredientInput> ingredients;
 
+  final String sourceName;
+  final String? sourceUrl;
+
   MedicineForm({
     required this.slug,
     required this.brand,
@@ -36,6 +39,8 @@ class MedicineForm {
     this.country,
     this.pillsPerServing,
     required this.ingredients,
+    required this.sourceName,
+     this.sourceUrl
   });
 
   factory MedicineForm.fromJson(Map<String, dynamic> json) {
@@ -66,6 +71,8 @@ class MedicineForm {
               ?.map((e) => MedicineIngredientInput.fromJson(e))
               .toList() ??
           [],
+      sourceName: json['source_name'],
+      sourceUrl: json['source_url'],
     );
   }
 

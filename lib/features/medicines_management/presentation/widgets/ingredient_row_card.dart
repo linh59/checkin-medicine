@@ -69,7 +69,6 @@ class IngredientRowCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: AmountOfServingField(
-                    initialValue: 1,
                     onChanged: (value) {
 
                       onChanged(
