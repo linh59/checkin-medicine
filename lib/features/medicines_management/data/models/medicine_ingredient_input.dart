@@ -1,14 +1,22 @@
 class MedicineIngredientInput {
-  final String formId;
+  /// medicine_ingredients.nutrient_id
+  final String nutrientId;
 
+  /// medicine_ingredient_forms.form_id
+  final List<String> formIds;
+
+  /// medicine_ingredients.amount_per_serving
   final double amountPerServing;
 
+  /// medicine_ingredients.unit
   final String unit;
 
+  /// medicine_ingredients.percent_dv
   final double? percentDv;
 
   const MedicineIngredientInput({
-    required this.formId,
+    required this.nutrientId,
+    this.formIds = const [],
     required this.amountPerServing,
     required this.unit,
     this.percentDv,
@@ -16,20 +24,22 @@ class MedicineIngredientInput {
 
   factory MedicineIngredientInput.fromJson(Map<String, dynamic> json) {
     return MedicineIngredientInput(
-      formId: json['form_id']?.toString() ?? '',
-
+      nutrientId: json['nutrient_id']?.toString() ?? '',
+      formIds: (json['form_ids'] as List?)
+          ?.map((e) => e.toString())
+          .toList() ??
+          const [],
       amountPerServing:
-          double.tryParse(json['amount_per_serving']?.toString() ?? '') ?? 0,
-
-      unit: json['unit']?.toString() ?? '',
-
-      percentDv: double.tryParse(json['percent_dv']?.toString() ?? ''),
+      (json['amount_per_serving'] as num?)?.toDouble() ?? 0,
+      unit: json['unit']?.toString() ?? 'mg',
+      percentDv: (json['percent_dv'] as num?)?.toDouble(),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'form_id': formId,
+      'nutrient_id': nutrientId,
+      'form_ids': formIds,
       'amount_per_serving': amountPerServing,
       'unit': unit,
       'percent_dv': percentDv,
@@ -37,13 +47,15 @@ class MedicineIngredientInput {
   }
 
   MedicineIngredientInput copyWith({
-    String? formId,
+    String? nutrientId,
+    List<String>? formIds,
     double? amountPerServing,
     String? unit,
     double? percentDv,
   }) {
     return MedicineIngredientInput(
-      formId: formId ?? this.formId,
+      nutrientId: nutrientId ?? this.nutrientId,
+      formIds: formIds ?? this.formIds,
       amountPerServing: amountPerServing ?? this.amountPerServing,
       unit: unit ?? this.unit,
       percentDv: percentDv ?? this.percentDv,

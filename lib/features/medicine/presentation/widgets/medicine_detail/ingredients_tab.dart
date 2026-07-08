@@ -4,6 +4,7 @@ import 'package:checkin_medicine/features/medicine/data/models/medicine_ingredie
 import 'package:checkin_medicine/features/nutrient/presentation/pages/nutrient_detail_page.dart';
 import 'package:checkin_medicine/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+
 class IngredientsTab extends StatelessWidget {
   final List<MedicineIngredient> ingredients;
   final int pillsPerServing;
@@ -13,34 +14,28 @@ class IngredientsTab extends StatelessWidget {
     super.key,
     required this.ingredients,
     required this.pillsPerServing,
-     this.form
+    this.form,
   });
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(
-      context,
-    )!;
-    final colorScheme = Theme
-        .of(context)
-        .colorScheme;
+    final t = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+
     final servingText =
-    '${t.basedOn} 1 ${form?.localized(t) }';
+        '${t.basedOn} 1 ${form?.localized(t) ?? ''}';
+
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 20,
-              top: 12
-            ),
+            padding:
+            const EdgeInsets.only(left: 20, right: 20, top: 12),
             child: Text(
               servingText,
-              style: Theme
-                  .of(context)
+              style: Theme.of(context)
                   .textTheme
                   .bodyLarge
                   ?.copyWith(
@@ -55,25 +50,21 @@ class IngredientsTab extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
             ),
             child: Column(
-              children: ingredients
-                  .asMap()
-                  .entries
-                  .map((entry) {
+              children: ingredients.asMap().entries.map((entry) {
                 final index = entry.key;
                 final item = entry.value;
 
-                final form = item.ingredientForm;
-                final nutrient = form?.nutrient;
+                final nutrient = item.nutrient;
 
-                final isLast = index == ingredients.length - 1;
+                final formText = item.forms
+                    .map((e) => e.saltForm ?? e.name)
+                    .whereType<String>()
+                    .where((e) => e.trim().isNotEmpty)
+                    .join(', ');
 
+                final isLast =
+                    index == ingredients.length - 1;
 
-                final amount =
-                (item.amountPerPill != null && item.amountPerPill! > 0)
-                    ? item.amountPerPill!
-                    : (item.amountPerServing ?? 0) /
-                    (pillsPerServing <= 0 ? 1 : pillsPerServing);
-                print(item.amountPerPill);
                 return Column(
                   children: [
                     InkWell(
@@ -86,11 +77,12 @@ class IngredientsTab extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) =>
-                                NutrientDetailPage(
-                                  slug: slug,
-                                  selectedFormSlug: form?.slug,
-                                ),
+                            builder: (_) => NutrientDetailPage(
+                              slug: slug,
+                              selectedFormSlug: item.forms.isNotEmpty
+                                  ? item.forms.first.slug
+                                  : null,
+                            ),
                           ),
                         );
                       },
@@ -100,19 +92,14 @@ class IngredientsTab extends StatelessWidget {
                           crossAxisAlignment:
                           CrossAxisAlignment.start,
                           children: [
-
-                            /// LEFT INFO
                             Expanded(
                               child: Column(
                                 crossAxisAlignment:
                                 CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    nutrient?.name ??
-                                        form?.name ??
-                                        '—',
-                                    style: Theme
-                                        .of(context)
+                                    nutrient?.name ?? '—',
+                                    style: Theme.of(context)
                                         .textTheme
                                         .titleSmall
                                         ?.copyWith(
@@ -121,19 +108,14 @@ class IngredientsTab extends StatelessWidget {
                                     ),
                                   ),
 
-                                  if (form?.saltForm != null &&
-                                      form!
-                                          .saltForm!
-                                          .isNotEmpty)
+                                  if (formText.isNotEmpty)
                                     Padding(
                                       padding:
                                       const EdgeInsets.only(
-                                        top: 4,
-                                      ),
+                                          top: 4),
                                       child: Text(
-                                        form.saltForm!,
-                                        style: Theme
-                                            .of(context)
+                                        '(as $formText)',
+                                        style: Theme.of(context)
                                             .textTheme
                                             .bodySmall
                                             ?.copyWith(
@@ -148,7 +130,6 @@ class IngredientsTab extends StatelessWidget {
 
                             const SizedBox(width: 16),
 
-                            /// RIGHT SIDE
                             Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment:
@@ -161,16 +142,14 @@ class IngredientsTab extends StatelessWidget {
                                   ),
                                   child: Text(
                                     NumberFormatter.dosage(
-                                      amount: amount,
-                                      unit: item.unit,
-                                      percentDv:
-                                      item.percentDv,
+                                      amount:
+                                      item.amountPerServing,
+                                      unit: item.unit
                                     ),
                                     textAlign:
                                     TextAlign.right,
                                     softWrap: true,
-                                    style: Theme
-                                        .of(context)
+                                    style: Theme.of(context)
                                         .textTheme
                                         .labelLarge
                                         ?.copyWith(

@@ -1,59 +1,60 @@
-import '../../data/models/medicine_ingredient_input.dart';
+import 'package:checkin_medicine/features/nutrient/data/models/ingredient_form_model.dart';
+import 'medicine_ingredient_input.dart';
 
 class IngredientRow {
   final String localId;
 
-  final String? nutrientId;
   final String? nutrientName;
+
   final String? nutrientUnit;
 
-  final String? formName;
-  final String? saltForm;
+  /// Multi forms
+  final List<IngredientForm> forms;
 
   final MedicineIngredientInput input;
 
-  IngredientRow({
+  const IngredientRow({
     required this.localId,
     required this.input,
-    this.nutrientId,
     this.nutrientName,
     this.nutrientUnit,
-    this.formName,
-    this.saltForm,
+    this.forms = const [],
   });
 
+
   IngredientRow copyWith({
-    String? nutrientId,
     String? nutrientName,
     String? nutrientUnit,
-    String? formName,
-    String? saltForm,
+    List<IngredientForm>? forms,
     MedicineIngredientInput? input,
   }) {
     return IngredientRow(
       localId: localId,
-      nutrientId: nutrientId ?? this.nutrientId,
       nutrientName: nutrientName ?? this.nutrientName,
       nutrientUnit: nutrientUnit ?? this.nutrientUnit,
-      formName: formName ?? this.formName,
-      saltForm: saltForm ?? this.saltForm,
+      forms: forms ?? this.forms,
       input: input ?? this.input,
     );
   }
 
+
   factory IngredientRow.empty() {
     return IngredientRow(
-      nutrientId: null,
+      localId: DateTime.now()
+          .millisecondsSinceEpoch
+          .toString(),
+
       nutrientName: null,
       nutrientUnit: null,
-      formName: null,
-      saltForm: null,
+
+      forms: const [],
+
       input: const MedicineIngredientInput(
-        formId: '',
+        nutrientId: '',
+        formIds: [],
         amountPerServing: 0,
         unit: 'mg',
       ),
-      localId: '',
     );
   }
 }

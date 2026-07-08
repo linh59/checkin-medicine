@@ -5,7 +5,7 @@ import '../../../../../core/theme/app_colors.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../../../core/utils/bumber_formatter.dart';
 import '../../data/models/nutrient_model.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 class NutrientSafeLimitSection extends StatelessWidget {
   final NutrientModel nutrient;
 
@@ -26,6 +26,7 @@ class NutrientSafeLimitSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+
         Text(
           t.safeDosageByGroup,
           style: Theme.of(context).textTheme.titleLarge,
@@ -166,7 +167,43 @@ class _GroupCard extends StatelessWidget {
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
                   ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      if ((item.sourceName ?? '').isNotEmpty)
+                        Expanded(
+                          child: Text(
+                            item.sourceName!,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
 
+                      if ((item.sourceUrl ?? '').isNotEmpty) ...[
+                        const SizedBox(width: 8),
+
+                        TextButton.icon(
+                          onPressed: () async {
+                            final uri = Uri.tryParse(item.sourceUrl!);
+                            if (uri == null) return;
+
+                            await launchUrl(
+                              uri,
+                              mode: LaunchMode.externalApplication,
+                            );
+                          },
+                          icon: const Icon(Icons.open_in_new, size: 18),
+                          label:  Text(t.source),
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            visualDensity: VisualDensity.compact,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
                   if (item.rdaMin != null || item.rdaMax != null)
                     _InfoRow(
                       label: t.rda,

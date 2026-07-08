@@ -34,10 +34,10 @@ class Medicine {
   final String sourceName;
   final String? sourceUrl;
 
-  /// IMPORTANT
+  /// Ingredients
   final List<MedicineIngredient> ingredients;
 
-  Medicine({
+  const Medicine({
     required this.id,
     required this.slug,
     required this.brand,
@@ -58,52 +58,65 @@ class Medicine {
     required this.pillsPerServing,
     required this.ingredients,
     required this.sourceName,
-    required this.sourceUrl
+    required this.sourceUrl,
   });
 
   factory Medicine.fromJson(Map<String, dynamic> json) {
+    final ingredientList =
+    (json['medicine_ingredients'] as List<dynamic>? ?? []);
+
     return Medicine(
-      id: json['id'].toString(),
-      slug: json['slug'] ?? '',
+      id: json['id']?.toString() ?? '',
 
-      brand: json['brand'] ?? '',
-      genericName: json['generic_name'] ?? '',
-      manufacturer: json['manufacturer'] ?? '',
+      slug: json['slug']?.toString() ?? '',
 
-      form: json['form'] ?? '',
-      servingSize: json['serving_size'] ?? '',
+      brand: json['brand']?.toString() ?? '',
 
-      imageUrl: json['image_url'],
+      genericName: json['generic_name']?.toString() ?? '',
 
-      summary: json['summary'],
-      description: json['description'],
+      manufacturer: json['manufacturer']?.toString() ?? '',
+
+      form: json['form']?.toString() ?? '',
+
+      servingSize: json['serving_size']?.toString() ?? '',
+
+      imageUrl: json['image_url']?.toString(),
+
+      summary: json['summary']?.toString(),
+
+      description: json['description']?.toString(),
 
       warnings: _parseList(json['warnings']),
 
-      category: json['category'],
-      country: json['country'],
+      category: json['category']?.toString(),
 
-      strength: json['strength'],
-      strengthUnit: json['strength_unit'],
+      country: json['country']?.toString(),
 
-      isDeleted:
-          json['is_deleted'] == true ||
-          json['is_deleted']?.toString() == 'true',
+      strength: json['strength']?.toString(),
 
-      createdBy: json['created_by'],
+      strengthUnit: json['strength_unit']?.toString(),
 
-      pillsPerServing: int.tryParse(
-        json['pills_per_serving']?.toString() ?? '',
+      isDeleted: json['is_deleted'] == true,
+
+      createdBy: json['created_by']?.toString(),
+
+      pillsPerServing: json['pills_per_serving'] == null
+          ? null
+          : int.tryParse(
+        json['pills_per_serving'].toString(),
       ),
 
-      /// Parse relation
-      ingredients:
-          (json['medicine_ingredients'] as List?)
-              ?.map((e) => MedicineIngredient.fromJson(e))
-              .toList() ??
-          [],
-      sourceName: json['source_name'] ?? '',
-      sourceUrl: json['source_url'] ?? '',
+      ingredients: ingredientList
+          .map(
+            (e) => MedicineIngredient.fromJson(
+          e as Map<String, dynamic>,
+        ),
+      )
+          .toList(),
+
+      sourceName: json['source_name']?.toString() ?? '',
+
+      sourceUrl: json['source_url']?.toString(),
     );
   }
 

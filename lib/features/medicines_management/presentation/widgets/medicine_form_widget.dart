@@ -268,15 +268,15 @@ class _MedicineFormWidgetState extends ConsumerState<MedicineFormWidget> {
                     if (!_formKey.currentState!.validate()) {
                       return;
                     }
-                    // VALIDATION invalidIngredient
+                    // VALIDATION invalidNutrient
                     final invalidIngredient = ingredientRows.any(
-                          (e) => e.input.formId.trim().isEmpty,
+                          (e) => e.input.nutrientId.trim().isEmpty,
                     );
 
                     if (invalidIngredient) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('All ingredients must have form selected'),
+                          content: Text('Please select a nutrient for every ingredient'),
                         ),
                       );
                       return;
@@ -299,7 +299,10 @@ class _MedicineFormWidgetState extends ConsumerState<MedicineFormWidget> {
                           .toList(),
 
                       ingredients: ingredientRows
-                          .where((e) => e.input.formId.trim().isNotEmpty)
+                          .where(
+                            (e) =>
+                        e.input.nutrientId.isNotEmpty
+                      )
                           .map((e) => e.input)
                           .toList(),
                       sourceName: sourceNameController.text.trim(),

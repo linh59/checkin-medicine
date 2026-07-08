@@ -18,6 +18,7 @@ class NutrientSafeLimitModel {
   final int? ageMaxMonths;
 
   final String? sourceName;
+  final String? sourceUrl;
   final String? notes;
 
   const NutrientSafeLimitModel({
@@ -35,6 +36,7 @@ class NutrientSafeLimitModel {
     this.ageMaxMonths,
     this.sourceName,
     this.notes,
+    this.sourceUrl
   });
 
   factory NutrientSafeLimitModel.fromJson(Map<String, dynamic> json) {
@@ -63,6 +65,7 @@ class NutrientSafeLimitModel {
       ageMaxMonths: (json['age_max_months'] as num?)?.toInt(),
 
       sourceName: json['source_name'] as String?,
+      sourceUrl: json['source_url'] as String?,
 
       notes: json['notes'] as String?,
     );

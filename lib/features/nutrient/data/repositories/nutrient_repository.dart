@@ -41,7 +41,9 @@ class NutrientRepository {
 
             source_name,
 
-            notes
+            notes,
+            source_name,
+            source_url
           )
         ''')
         .eq('slug', slug)

@@ -31,22 +31,69 @@ class AdminMedicineRepository {
     final medicineId = row['id'];
 
     if (model.ingredients.isNotEmpty) {
-      await _client
-          .from('medicine_ingredients')
-          .insert(
-            model.ingredients
-                .map(
-                  (e) => {
-                    'medicine_id': medicineId,
-                    'form_id': e.formId,
-                    'amount_per_serving': e.amountPerServing,
-                    'unit': e.unit,
-                  },
-                )
-                .toList(),
-          );
-    }
 
+      for (final ingredient in model.ingredients) {
+
+
+        if (ingredient.nutrientId.isEmpty) {
+          throw Exception(
+            'Please select nutrient before saving',
+          );
+        }
+
+
+
+        final row = await _client
+            .from('medicine_ingredients')
+            .insert({
+
+          'medicine_id': medicineId,
+
+          'nutrient_id': ingredient.nutrientId,
+
+          'amount_per_serving':
+          ingredient.amountPerServing,
+
+          'unit':
+          ingredient.unit,
+
+          'percent_dv':
+          ingredient.percentDv,
+
+        })
+            .select()
+            .single();
+
+
+
+        final medicineIngredientId = row['id'];
+
+
+
+        if(ingredient.formIds.isNotEmpty){
+
+          await _client
+              .from('medicine_ingredient_forms')
+              .insert(
+
+            ingredient.formIds.map(
+                  (id)=>{
+
+                'medicine_ingredient_id':
+                medicineIngredientId,
+
+                'form_id':
+                id,
+
+              },
+            ).toList(),
+
+          );
+
+        }
+
+      }
+    }
     return medicineId;
   }
   Future<List<NutrientModel>> searchNutrients(String term) async {

@@ -18,6 +18,7 @@ class NutrientModel {
       NutrientSafeLimitModel>
   safeLimits;
 
+
   NutrientModel({
     required this.id,
     required this.slug,
@@ -28,6 +29,8 @@ class NutrientModel {
     required this.unit,
     required this.forms,
     required this.safeLimits,
+
+
   });
 
   factory NutrientModel.fromJson(
@@ -86,6 +89,7 @@ class NutrientModel {
       )
           .toList() ??
           [],
+
     );
   }
 }

@@ -1,12 +1,12 @@
 import 'package:checkin_medicine/core/extension/medicine_form_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/utils/bumber_formatter.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../../data/models/medicine_detail_model.dart';
 
-class OverviewTab
-    extends StatelessWidget {
+class OverviewTab extends StatelessWidget {
   final Medicine medicine;
 
   const OverviewTab({
@@ -15,297 +15,205 @@ class OverviewTab
   });
 
   @override
-  Widget build(
-      BuildContext context,
-      ) {
-    final t =
-    AppLocalizations.of(
-      context,
-    )!;
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
 
-    final colorScheme =
-        Theme.of(context)
-            .colorScheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     final hasServingData = medicine.ingredients.any(
-          (e) => e.amountPerServing != null,
+          (e) => (e.amountPerServing ?? 0) > 0,
     );
 
     final servingText =
-        '${t.basedOn} ${hasServingData ? medicine.pillsPerServing ?? 1 : 1} ${medicine.form.localized(t) }';
+        '${t.basedOn} ${hasServingData ? medicine.pillsPerServing ?? 1 : 1} ${medicine.form.localized(t)}';
+
     return SingleChildScrollView(
-      physics:
-      const BouncingScrollPhysics(),
-
+      physics: const BouncingScrollPhysics(),
       child: Column(
-        crossAxisAlignment:
-        CrossAxisAlignment
-            .start,
-
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// SUMMARY
-          if (medicine.summary !=
-              null &&
-              medicine
-                  .summary!
-                  .isNotEmpty)
+          if ((medicine.summary ?? '').isNotEmpty)
             _OverviewCard(
-              title:
-              t.summary,
-
-              icon: Icons
-                  .summarize_outlined,
-
+              title: t.summary,
+              icon: Icons.summarize_outlined,
               child: Text(
                 medicine.summary!,
-                style: Theme.of(
-                    context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(
-                  height:
-                  1.75,
-
-                  color:
-                  colorScheme
-                      .onSurfaceVariant,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  height: 1.75,
+                  color: colorScheme.onSurfaceVariant,
                 ),
               ),
             ),
 
-          if (medicine.summary !=
-              null &&
-              medicine
-                  .summary!
-                  .isNotEmpty)
-            const SizedBox(
-              height: 20,
-            ),
+          if ((medicine.summary ?? '').isNotEmpty)
+            const SizedBox(height: 20),
 
-          medicine.description != null ? _OverviewCard(
-            title:
-            t.description,
-
-            icon: Icons
-                .description_outlined,
-
-            child: Text(
-              medicine.description!,
-              style: Theme.of(
-                  context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(
-                height:
-                1.75,
-
-                color:
-                colorScheme
-                    .onSurfaceVariant,
+          /// DESCRIPTION
+          if ((medicine.description ?? '').isNotEmpty)
+            _OverviewCard(
+              title: t.description,
+              icon: Icons.description_outlined,
+              child: Text(
+                medicine.description!,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  height: 1.75,
+                  color: colorScheme.onSurfaceVariant,
+                ),
               ),
             ),
-          ) : SizedBox(),
 
-          /// INGREDIENT SUMMARY
+          /// INGREDIENTS
           _OverviewCard(
-            title:
-            t.ingredientSummary,
+            title: t.ingredientSummary,
             subtitle: servingText,
-            icon:
-            Icons.science_outlined,
-
+            icon: Icons.science_outlined,
             child: Column(
-              children: medicine
-                  .ingredients
-                  .asMap()
-                  .entries
-                  .map(
-                    (entry) {
-                  final index =
-                      entry.key;
+              children: medicine.ingredients.asMap().entries.map((entry) {
+                final index = entry.key;
+                final item = entry.value;
 
-                  final item =
-                      entry.value;
+                final isLast =
+                    index == medicine.ingredients.length - 1;
 
-                  final isLast =
-                      index ==
-                          medicine
-                              .ingredients
-                              .length -
-                              1;
+                final formText = item.forms
+                    .map((e) => e.saltForm ?? e.name)
+                    .whereType<String>()
+                    .where((e) => e.trim().isNotEmpty)
+                    .join(', ');
 
-                  return Column(
-                    children: [
-                      Padding(
-                        padding:
-                        const EdgeInsets
-                            .symmetric(
-                          vertical:
-                          12,
-                        ),
-
-                        child: Row(
-                          crossAxisAlignment:
-                          CrossAxisAlignment
-                              .center,
-
-                          children: [
-
-                            /// NAME
-                            Expanded(
-                              child:
-                              Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment
-                                    .start,
-
-                                children: [
-                                  Text(
-                                    item
-                                        .ingredientForm
-                                        ?.nutrient
-                                        ?.name ??
-                                        '-',
-
-                                    style: Theme.of(
-                                        context)
-                                        .textTheme
-                                        .titleSmall
-                                        ?.copyWith(
-                                      fontWeight:
-                                      FontWeight
-                                          .w700,
-                                    ),
+                return Column(
+                  children: [
+                    Padding(
+                      padding:
+                      const EdgeInsets.symmetric(vertical: 12),
+                      child: Row(
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item.nutrient?.name ?? '-',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(
+                                    fontWeight:
+                                    FontWeight.w700,
                                   ),
-
-                                  const SizedBox(
-                                    height:
-                                    4,
-                                  ),
-
-                                  Text(
-                                    item.ingredientForm?.saltForm ??
-                                        '',
-
-                                    style: Theme.of(
-                                        context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                      color:
-                                      colorScheme
-                                          .onSurfaceVariant,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            const SizedBox(
-                              width:
-                              12,
-                            ),
-                            // Amount per serving
-                            if(item.amountPerServing != null && item.amountPerServing! > 0)
-                              Text(
-                                NumberFormatter
-                                    .dosage(
-                                  amount: item
-                                      .amountPerServing,
-
-                                  unit:
-                                  item.unit,
-
-
                                 ),
 
-                                style: Theme.of(
-                                    context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(
-                                  fontWeight:
-                                  FontWeight
-                                      .w700,
-                                ),
-                              ),
-                            /// Amount per pill
-                            if(item.amountPerPill! > 0)
+                                if (formText.isNotEmpty)
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.only(
+                                        top: 4),
+                                    child: Text(
+                                      '(as $formText)',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                        color: colorScheme
+                                            .onSurfaceVariant,
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+
+                          const SizedBox(width: 12),
+
+                          if ((item.amountPerServing ?? 0) > 0)
                             Text(
-                              NumberFormatter
-                                  .dosage(
-                                amount: item
-                                    .amountPerPill,
+                              NumberFormatter.dosage(
+                                amount:
+                                item.amountPerServing,
+                                unit: item.unit
 
-                                unit:
-                                item.unit,
-
-                                percentDv:
-                                item.percentDv,
                               ),
-
-                              style: Theme.of(
-                                  context)
+                              textAlign: TextAlign.end,
+                              style: Theme.of(context)
                                   .textTheme
                                   .labelLarge
                                   ?.copyWith(
                                 fontWeight:
-                                FontWeight
-                                    .w700,
+                                FontWeight.w700,
                               ),
                             ),
-
-
-                          ],
-                        ),
+                        ],
                       ),
+                    ),
 
-                      if (!isLast)
-                        Divider(
-                          height:
-                          1,
-                          color: colorScheme
-                              .outlineVariant,
-                        ),
-                    ],
-                  );
-                },
-              ).toList(),
+                    if (!isLast)
+                      Divider(
+                        height: 1,
+                        color: colorScheme.outlineVariant,
+                      ),
+                  ],
+                );
+              }).toList(),
             ),
           ),
 
+          /// SOURCE
           if ((medicine.sourceName ?? '').isNotEmpty ||
               (medicine.sourceUrl ?? '').isNotEmpty)
             _OverviewCard(
               title: t.sourceName,
               icon: Icons.link_outlined,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                CrossAxisAlignment.start,
                 children: [
                   if ((medicine.sourceName ?? '').isNotEmpty)
                     Text(
-                      medicine.sourceName ?? '',
+                      medicine.sourceName!,
                       style: Theme.of(context)
                           .textTheme
                           .titleSmall
                           ?.copyWith(
-                        fontWeight: FontWeight.w600,
+                        fontWeight:
+                        FontWeight.w600,
                       ),
                     ),
 
-                  if (medicine.sourceUrl != null &&
-                      medicine.sourceUrl!.isNotEmpty) ...[
+                  if ((medicine.sourceUrl ?? '').isNotEmpty) ...[
                     const SizedBox(height: 8),
 
-                    GestureDetector(
-                      onTap: () {
-                        // TODO: mở link
-                        // launchUrl(Uri.parse(medicine.sourceUrl!));
+                    TextButton.icon(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        alignment:
+                        Alignment.centerLeft,
+                      ),
+                      onPressed: () async {
+                        final uri = Uri.tryParse(
+                          medicine.sourceUrl!,
+                        );
+
+                        if (uri != null) {
+                          await launchUrl(
+                            uri,
+                            mode: LaunchMode
+                                .externalApplication,
+                          );
+                        }
                       },
-                      child: Text(
-                        medicine.sourceUrl!,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          decoration: TextDecoration.underline,
+                      icon: const Icon(
+                        Icons.open_in_new,
+                        size: 18,
+                      ),
+                      label: Flexible(
+                        child: Text(
+                          medicine.sourceUrl!,
+                          overflow:
+                          TextOverflow.ellipsis,
                         ),
                       ),
                     ),
@@ -313,9 +221,8 @@ class OverviewTab
                 ],
               ),
             ),
-          const SizedBox(
-            height: 24,
-          ),
+
+          const SizedBox(height: 24),
         ],
       ),
     );
@@ -341,13 +248,15 @@ class _OverviewCard extends StatelessWidget {
 
     return Container(
       width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+        CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -364,7 +273,8 @@ class _OverviewCard extends StatelessWidget {
                       .textTheme
                       .titleMedium
                       ?.copyWith(
-                    fontWeight: FontWeight.w700,
+                    fontWeight:
+                    FontWeight.w700,
                   ),
                 ),
               ),
@@ -379,11 +289,13 @@ class _OverviewCard extends StatelessWidget {
                   .textTheme
                   .bodyLarge
                   ?.copyWith(
-                color: colorScheme.onSurfaceVariant,
+                color:
+                colorScheme.onSurfaceVariant,
               ),
             ),
           ],
 
+          const SizedBox(height: 16),
 
           child,
         ],

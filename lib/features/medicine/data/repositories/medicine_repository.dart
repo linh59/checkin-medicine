@@ -1,8 +1,6 @@
 import 'package:checkin_medicine/features/medicine/data/models/medicine_detail_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-
-
 class MedicineRepository {
   final SupabaseClient supabase;
 
@@ -11,26 +9,30 @@ class MedicineRepository {
   Future<Medicine?> getMedicineBySlug(String slug) async {
     final response = await supabase
         .from('medicines')
-        .select('''
+        .select(r'''
           *,
           medicine_ingredients (
             id,
-           
-            amount_per_pill,
+            medicine_id,
+            nutrient_id,
             amount_per_serving,
             unit,
             percent_dv,
-            ingredient_forms (
+
+            nutrients (
               id,
               slug,
               name,
-              salt_form,
-              bioavailability,
-              nutrients (
+              unit
+            ),
+
+            medicine_ingredient_forms (
+              ingredient_forms (
                 id,
                 slug,
                 name,
-                unit
+                salt_form,
+                bioavailability
               )
             )
           )
