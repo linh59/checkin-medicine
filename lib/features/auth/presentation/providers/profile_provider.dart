@@ -1,3 +1,5 @@
+import 'package:checkin_medicine/core/services/notification_service.dart';
+import 'package:checkin_medicine/core/services/timeline_notification_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -57,6 +59,9 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       final user = auth.user;
 
       if (user == null) {
+        // Logout -> xoá toàn bộ notification
+        await NotificationService.cancelAll();
+
         state = state.copyWith(
           loading: false,
           profiles: [],
@@ -72,19 +77,19 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 
       ManagedProfile? active;
 
-      /// 1. from saved selection
+      // 1. Profile đã chọn trước đó
       if (savedId != null) {
         active = profiles.firstWhereOrNull(
               (p) => p.id == savedId,
         );
       }
 
-      /// 2. fallback: linked to current user
+      // 2. Profile của user hiện tại
       active ??= profiles.firstWhereOrNull(
             (p) => p.linkedUserId == user.id,
       );
 
-      /// 3. fallback: first profile
+      // 3. Profile đầu tiên
       active ??= profiles.firstOrNull;
 
       state = state.copyWith(
@@ -92,6 +97,11 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         profiles: profiles,
         profile: active,
       );
+
+      // Đồng bộ notification
+      if (active != null) {
+        await TimelineNotificationService.syncAll(active.id);
+      }
     } catch (e) {
       state = state.copyWith(loading: false);
     }
@@ -108,6 +118,9 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
     await prefs.setString(_key, id);
 
     state = state.copyWith(profile: profile);
+
+    // Đồng bộ notification theo profile mới
+    await TimelineNotificationService.syncAll(profile.id);
   }
 
   Future<void> refresh() async {

@@ -107,9 +107,14 @@ class PlansNotifier extends AsyncNotifier<List<PlanModel>> {
     );
 
     try {
+      final slotIds = await repo.getSlotIdsOfPlan(id);
+
+      for (final slotId in slotIds) {
+        await TimelineNotificationService.cancelSlot(slotId);
+      }
+
       await repo.deletePlanRepository(id);
 
-      // await refresh();
     } catch (e, st) {
       state = AsyncValue.error(e, st);
       await refresh();
