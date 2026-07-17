@@ -61,10 +61,10 @@ class TimelineSlotModel {
 
       notes: json['notes'],
 
-      notifyEnabled: json['notify_enabled'],
+      notifyEnabled: json['notify_enabled'] ,
 
       notifyOffsetMin:
-      int.tryParse(json['notify_offset_min']?.toString() ?? '') ?? 0,
+          int.tryParse(json['notify_offset_min']?.toString() ?? '') ?? 0,
 
       weekdayMask: int.tryParse(json['weekday_mask']?.toString() ?? '') ?? 127,
 

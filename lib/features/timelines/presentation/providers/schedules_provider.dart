@@ -90,8 +90,6 @@ class Schedule extends AsyncNotifier<void> {
     }
   }
   Future<void> deleteScheduleOfPlan(String slotId) async {
-    await TimelineNotificationService.cancelSlot(slotId);
-
     await repo.deletePlanItem(slotId);
   }
 

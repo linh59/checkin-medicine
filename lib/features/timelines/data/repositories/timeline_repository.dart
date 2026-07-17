@@ -1,5 +1,4 @@
 import 'package:checkin_medicine/features/timelines/data/models/timeline_detail_model.dart';
-import 'package:checkin_medicine/features/timelines/data/models/timeline_slot_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/plan_model.dart';
 
@@ -102,17 +101,7 @@ plan_items(
         .eq('id', slotId);
   }
 
-  Future<List<String>> getSlotIdsOfPlan(String planId) async {
-    final result = await supabase
-        .from('plan_schedule')
-        .select('id, plan_items!inner(plan_id)')
-        .eq('plan_items.plan_id', planId)
-        .eq('archived', false);
 
-    return (result as List)
-        .map((e) => e['id'] as String)
-        .toList();
-  }
 
   Future<void> deletePlanRepository(String id) async {
     await supabase.rpc(
@@ -273,44 +262,5 @@ plan_items(
           .update({'archived': true})
           .eq('id', planItemId);
     }
-  }
-
-  Future<List<TimelineSlotModel>> getAllNotifySlots(String profileId) async {
-    final result = await supabase
-        .from('plan_schedule')
-        .select('''
-        id,
-        time_of_day,
-        notify_enabled,
-        notify_offset_min,
-
-        plan_items!inner(
-          dose_per_take,
-          archived,
-
-          plans!inner(
-            profile_id,
-            archived,
-            is_active
-          ),
-
-          my_medicines!inner(
-            nickname,
-            medicines(
-              generic_name,
-              brand
-            )
-          )
-        )
-      ''')
-        .eq('plan_items.plans.profile_id', profileId)
-        .eq('plan_items.plans.archived', false)
-        .eq('plan_items.plans.is_active', true)
-        .eq('plan_items.archived', false)
-        .eq('archived', false);
-
-    return (result as List)
-        .map((e) => TimelineSlotModel.fromJson(e))
-        .toList();
   }
 }
